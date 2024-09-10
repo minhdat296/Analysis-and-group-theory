@@ -1,12 +1,31 @@
 \section{Normed spaces}
-    Throughout, $K$ shall be a complete archimedean field, so either $\R$ or $\bbC$. All vector spaces, unless stated otherwise, shall be $K$-vector spaces. 
+    Throughout, $K$ shall be a complete archimedean field, so either $\R$ or $\bbC$, and the absolute value on $K$ will be denoted by $\abs{-}$. All vector spaces, unless stated otherwise, shall be $K$-vector spaces.
+
+    \begin{convention}
+        To conform to a traditional convention in the theory of integral equations, in calculus of variations, and in probability theory, the arguments of functions whose inputs are linear functionals will be placed between square brackets $[]$ as opposed to the usual parentheses $()$. For example, if $V, W$ are vector spaces and $T: V \to W$ is a linear map then the evaluation of the dual map $T^*: W^* \to V^*$ on functionals $\psi \in W^*$ will be written:
+            $$T[\psi^*]$$
+        instead of $T(\psi^*)$. This may also help with readability in certain cases. 
+    \end{convention}
  
     \subsection{Generalities on topological vector spaces}
+        \begin{remark}[Quotient norms] \label{remark: quotient_norms}
+            Let $\pi: E \to Q$ be a continuous quotient map of normed spaces. Elements of $\bar{x} \in Q$ (for each of which there is an element $x \in E$, due to $\pi$ being surjective) can be written as cosets:
+                $$\bar{x} := x + \ker \pi$$
+            for any choice of representative $x \in \pi^{-1}(\bar{x})$. From this and from the fact that $Q$ has the finest possible topology such that $\pi$ is continuous, one sees that:
+                $$\norm{\bar{x}}_Q := \inf_{y \in \ker \pi} \norm{x - y}_E = \dist(x, \ker \pi)$$
+        \end{remark}
         \begin{lemma}[(Co)limits of normed spaces]
-            
+            The category $K\-\Vect_{\norm{-}}$ has the following (co)limits:
+            \begin{enumerate}
+                \item epimorphisms,
+                \item 
+            \end{enumerate}
         \end{lemma}
             \begin{proof}
-                
+                \begin{enumerate}
+                    \item 
+                    \item 
+                \end{enumerate}
             \end{proof}
 
     \subsection{The Hahn-Banach Theorem and duality}
@@ -94,8 +113,8 @@
             of $\varphi_0$ which is such that:
                 $$\forall x \in E: |\varphi_{\infty}(x)| \leq \rho(x)$$
 
-            In particular, if $E$ is normed and $\rho$ is given by $\rho(x) := \norm{\varphi_0}_{E^*} \norm{x}_E$ then:
-                $$\norm{\varphi_0}_{E^*} = \norm{\varphi_{\infty}}_{E^*}$$
+            In particular, if $E$ is normed and $\rho$ is given by $\rho(x) := \norm{\varphi_0}_{E^*_{\cont}} \norm{x}_E$ then:
+                $$\norm{\varphi_0}_{E^*_{\cont}} = \norm{\varphi_{\infty}}_{E^*_{\cont}}$$
         \end{corollary}
             \begin{proof}
                 If $K = \R$ then the assertion comes directly from the fact that $\varphi_0(x) \leq |\varphi_0(x)|$ and from theorem \ref{theorem: hahn_banach}.
@@ -113,7 +132,7 @@
         The following definition is tautologically equivalent to the definition of contravariant hom-functors, though we state it regardless for the sake of establishing the terminologies. 
         \begin{definition}[Transposition] \label{def: transposition}
             Given a (continuous) $K$-linear map $T: E \to E'$, we call its image $T^*: E'^* \to E^*$ (respectively, $T^*_{\cont}: E'^*_{\cont} \to E^*_{\cont}$) under the (continuous) duality functor the \textbf{(continuous) transpose} of $T$. Explicitly, this is given by:
-                $$T^*(\psi)(x) := \psi( T(x) )$$
+                $$T^*[\psi](x) := \psi( T(x) )$$
             for all $\psi \in E'^*$ and all $x \in E$ (and likewise for $T^*_{\cont}$).
         \end{definition}
 
@@ -128,9 +147,9 @@
                 Firstly, we shall need to prove that there is an isometry $E \xrightarrow[]{\cong} ( E^*_{\cont} )^*_{\cont}$ for any normed vector space $E$. We claim that this is given by:
                     $$x \mapsto (E^*_{\cont} \xrightarrow[]{\ev_x} \R)$$
                 where:
-                    $$\ev_x(\varphi) := \varphi(x)$$
+                    $$\ev_x[\varphi] := \varphi(x)$$
                 To see that this is an isometry, simple note that the following holds for all $x \in E$ and all $\varphi \in E^*_{\cont}$:
-                    $$\norm{\ev_x}_{\sup} := \sup_{\varphi \in E^*_{\cont}, \norm{\varphi}_{E^*} = 1} |\ev_x(\varphi)| = \sup_{\varphi \in E^*_{\cont}, \norm{\varphi}_{E^*} = 1} \abs{\varphi(x)} = \norm{x}_E$$
+                    $$\norm{\ev_x}_{\sup} := \sup_{\varphi \in E^*_{\cont}, \norm{\varphi}_{E^*_{\cont}} = 1} |\ev_x[\varphi]| = \sup_{\varphi \in E^*_{\cont}, \norm{\varphi}_{E^*_{\cont}} = 1} \abs{\varphi(x)} = \norm{x}_E$$
 
                 Next, let $E, E'$ be normed spaces and denote the canonical isometries between them and their continuous double duals by $\ev$ and $\ev'$ respectively. Let $T: E \to E'$ be a continuous linear map. Then, precisely because $\ev$ and $\ev'$ are isometric, we have the following:
                     $$\norm{ T^{**}_{\cont} }_{\sup} = \norm{ \ev' \circ T \circ \ev^{-1} }_{\sup} := \sup_{y \in E^{**}_{\cont}} \frac{ \norm{ (\ev' \circ T \circ \ev^{-1})(y) }_{\sup} }{\norm{y}_E} = \sup_{y \in E^{**}_{\cont}} \frac{\norm{T(y)}_{E'}}{\norm{y}_E} = \norm{T}_{\sup}$$
@@ -138,7 +157,7 @@
                     $$\Hom_{K, \cont}(E, E') \xrightarrow[]{\cong} \Hom_{K, \cont}(E^{**}_{\cont}, E'^{**}_{\cont})$$
             \end{proof}
         For the proof of the following proposition, it will be useful to note that if $\Phi: V \to V'$ is any linear map between normed spaces, then:
-            $$\forall v \in V: \norm{\Phi}_{V^*} := \sup_{v \in V} \frac{\norm{\Phi(v)}}{\norm{v}_V} \implies \norm{\Phi}_{V^*} \norm{v}_V \geq \abs{\Phi(v)}$$
+            $$\forall v \in V: \norm{\Phi}_{V^*} := \sup_{v \in V} \frac{\norm{\Phi(v)}}{\norm{v}_V} \implies \norm{\Phi}_{V^*_{\cont}} \norm{v}_V \geq \abs{\Phi(v)}$$
         \begin{proposition}[Norms of transpositions] \label{prop: transposition_norms}
             Let $T: E \to E'$ be any continuous linear map between normed spaces. Then:
                 $$\norm{T}_{\sup} = \norm{T^*_{\cont}}_{\sup}$$
@@ -148,22 +167,70 @@
         \end{proposition}
             \begin{proof}
                 For any $\psi \in E'^*_{\cont}$ and any $x \in E$, we have that:
-                    $$\abs{ T^*_{\cont}(\psi)(x) } = \abs{\psi(T(x))} \leq \norm{\psi}_{E^*} \norm{T(x)}_{E'} \leq \norm{\psi}_{E^*} \norm{T}_{\sup} \norm{x}_E$$
-                
+                    $$\abs{ T^*_{\cont}[\psi](x) } = \abs{\psi(T(x))} \leq \norm{\psi}_{E^*_{\cont}} \norm{T(x)}_{E'} \leq \norm{\psi}_{E'^*_{\cont}} \norm{T}_{\sup} \norm{x}_E$$
+                and hence:
+                    $$\forall x \in E: \forall \psi \in E'^*_{\cont}: \norm{T}_{\sup} \geq \frac{ \abs{ T^*_{\cont}[\psi](x) } }{\norm{\psi}_{E'^*_{\cont}} \norm{x}_E }$$
+                from which one gathers that $\norm{T}_{\sup} \geq \norm{T^*_{\cont}}_{\sup}$. Arguing similarly will yield us $\norm{T^*_{\cont}}_{\sup} \geq \norm{T^{**}_{\cont}}_{\sup}$. But we know from lemma \ref{lemma: continuous_duality_involutive} that $\norm{T^{**}_{\cont}}_{\sup} = \norm{T}_{\sup}$, and hence $\norm{T}_{\sup} \leq \norm{T^*_{\cont}}_{\sup}$ as well, and as such we have shown that $\norm{T}_{\sup} = \norm{T^*_{\cont}}_{\sup}$.
             \end{proof}
-        \begin{proposition}[Properties of continuous duals] \label{def: properties_of_continuous_duals}
+        \begin{proposition}[Properties of continuous duals] \label{prop: properties_of_continuous_duals}
             The continuous duality functor $(-)^*_{\cont}$ preserves the following (co)limits in $K\-\Vect_{\norm{-}}$:
             \begin{enumerate}
-                \item finite direct sums, and
-                \item epimorphisms (which get mapped to ).
+                \item finite direct sums;
+                \item short exact sequences:
+                    $$0 \to F \xrightarrow[]{\ker \pi} E \xrightarrow[]{\pi} Q \to 0$$
+                where $F \subseteq E$ is a closed subspace, and in fact, we have a linear isometry:
+                    $$T: \Ann_{E^*_{\cont}}(F) \xrightarrow[]{\cong} Q^*_{\cont}$$
+                determined by:
+                    $$\forall x \in E: T[\varphi]( \pi(x) ) := \varphi(\pi(x))$$
+                where $\Ann_{E^*}(F) := \{ \varphi \in E^* \mid \varphi(F) = 0 \}$, equipped with the subspace topology; note that there is a small abuse of notations here: the domain of $\varphi$ is not spanned by the vectors $\pi(x) \in Q$, but rather their images under some linear splitting\footnote{Which always exists.} $Q \to E$ of the quotient map $\pi: E \to Q$.
             \end{enumerate}
         \end{proposition}
             \begin{proof}
                 \begin{enumerate}
-                    \item 
-                    \item 
+                    \item This is self-evident.
+                    \item The definition of the quotient topology ensures that the quotient map $\pi: E \to Q$ is continuous, and so in particular, it preserves convergence of sequences. $\pi$ is also surjective, so any sequence in $Q$ arises as the image of a sequence in $E$. Closedness of $Q^*_{\cont}$ inside $E_{\cont}^*$ via $\pi_{\cont}^*$ then follows from the fact that $\norm{\pi^*_{\cont}}_{\sup} = \norm{\pi}_{\sup}$, as proven in proposition \ref{prop: transposition_norms}, and hence the functor $(-)^*_{\cont}$ maps a short exact sequence:
+                        $$0 \to F \xrightarrow[]{\ker \pi} E \xrightarrow[]{\pi} Q \to 0$$
+                    in $K\-\Vect_{\norm{-}}$ wherein $F \subseteq E$ is a closed subspace, to the following short exact sequence in $K\-\Vect_{\norm{-}}^{\op}$:
+                        $$0 \to Q^*_{\cont} \xrightarrow[]{\pi^*_{\cont}} E^*_{\cont} \xrightarrow[]{\coker \pi^*_{\cont}} F^*_{\cont} \to 0$$
+                    wherein $Q^*_{\cont} \subseteq E^*_{\cont}$ is a closed subspace.
+
+                    Lastly, to prove that $T: \Ann_{E^*_{\cont}}(F) \to Q^*_{\cont}$ is an isometry, consider the following for any $\varphi \in \Ann_{E^*_{\cont}}(F)$:
+                        $$\norm{T[\varphi]}_{Q^*_{\cont}} := \sup_{x \in E} \frac{ \abs{T[\varphi]( \pi(x) )} }{ \norm{\pi(x)}_Q } = \sup_{x \in E} \frac{ \abs{\varphi(\pi(x))} }{ \norm{\pi(x)}_Q } = \norm{\varphi}_{\Ann_{E^*_{\cont}}(F)}$$
+                    wherein the last equality holds because $\varphi(F) = 0$ for all $\varphi \in \Ann_{E^*_{\cont}}(F)$. Linearity of $T$ is self-evident.
                 \end{enumerate}
             \end{proof}
+        \begin{corollary}
+            Let:
+                $$0 \to F \xrightarrow[]{\ker \pi} E \xrightarrow[]{\pi} Q \to 0$$
+            be a short exact sequence in $K\-\Vect_{\norm{-}}$, wherein $F \subseteq E$ is a closed subspace. Then there is a linear isometry:
+                $$F^*_{\cont} \xrightarrow[]{\cong} E^*_{\cont}/\Ann_{E^*_{\cont}}(F)$$
+                $$\psi \mapsto \psi|_F$$
+        \end{corollary}
+        \begin{remark}[Split monomorphisms of normed spaces: linear closed immersions retract]
+            Via proposition \ref{prop: properties_of_continuous_duals}, we see that the category $K\-\Vect_{\norm{-}}$ in fact also admits split monomorphisms, which are precisely linear closed immersions.
+
+            If $E$ is any normed space and $F$ is any subspace therein, then:
+                $$E^*_{\cont} \cong F^*_{\cont} \oplus \Ann_{E^*_{\cont}}(F)$$
+            by the definition of $\Ann_{E^*_{\cont}}(F)$ as in proposition \ref{prop: properties_of_continuous_duals}. Next, let us consider a short exact sequence in $K\-\Vect_{\norm{-}}$:
+                $$0 \to F \xrightarrow[]{\ker \pi} E \xrightarrow[]{\pi} Q \to 0$$
+            wherein $F \subseteq E$ is a closed subspace. In this situation, we now know that there is a linear isometry:
+                $$T: \Ann_{E^*_{\cont}}(F) \xrightarrow[]{\cong} Q^*_{\cont}$$
+            and hence there is an isomorphism of normed spaces:
+                $$\id_{F^*_{\cont}} \oplus T: F^*_{\cont} \oplus \Ann_{E^*_{\cont}}(F) \xrightarrow[]{\cong} F^*_{\cont} \oplus Q^*_{\cont}$$
+            From this, we see that there is a section:
+                $$s: F^*_{\cont} \to E^*_{\cont}$$
+            of $\coker \pi^*_{\cont}: E^*_{\cont} \to F^*_{\cont}$ given by inclusion into the first direct summand. Now, since $(-)^*_{\cont}$ is involutive (see lemma \ref{lemma: continuous_duality_involutive}), we can apply the functor once more to get a linear continuous retract:
+                $$s^*_{\cont}: E \to F$$
+            (note the implicit identifications of $E, F$ with the continuous double duals).
+        \end{remark}
+
+        Now, let $E$ be a normed space and $E^*$ be its algebraic linear dual (without any topology equipped for now). There is an evident bilinear pairing:
+            $$\<-, -\>: E^* \tensor_K E \to K$$
+        given by:
+            $$\forall (\varphi, x) \in E^* \x E: \<\varphi, x\> := \varphi(x)$$
+        \begin{definition}[The weak topology] \label{def: weak_topology}
+            
+        \end{definition}
 
     \subsection{The Baire Category Theorem}
 

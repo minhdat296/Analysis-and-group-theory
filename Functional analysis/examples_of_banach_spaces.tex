@@ -1,8 +1,14 @@
-\section{Examples of Banach spaces}
+\section{Examples of Banach and Hilbert spaces}
     \subsection{\texorpdfstring{$L^p$}{}-spaces}
         \begin{convention}
             Let $(X, \mu)$ be a measure space. Unless specified to be otherwise, we shall be writing:
-                $$L^p(X, \mu) := \left\{ f: X \to K \bigg\mid \norm{f}_p := \left( \int_X \abs{f}^p d\mu \right)^{\frac1p} < +\infty \right\}$$
+                $$L^p(X, \mu) := \left\{ f: X \to K \bigg\mid \norm{f}_{L^p(X, \mu)} := \left( \int_X \abs{f}^p d\mu \right)^{\frac1p} < +\infty \right\}$$
+            for all $p \in \N$.
+
+            For $p = \infty$, let us say that a function $f: X \to K$ is essentially bounded by some constant $M \in \R_{\geq 0}$ if and only if $\abs{f(x)} \leq M$ for $\mu$-almost every $x \in X$. For such functions $f$, we can define the following quantity:
+                $$\norm{f}_{L^{\infty}(X, \mu)} := \inf\{ M \in \R_{\geq 0} \mid \abs{f(x)} \leq M \}$$
+            We then define:
+                $$L^{\infty}(X, \mu) := \left\{ f: X \to K \mid \norm{f}_{L^{\infty}(X, \mu)} < +\infty \right\}$$
         \end{convention}
     
         For what follows, recall that in a vector space $E$, a subset $K \subseteq E$ is said to be \textbf{convex} if and only if for every $x, y \in E$ and every $\lambda \in [0, 1]$, we have that:
@@ -36,7 +42,7 @@
             Let $p, q \in \N_{\geq 1} \cup \{+\infty\}$ be such that:
                 $$\frac1p + \frac1q = 1$$
             Let $(X, \mu)$ be a measure space and let $f \in L^p(X, \mu), g \in L^q(X, \mu)$. Then, we have the following inequality:
-                $$\norm{f}_p \norm{g}_q \geq \norm{fg}_1$$
+                $$\norm{f}_{L^p(X, \mu)} \norm{g}_{L^q(X, \mu)} \geq \norm{fg}_{L^1(X, \mu)}$$
             and hence:
                 $$fg \in L^1(X, \mu)$$
         \end{lemma}
@@ -54,7 +60,9 @@
             \end{proof}
 
         \begin{lemma}[Minkowski's inequality] \label{lemma: minkowski_inequality}
-            For any measure space $(X, \mu)$, the pairs $(L^p(X, \mu), \norm{-}_p)$ are normed spaces.
+            For any measure space $(X, \mu)$, the pairs:
+                $$(L^p(X, \mu), \norm{-}_{L^p(X, \mu)})$$
+            are normed spaces.
         \end{lemma}
             \begin{proof}
                 \todo[inline]{This relies on H\"older's inequality.}
@@ -69,18 +77,18 @@
                 
             \end{proof}
         \begin{theorem}[$L^p$-spaces are complete] \label{theorem: L_p_space_completeness}
-            
+            The normed spaces $(L^p(X, \mu), \norm{-}_{L^p(X, \mu)})$ are complete with respect to their metric topologies.
         \end{theorem}
             \begin{proof}
-                
+                \todo[inline]{Minkowski's inequality + some standard $\e$-$\delta$ convergence arguments.}
             \end{proof}
         \begin{example}[$\ell^p$-spaces]
             The datum of a $K$-valued function on the finite set $\{1, ..., n\}$ is the same as a vector in $K^n$. If we endow $X$ with the $\sigma$-algebra $\calP(X)$ (the power set of $X$) and with the counting measure:
                 $$\mu_{\discrete}: \calP(X) \to \R_{\geq 0}$$
             which is given by:
                 $$\mu_{\discrete}(S) := |S|$$
-            (and hence $\{1, ..., n\}$ is a measure-finite space) then the normed spaces $\ell^p(K^n) := (K^n, \norm{-}_p)$ and $L^p(\{1, ..., n\}, \mu_{\discrete}\})$ for every $p \in \N_{\geq 1} \cup \{+\infty\}$ will be isometric to one another; to be thorough, let us note that in this case, the norm $\norm{-}_p$ is given by:
-                $$\norm{(x_1, ..., x_n)}_p := \left( \int_{\{1, ..., n\}} |x|^p d\mu_{\discrete} \right)^{\frac1p} = \left( \sum_{i = 1}^n |x_i|^p \right)^{\frac1p}$$
+            (and hence $\{1, ..., n\}$ is a measure-finite space) then the normed spaces $\ell^p(K^n) := (K^n, \norm{-}_{L^p(X, \mu)})$ and $L^p(\{1, ..., n\}, \mu_{\discrete}\})$ for every $p \in \N_{\geq 1} \cup \{+\infty\}$ will be isometric to one another; to be thorough, let us note that in this case, the norm $\norm{-}_{L^p(X, \mu)}$ is given by:
+                $$\norm{(x_1, ..., x_n)}_{L^p(X, \mu)} := \left( \int_{\{1, ..., n\}} |x|^p d\mu_{\discrete} \right)^{\frac1p} = \left( \sum_{i = 1}^n |x_i|^p \right)^{\frac1p}$$
             for all functions $x: \{1, ..., n\} \to K$ given by $x(i) := x_i$ for all $1 \leq i \leq n$. $\ell^p(K^n)$ is therefore an example of a finite-dimensional $L^p$-space.
 
             For each $p, q \in \N_{\geq 1} \cup \{+\infty\}$ such that $\frac1p + \frac1q = 1$, we have that:
@@ -88,7 +96,7 @@
             by theorem \ref{theorem: L_p_space_duality}. By finite-dimensionality, each $\varphi \in \ell^p(K^n)^*_{\cont}$ is representable by some $y := (y_1, ..., y_n) \in \ell^q(K^n)$ in the sense that:
                 $$\varphi(x) := x \cdot y := \sum_{i = 1}^n x_i y_i$$
             for all $x := (x_1, ..., x_n) \in \ell^p(K^n)$, where $\cdot$ is the usual dot product. The discrete version of H\"older's inequality thus reads:
-                $$\abs{x \cdot y} \leq \norm{x}_p \norm{y}_q$$
+                $$\abs{x \cdot y} \leq \norm{x}_{L^p(X, \mu)} \norm{y}_{L^q(X, \mu)}$$
 
             Each $\ell^p(K^n)$ is also complete with respect to the topology defined by its norm. Note also that when $p = q = 2$, $\ell^2(K^n)$ will be a Hilbert space.
         \end{example}
