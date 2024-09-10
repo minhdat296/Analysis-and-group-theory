@@ -1,5 +1,5 @@
 \section{Examples of Banach and Hilbert spaces}
-    \subsection{\texorpdfstring{$L^p$}{}-spaces}
+    \subsection{\texorpdfstring{$L^p$}{}-spaces} \label{subsection: L_p_spaces}
         \begin{convention}
             Let $(X, \mu)$ be a measure space. Unless specified to be otherwise, we shall be writing:
                 $$L^p(X, \mu) := \left\{ f: X \to K \bigg\mid \norm{f}_{L^p(X, \mu)} := \left( \int_X \abs{f}^p d\mu \right)^{\frac1p} < +\infty \right\}$$
@@ -70,12 +70,15 @@
         \begin{theorem}[$L^p$-space duality] \label{theorem: L_p_space_duality}
             Let $p, q \in \N_{\geq 1} \cup \{+\infty\}$ be such that:
                 $$\frac1p + \frac1q = 1$$
-            Let $(X, \mu)$ be a measure space. Then:
-                $$L^q(X, \mu) \cong L^p(X, \mu)^*_{\cont}$$
+            Let $(X, \mu)$ be a measure space. Then, there shall be homeomorphisms:
+                $$L^q(X, \mu) \cong L^p(X, \mu)^*_{\weak}$$
         \end{theorem}
             \begin{proof}
                 
             \end{proof}
+        \begin{remark}
+            The homeomorphisms $L^q(X, \mu) \cong L^p(X, \mu)^*_{\weak}$ are generally not isometric, since in general, the weak topology is not even a metric topology to begin with.
+        \end{remark}
         \begin{theorem}[$L^p$-spaces are complete] \label{theorem: L_p_space_completeness}
             The normed spaces $(L^p(X, \mu), \norm{-}_{L^p(X, \mu)})$ are complete with respect to their metric topologies.
         \end{theorem}
@@ -87,13 +90,13 @@
                 $$\mu_{\discrete}: \calP(X) \to \R_{\geq 0}$$
             which is given by:
                 $$\mu_{\discrete}(S) := |S|$$
-            (and hence $\{1, ..., n\}$ is a measure-finite space) then the normed spaces $\ell^p(K^n) := (K^n, \norm{-}_{L^p(X, \mu)})$ and $L^p(\{1, ..., n\}, \mu_{\discrete}\})$ for every $p \in \N_{\geq 1} \cup \{+\infty\}$ will be isometric to one another; to be thorough, let us note that in this case, the norm $\norm{-}_{L^p(X, \mu)}$ is given by:
+            (and hence $\{1, ..., n\}$ is a measure-finite space) then the normed spaces $\ell^p(K^n) := (K^n, \norm{-}_{L^p(X, \mu)})$ and $L^p(\{1, ..., n\}, \mu_{\discrete}\})$ for every $p \in \N_{\geq 1} \cup \{+\infty\}$ will be isomorphic to one another; to be thorough, let us note that in this case, the norm $\norm{-}_{L^p(X, \mu)}$ is given by:
                 $$\norm{(x_1, ..., x_n)}_{L^p(X, \mu)} := \left( \int_{\{1, ..., n\}} |x|^p d\mu_{\discrete} \right)^{\frac1p} = \left( \sum_{i = 1}^n |x_i|^p \right)^{\frac1p}$$
             for all functions $x: \{1, ..., n\} \to K$ given by $x(i) := x_i$ for all $1 \leq i \leq n$. $\ell^p(K^n)$ is therefore an example of a finite-dimensional $L^p$-space.
 
-            For each $p, q \in \N_{\geq 1} \cup \{+\infty\}$ such that $\frac1p + \frac1q = 1$, we have that:
-                $$\ell^q(K^n) \cong \ell^p(K^n)^*_{\cont}$$
-            by theorem \ref{theorem: L_p_space_duality}. By finite-dimensionality, each $\varphi \in \ell^p(K^n)^*_{\cont}$ is representable by some $y := (y_1, ..., y_n) \in \ell^q(K^n)$ in the sense that:
+            For each $p, q \in \N_{\geq 1} \cup \{+\infty\}$ such that $\frac1p + \frac1q = 1$, we have a homeomorphism:
+                $$\ell^q(K^n) \cong \ell^p(K^n)^*_{\weak}$$
+            by theorem \ref{theorem: L_p_space_duality}, and by finite-dimensionality, the homeomorphism above is actually an isometry (see theorem \ref{theorem: finite_dimensional_weak_duality}). Also by finite-dimensionality, each $\varphi \in \ell^p(K^n)^*_{\weak}$ is representable by some $y := (y_1, ..., y_n) \in \ell^q(K^n)$ in the sense that:
                 $$\varphi(x) := x \cdot y := \sum_{i = 1}^n x_i y_i$$
             for all $x := (x_1, ..., x_n) \in \ell^p(K^n)$, where $\cdot$ is the usual dot product. The discrete version of H\"older's inequality thus reads:
                 $$\abs{x \cdot y} \leq \norm{x}_{L^p(X, \mu)} \norm{y}_{L^q(X, \mu)}$$

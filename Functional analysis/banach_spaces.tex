@@ -228,9 +228,70 @@
             $$\<-, -\>: E^* \tensor_K E \to K$$
         given by:
             $$\forall (\varphi, x) \in E^* \x E: \<\varphi, x\> := \varphi(x)$$
-        \begin{definition}[The weak topology] \label{def: weak_topology}
-            
+        \begin{question}
+            What is the coarsest possible topology (i.e. as few open subsets as possible) that one can equip $E^*$ with so that its elements are continuous as functions $E \to K$ between normed spaces ?
+        \end{question}
+        A linear functional $\varphi \in E^*$ is continuous with respect to the norm topologies on $E$ and $K$ if and only if for any sequence $\{x_n\}_{n \geq 0} \subset E$ with limit $x \in E$:
+            $$\forall \e > 0: n \gg 0 \implies \abs{ \varphi(x_n) - \varphi(x) } < \e$$
+        As $\varphi: E \to K$ is linear, we can write:
+            $$\abs{ \varphi(x_n) - \varphi(x) } = \abs{\varphi(x_n - x)}$$
+        and hence observe that:
+            $$\abs{\varphi(x_n - x)} \leq \norm{\varphi}_{E^*_{\cont}} \norm{x_n - x}_E$$
+        for every convergent sequence $\{x_n\}_{n \geq 0} \to x$, since $\norm{\varphi}_{E^*_{\cont}} := \sup_{y \in E} \frac{\abs{\varphi(y)}}{\norm{y}_E}$. Due to the convergence $\{x_n\}_{n \geq 0} \to x$, we also have that:
+            $$\forall \e > 0: n \gg 0 \implies \norm{x_n - x}_E < \e$$
+        and so to ensure that $\abs{\varphi(x_n) - \varphi(x)} < \e$ for all $\e$ and all $n \gg 0$, we shall need to require that:
+            $$\norm{x_n - x}_E < \frac{\e}{\norm{\varphi}_{E^*_{\cont}}}$$
+        (the functional $0$ is tautologically continuous, and for all other cases, the RHS is well-defined); note also that $\varphi$ is continuous if and only if it is bounded, so the RHS never vanishes. Since $\e$ is constant, the LHS increases as $\norm{\varphi}_{E^*_{\cont}}$ decreases, and hence $\{\varphi(x_n)\}_{n \geq 0} \to \varphi(x)$ as soon as $x_n$ lies within a relatively \say{large} open ball centered at $x$. The sought-for topology on $E^*$ is thus indeed coarser than the topology induced by the sup-norm $\norm{-}_{E^*_{\cont}}$; in comparison to the former, we may refer to the latter as the \textbf{strong topology}.
+        \begin{definition}[Weak topologies] \label{def: weak_topologies}
+            Let $E$ be a normed space. A \textbf{weak topology} on $E^*$ is a topology such that any $\varphi \in E^*$, when regarded as a function $\varphi: E \to K$, is continuous with respect to the norm topologies on $E$ and $K$.
         \end{definition}
+        \begin{proposition}[Universal property of the weak topology]
+            Let $E$ be a normed space. Any weak topology on $E^*$ is actually initial amongst all topologies on $E^*$ such that any $\varphi \in E^*$ is continuous, i.e. any other topology - which is a certain subset of $\calP(E^*)$ - satisfying the condition above contains any weak topology as a subset. Consequently, the weak topology is uniquely defined.
+        \end{proposition}
+            \begin{proof}
+                Let $\calW$ be the set whose elements $w \in \calW$ enumerate all topologies $\tau_w$ on $E^*$ such that any $\varphi \in E^*$ is continuous. Next, pick an arbitrary functional $\varphi \in E^*$ and an open subset $V \subseteq K$. The functional $\varphi$ is continuous with respect to some topology $\tau_w$ if and only if:
+                    $$\exists w \in \calW: \varphi^{-1}(V) \in \tau_w$$
+                which implies that:
+                    $$\forall \varphi \in E^*: \varphi^{-1}(V) \in \weak \iff \varphi^{-1}(V) \in \bigcap_{w \in \calW} \tau_w \iff ( \forall w \in \calW: \varphi^{-1}(V) \in \tau_w )$$
+                The rest of the claim then follows.
+            \end{proof}
+        \begin{convention}
+            Let $E$ be a normed space. When $E^*$ is equipped with the weak topology, we shall denote it by $E^*_{\weak}$. 
+            
+            If a sequence of points $\{x_n\}_{n \geq 0}$, which is not necessarily convergent, is such that $\{\varphi(x_n)\}_{n \geq 0} \to \varphi(x)$ for some $x \in E$ and for all functionals $\varphi \in E^*$, then we will say that the sequence $\{x_n\}_{n \geq 0}$ \textbf{converges weakly} to $x$ and write:
+                $$\{x_n\}_{\geq 0} \xrightarrow[]{\weak} x$$
+        \end{convention}
+        \begin{example}[$L^p$-convergence]
+            For more details on $L^p$-spaces, see subsection \ref{subsection: L_p_spaces}.
+
+            Let $(X, \mu)$ be a measure space and let $p, q \in \N_{\geq 1} \cup \{+\infty\}$ be such that $\frac1p + \frac1q = 1$. Then, by theorem \ref{theorem: L_p_space_duality}, we have that:
+                $$L^p(X, \mu)^*_{\weak} \cong L^q(X, \mu)$$
+            or in formulae, we have that:
+                $$\{f_n\}_{n \geq 0} \xrightarrow[]{\weak} f \iff \left( \forall g \in L^q(X, \mu): \left\{ \int_X f_n g d\mu \right\}_{n \geq 0} \to \int_X fg d\mu \right)$$
+            for $f_n, f \in L^p(X, \mu)$.
+        \end{example}
+        \begin{convention}[The weak-$*$ topology]
+            There is also something called the \say{weak-$*$ topology}, which is nothing more than the construction of the weak topology on $E^{**}$, regarded as the (algebraic) dual of the normed space $E^*_{\cont}$. We will refrain from using this terminology, as it is somewhat awkward.
+        \end{convention}
+        Despite being rather coarse, the weak topology is still sufficiently fine and not too pathological.
+        \begin{lemma}[Weak topology is Hausdorff] \label{lemma: weak_topology_is_hausdorff}
+            For any normed space $E$, the weak topology on $E^*$ is Hausdorff.
+        \end{lemma}
+            \begin{proof}
+                \todo[inline]{Intersection/coarsenings of Hausdorff topologies is not necessarily Hausdorff, since there may not be enough open sets to separate points.}
+            \end{proof}
+        \begin{theorem}[Weak duality for finite-dimensional normed spaces] \label{theorem: finite_dimensional_weak_duality}
+            Let $E$ be a normed space. Then, the weak topology on $E^*$ will coincide with the sup-norm topology (i.e. weak = strong) if and only if $E$ is finite-dimensional.
+        \end{theorem}
+            \begin{proof}
+                
+            \end{proof}
+        \begin{theorem}[Banach-Alaoglu: bounded sequences converge weakly] \label{theorem: banach_alaoglu}
+            Let $E$ be a normed space. Then $E^{**}_{\weak}$ will be compact.
+        \end{theorem}
+            \begin{proof}
+                
+            \end{proof}
 
     \subsection{The Baire Category Theorem}
 
