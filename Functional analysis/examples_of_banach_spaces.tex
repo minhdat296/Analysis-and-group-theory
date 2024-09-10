@@ -1,0 +1,96 @@
+\section{Examples of Banach spaces}
+    \subsection{\texorpdfstring{$L^p$}{}-spaces}
+        \begin{convention}
+            Let $(X, \mu)$ be a measure space. Unless specified to be otherwise, we shall be writing:
+                $$L^p(X, \mu) := \left\{ f: X \to K \bigg\mid \norm{f}_p := \left( \int_X \abs{f}^p d\mu \right)^{\frac1p} < +\infty \right\}$$
+        \end{convention}
+    
+        For what follows, recall that in a vector space $E$, a subset $K \subseteq E$ is said to be \textbf{convex} if and only if for every $x, y \in E$ and every $\lambda \in [0, 1]$, we have that:
+            $$\lambda(x - y) + y \in K$$
+        and a function $J: K \to \R$ is said to be \textbf{convex} if and only if:
+            $$J( \lambda(x - y) + y ) \leq \lambda( J(x) - J(y) ) + J(y)$$
+        for all $\lambda \in [0, 1]$. What the first definition is saying is that a subset $K$ of a vector space is convex if and only if given any $x, y \in K$, the line segment between those two points must also lie entirely within $K$; notice that points on said line segment are precisely given by:
+            $$x_{\lambda} = \lambda(x - y) + y$$
+        each for a specified $\lambda \in [0, 1]$, and as the parameter $\lambda$ varies, we travel from $x$ to $y$ (or vice versa). The second definition therefore is saying that a function is convex if and only if it preserves this property whereby line segments remain inside.
+
+        It is also worth noting that convex sets are, by definition (since we are considering line segments in the definition), path-connected. Consequently, they are connected. 
+        
+        Also, if $(X, \mu)$ is any measure space (we are suppressing the $\sigma$-algebra) and $f: X \to \R$ is a measurable function, then let us write:
+            $$\bbE[f] := \frac{1}{\mu(X)} \int_X f d\mu$$
+        This is the \textbf{average value} of $f$ (or the \textbf{expected value} if the domain of $f$ is $[0, 1]$ and if $\mu(X) = 1$, because in that case $\mu$ would be a probability measure).
+        \begin{lemma}[Convex functions are continuous]
+            If $E$ is a finite-dimensional normed vector space and $K$ is a convex subset thereof, then any convex function $J: K \to \R$ will be continuous. 
+        \end{lemma}
+            \begin{proof}
+                First of all, we claim that it is enough to show that any convex function $J: (a, b) \to \R$ is necessarily continuous. 
+            \end{proof}
+        \begin{lemma}[Jensen's inequality] \label{lemma: jensen_inequality}
+            Let $(X, \mu)$ be a measure space and $J: \R \to \R$ be a convex function. Then, we shall have that:
+                $$J( \bbE[f] ) \leq \bbE[ J \circ f ]$$
+            for any real-valued $f \in L^1(X, \mu)$. 
+        \end{lemma}
+            \begin{proof}
+                
+            \end{proof}
+        \begin{lemma}[H\"older's inequality]
+            Let $p, q \in \N_{\geq 1} \cup \{+\infty\}$ be such that:
+                $$\frac1p + \frac1q = 1$$
+            Let $(X, \mu)$ be a measure space and let $f \in L^p(X, \mu), g \in L^q(X, \mu)$. Then, we have the following inequality:
+                $$\norm{f}_p \norm{g}_q \geq \norm{fg}_1$$
+            and hence:
+                $$fg \in L^1(X, \mu)$$
+        \end{lemma}
+            \begin{proof}
+                \todo[inline]{Apply Radon-Nikodym to find a new probability measure $\nu$ on $X$ (what do we use as the Radon-Nikodym derivative ?) for which we can apply Jensen's inequality to the convex function $\norm{-}^p$ (this is why $p \geq 0$ is crucial).}
+            \end{proof}
+        \begin{corollary}[$L^p$-spaces inclusions]
+            If $(X, \mu)$ is a measure space (i.e. $\mu(X) < +\infty$) then:
+                $$\forall p, q \in \N_{\geq 1} \cup \{+\infty\}: p \leq q \implies L^p(X, \mu) \subset L^q(X, \mu)$$
+            if and only if $X$ is $\mu$-finite, i.e.:
+                $$\mu(X) < +\infty$$ 
+        \end{corollary}
+            \begin{proof}
+                
+            \end{proof}
+
+        \begin{lemma}[Minkowski's inequality] \label{lemma: minkowski_inequality}
+            For any measure space $(X, \mu)$, the pairs $(L^p(X, \mu), \norm{-}_p)$ are normed spaces.
+        \end{lemma}
+            \begin{proof}
+                \todo[inline]{This relies on H\"older's inequality.}
+            \end{proof}
+        \begin{theorem}[$L^p$-space duality] \label{theorem: L_p_space_duality}
+            Let $p, q \in \N_{\geq 1} \cup \{+\infty\}$ be such that:
+                $$\frac1p + \frac1q = 1$$
+            Let $(X, \mu)$ be a measure space. Then:
+                $$L^q(X, \mu) \cong L^p(X, \mu)^*_{\cont}$$
+        \end{theorem}
+            \begin{proof}
+                
+            \end{proof}
+        \begin{theorem}[$L^p$-spaces are complete] \label{theorem: L_p_space_completeness}
+            
+        \end{theorem}
+            \begin{proof}
+                
+            \end{proof}
+        \begin{example}[$\ell^p$-spaces]
+            The datum of a $K$-valued function on the finite set $\{1, ..., n\}$ is the same as a vector in $K^n$. If we endow $X$ with the $\sigma$-algebra $\calP(X)$ (the power set of $X$) and with the counting measure:
+                $$\mu_{\discrete}: \calP(X) \to \R_{\geq 0}$$
+            which is given by:
+                $$\mu_{\discrete}(S) := |S|$$
+            (and hence $\{1, ..., n\}$ is a measure-finite space) then the normed spaces $\ell^p(K^n) := (K^n, \norm{-}_p)$ and $L^p(\{1, ..., n\}, \mu_{\discrete}\})$ for every $p \in \N_{\geq 1} \cup \{+\infty\}$ will be isometric to one another; to be thorough, let us note that in this case, the norm $\norm{-}_p$ is given by:
+                $$\norm{(x_1, ..., x_n)}_p := \left( \int_{\{1, ..., n\}} |x|^p d\mu_{\discrete} \right)^{\frac1p} = \left( \sum_{i = 1}^n |x_i|^p \right)^{\frac1p}$$
+            for all functions $x: \{1, ..., n\} \to K$ given by $x(i) := x_i$ for all $1 \leq i \leq n$. $\ell^p(K^n)$ is therefore an example of a finite-dimensional $L^p$-space.
+
+            For each $p, q \in \N_{\geq 1} \cup \{+\infty\}$ such that $\frac1p + \frac1q = 1$, we have that:
+                $$\ell^q(K^n) \cong \ell^p(K^n)^*_{\cont}$$
+            by theorem \ref{theorem: L_p_space_duality}. By finite-dimensionality, each $\varphi \in \ell^p(K^n)^*_{\cont}$ is representable by some $y := (y_1, ..., y_n) \in \ell^q(K^n)$ in the sense that:
+                $$\varphi(x) := x \cdot y := \sum_{i = 1}^n x_i y_i$$
+            for all $x := (x_1, ..., x_n) \in \ell^p(K^n)$, where $\cdot$ is the usual dot product. The discrete version of H\"older's inequality thus reads:
+                $$\abs{x \cdot y} \leq \norm{x}_p \norm{y}_q$$
+
+            Each $\ell^p(K^n)$ is also complete with respect to the topology defined by its norm. Note also that when $p = q = 2$, $\ell^2(K^n)$ will be a Hilbert space.
+        \end{example}
+
+    \subsection{Sobolev spaces}

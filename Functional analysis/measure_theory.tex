@@ -1,0 +1,346 @@
+\section{Some integration theory}
+    \subsection{\texorpdfstring{$\sigma$}{}-algebras and measure spaces}
+        \begin{definition}[$\sigma$-algebras] \label{def: sigma_algebras}
+            Let $X$ be a set, and consider a distinguished collection $\Sigma$ of subsets of $X$; this is a collection that satisfies the following conditions:
+                \begin{enumerate}
+                    \item If $A \in \Sigma$, then $X \setminus A \in \Sigma$. 
+                    \item If $\{A_i\}_{i \in I}$ is a countable family of elements of $\Sigma$, then their union $\bigcup_{i \in I} A_i$ is also in $\Sigma$.
+                    \item $X \in \Sigma$.
+                \end{enumerate}
+            We call the collection $\Sigma$ a \textbf{$\sigma$-algebra}.
+        \end{definition}
+        \begin{proposition}[$\sigma$-algebra criteria] \label{prop: sigma_algebra_criteria}
+            Let $X$ be a set and consider $\calA \subset \calP(X)$. 
+                \begin{enumerate}
+                    \item If $\calA$ is an algebra then $\calA$ will be closed under finite intersections.
+                    \item $\calA$ is an algebra if and only if it is closed under complements and finite intersections.
+                    \item If $\calA$ is a $\sigma$-algebra then it will be closed under countable intersections.
+                    \item $\calA$ is a $\sigma$-algebra if and only if it is closed under complements and countable intersections.
+                \end{enumerate}
+        \end{proposition}
+            \begin{proof}
+                \noindent
+                \begin{enumerate}
+                    \item One can simply pick arbitrary elements $S, T \in \calA$ and consider the following:
+                        \begin{itemize}
+                            \item The empty set is \textit{a priori} an element of $\calA$, so $S \cap T = \varnothing$ implies that $S \cap T \in \calA$.
+                            \item If $S \cap T \not = \varnothing$, then let us suppose first of all suppose (without loss of generality, of course) that there exist an injection $S \hookrightarrow T$; let us abuse notations somewhat and also write $S$ for the image of $S$ under this injection. Then, we have:
+                                $$S \cap T = T \setminus (T \setminus S)$$
+                            and since algebras of sets are closed under complements by definition, this implies that $S \cap T \in \calA$.
+                        \end{itemize}
+                    \item We have already shown that if $\calA$ is an algebra then it is closed under binary intersections, and hence under finite intersections. Algebras are also defined to be closed under complements, so we are done with one direction.
+                    
+                    Conversely, suppose that a subset $\calA$ of $\calP(X)$ is closed under complements and finite intersections. To show that $\calA$ has all finite unions, it shall suffice to show that $\calA$ has all finite \textit{disjoint} unions, since:
+                        $$S \cup T = (S \sqcup T) \setminus (S \cap T)$$
+                    To that end, consider two \textit{disjoint} sets $S, T \in \calA$. Should it be the case that $S \sqcup T \in \calA$ then it must also be the case that $X \setminus (S \sqcup T) \in \calA$, thanks to $\calA$ being closed under complements. Because of this, we can simply consider the following :
+                        $$X \setminus (S \sqcup T) = (X \setminus S) \setminus T$$
+                    Clearly $(X \setminus S) \setminus T \in \calA$, so we are done.
+                    \item 
+                    \item 
+                \end{enumerate}
+            \end{proof}
+        \begin{remark}[The ring structure on $\sigma$-algebras] \label{remark: ring_structure_on_sigma_algebras}
+            Because $X \in \Sigma$, the empty set $\varnothing$ is also in $\Sigma$. Furthermore,  due to the fact that unions are pushouts of monomorphisms in $\Sets$, we should also require that the intersection of any countable family of sets in $\Sigma$, say $\bigcap_{i \in I} A_i$, is itself also in $\Sigma$. Having made these two remarks, we then observe that a $\sigma$-algebra $\Sigma$ of subsets of a set $X$ is actually a ring $(\Sigma, \sqcup, \cap)$ whose addition is given by disjoint unions (coproducts)\footnote{With $\varnothing$ being the additive unit.}:
+                $$
+                    \begin{tikzcd}
+                        & B \\
+                        A & {A \sqcup B}
+                        \arrow[tail, from=1-2, to=2-2]
+                        \arrow[tail, from=2-1, to=2-2]
+                    \end{tikzcd}
+                $$
+            and whose multiplication is given by intersections over $X$ (pullbacks)\footnote{Note that the multiplicative unit is $X$.}:
+                $$
+                    \begin{tikzcd}
+                        {A \cap B} & B \\
+                        A & X
+                        \arrow[tail, from=1-2, to=2-2]
+                        \arrow[tail, from=2-1, to=2-2]
+                        \arrow[from=1-1, to=2-1]
+                        \arrow[from=1-1, to=1-2]
+                        \arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=1-1, to=2-2]
+                    \end{tikzcd}
+                $$
+            In particular, for every set $A \in X$, the complement $X \setminus A$, which should be thought of as the addition of $B$ with the additive inverse of $A$, is the following pushout in $\Sets$; in other words, $X \setminus A$ is an object fitting into the following pushout square:
+                $$
+                    \begin{tikzcd}
+                        \varnothing & A \\
+                        {X \setminus A} & X
+                        \arrow[tail, from=1-2, to=2-2]
+                        \arrow[from=2-1, to=2-2]
+                        \arrow[from=1-1, to=2-1]
+                        \arrow[tail, from=1-1, to=1-2]
+                        \arrow["\lrcorner"{anchor=center, pos=0.125, rotate=180}, draw=none, from=2-2, to=1-1]
+                    \end{tikzcd}
+                $$
+            and $\Sigma$ is closed under taking countable unions because those are simply pushouts over the relative intersection $A \cap B \cong A \x_{X} B$ over $X$:
+                $$
+                    \begin{tikzcd}
+                        {A \cap B} & B \\
+                        A & {A \cup B}
+                        \arrow[from=1-2, to=2-2]
+                        \arrow[from=2-1, to=2-2]
+                        \arrow[from=1-1, to=2-1]
+                        \arrow[from=1-1, to=1-2]
+                        \arrow["\lrcorner"{anchor=center, pos=0.125, rotate=180}, draw=none, from=2-2, to=1-1]
+                        \arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=1-1, to=2-2]
+                    \end{tikzcd}
+                $$
+            Lastly, because finite pullbacks of sets are symmetrically monoidal, the multiplication on $\Sigma$ given by intersections is indeed associative, unital, and furthermore, commutative, making $(\Sigma, \sqcup, \cap)$ a commutative ring. In fact, $\sigma$-algebras are commutative rings internal $\calP(\calP(X))$, viewed as a Cartesian category whose symmetric monoidal structure is given by intersections of subsets of $\calP(X)$.
+        \end{remark}
+        
+        In light of remark \ref{remark: ring_structure_on_sigma_algebras}, we make the following definition:
+        \begin{definition}[Algebras of sets] \label{def: algebras_of_sets}
+            For $X$ a set, if a subset $\calA$ of the power set $\calP(X)$ is only closed under finite unions and complements then it shall be known as an \textbf{algebra of sets} over $X$, or simply an \textbf{algebra} when $X$ is understood from the context.
+        \end{definition}
+        \begin{remark} \label{remark: ring_structure_on_algebras_of_sets}
+            Note that algebras are not required to contain the ambient set as an element; however, the requirement that algebras are closed under complements implies that the empty set $\varnothing$ is always included. If $\calA$ is an algebra on $X$, and if $X \not \in \calA$, then $\calA$ shall have the structure of a commutative but \textit{non-unital} ring (cf. remark \ref{remark: ring_structure_on_sigma_algebras}). It is for this reason that within measure theory, $\sigma$-algebras are more common.
+            
+            Algebras of sets $\calA$ that contain the ambient set $X$ shall appropriately be called \textbf{unital}.
+        \end{remark}
+        
+        \begin{remark}[$\sigma$-completions of families of subsets]
+            One can \say{complete} any family $\calA$ of subsets of a set $X$ to a $\sigma$-algebra via formally adjoinging intersections over $X$, countable disjoint unions, and complements. We shall call this procedure the \textbf{$\sigma$-completion}.
+            
+            Categorically speaking, this is simply the process of formally adjoining countable coproducts and complements (that exist in $\calP(X)$), as well as the terminal object $X \in \calP(X)$ to the Cartesian completion of $\calA$ (viewed as a Cartesian full subcategory of $\calP(X)$). 
+        \end{remark}
+        \begin{example}[Examples of $\sigma$-algebras] \label{example: sigma_algebras}
+            \noindent
+            \begin{enumerate}
+                \item \textbf{(Topologies):} Any topology on a set is, by definition, a $\sigma$-algebra; it should be noted that the axiom forcing the entire space and the empty set to be both open and closed is crucial for this example to hold.
+                
+                The converse, namely whether or not a given $\sigma$-algebra is a topology or not, only holds when the underlying set is countable (one can prove this easily using the definition of topological spaces).
+                \item \textbf{(Power sets):} The power set $\calP(X)$ of any set $X$ is a $\sigma$-algebra over $X$. In fact, this follows from the first example, since the topology given by the power set is the discrete topology, wherein every subset is open. However, this example is still interesting, as the power set is trivially the maximal $\sigma$-algebra on a set.
+            \end{enumerate}
+        \end{example}
+        
+        \begin{definition}[Moore closure] \label{def: moore_closure}
+            Let $X$ be a set, and let $\calM$ be a collection of subsets of $X$. Then, we call $\calM$ a \textbf{Moore collection}, or \textbf{Moore-closed}, if it is closed under taking intersections over $X$. 
+            
+            In other words, Moore collections are commutative semi-group objects in $\calP(\calP(X))$ (which we shall view as a Cartesian category whose monoidal structure is given by intersections of subsets of $\calP(X)$), whose multiplications are given by intersections of subsets of $X$.
+        \end{definition}
+        \begin{example}
+            $\sigma$-algebras are Moore collections. In particular, the instances of $\sigma$-algebras in example \ref{example: sigma_algebras} are all Moore collections.
+        \end{example}
+        
+        \begin{remark}[Moore bases]
+            Consider a Moore collection over $X$, say $\calM_0$, and consider a family, indexed by a set $I$, of Moore collections $\calM_i$ over $X$, such that each $\calM_i$ contains $\calM_0$:
+                $$\forall i \in I: \calM_i \supseteq \calM_0$$
+            Then, consider the \textit{set-theoretic} intersection $\bigcap_{i \in I} \calM_i$ of all the collections $\calM_i$. Indeed, this is a Moore collection, and furthermore, the smallest/minimal Moore collection containing $\calM_0$; we will refer to such a Moore collection a \textbf{Moore basis} of $\calM_0$, or \textbf{the Moore collection generated by $\calM_0$}. 
+            
+            Is there a similar construction for $\sigma$-algebras ? As a matter of fact, yes, but we will need to show that the intersection of two $\sigma$-algebras is still a $\sigma$-algebra. 
+        \end{remark}
+        \begin{proposition}[Intesections of $\sigma$-algebras] \label{prop: intersections_of_sigma_algebras}
+            The intersection of two arbitrary $\sigma$-algebras over a given set $X$ is itself a $\sigma$-algebra over $X$ as well. 
+        \end{proposition}
+            \begin{proof}
+                It is a basic fact that the intersection of two subrings of a ring $R$ is also a subring of $R$. Thus, the intersection of the two $\sigma$-algebras $\Sigma$ and $\Sigma'$ is also a $\sigma$-algebra, as $\Sigma$ and $\Sigma'$ are subrings of the maximal $\sigma$-algebra $\calP(X)$.
+            \end{proof}
+        \begin{corollary}
+            By the proposition, we see that given any collection $\{\Sigma_i\}_{i \in I}$ (indexed by a set $I$) of $\sigma$-algebras over a set $X$, such that for all $i \in I$, $\Sigma_i$ contains some other $\sigma$-algebra $\Sigma_0$ on $X$, there is a basis (i.e. a $\sigma$-algebra on $X$ generated by $\Sigma_0$) given by the intersection $\bigcap_{i \in I} \Sigma_i$.
+        \end{corollary}
+        \begin{remark}
+           One can also realise proposition \ref{prop: intersections_of_sigma_algebras} as an obvious consequence of the general fact that the category of internal commutative monoids in any Cartesian category is closed under products (note that $\sigma$-algebras are commutative monoids internal to $\calP(X)$). This is, however, unnecessary, since $\sigma$-algebras have underlying sets.
+           
+           A similar proof procedure can be carried out to show that the categories of algebras of sets (over a given base set $X$) and of Moore collections (also over a given base set $X$) are also closed under intersections, which categorically speaking are products in $\calP(\calP(X))$.
+        \end{remark}
+        
+        \begin{example}
+            The basis of a topology $T$ on a set $X$ is a Moore basis; actually, it is a $\sigma$-algebra generated by the collection of distinguished open subsets that make up the basis of $T$. An important instance of this is the $\sigma$-algebra $\B(X)$ of open balls in a metric space $X$, which is known as the Borel algebra on $X$.
+        \end{example}
+        
+        \begin{remark}
+            Before we define measures, let us remark that given a set $X$ and a $\sigma$-algebra $\Sigma$ on it, one may view the $\sigma$-algebra as a poset on which the partial order is inclusion, i.e. the objects are partially ordered by cardinality.
+        \end{remark}
+        \begin{convention}
+            For the sake of convenience, let us abuse notation and write $\R_{\geq 0}$ to mean $\R_{\geq 0} \cup \{+\infty\}$.
+        \end{convention}
+        \begin{definition}[Measures] \label{def: measures}
+            Let $X$ be a set, and let $\Sigma$ be a $\sigma$-algebra on $X$. Then, a \textbf{measure} on $\Sigma$ is a functor:
+                $$\mu: \Sigma^{\op} \to \R_{\geq 0}$$
+            which preserves countable filtered limits and countable products in $\Sigma^{\op}$ (i.e. countable filtered colimits and countable coproducts in $\Sigma$). Explicitly, this means that:
+                \begin{itemize}
+                    \item $\mu(\varnothing) = 0$,
+                    \item if $A \subseteq B$ (as an arrow in $\Sigma$) then $\mu(A) \leq \mu(B)$
+                    \item for any countable set $I$, $\mu\left(\coprod_{i \in I} A_i\right) = \sum_{i \in I} \mu(A_i)$, 
+                    \item and lastly, for any ascending chain of sets $A_0 \subseteq A_1 \subseteq ...$ in $\Sigma$, one has $\mu\left(\bigcup_{i \in \N} A_i\right) = \underset{i \to +\infty}{\lim} \mu(A_i)$\footnote{Note that as a universal construction, the right-hand side is a colimit.}.
+                \end{itemize}
+        \end{definition}
+        \begin{remark}
+            As $\Sigma$ is partially ordered, whereas $\R_{\geq 0}$ is totally ordered, every measure is an essentially surjective functor; that is, if we are given a measure value $n \in \R_{\geq 0}$, then there will be a collection of sets in $\Sigma$ of cardinality $N$, i.e. in bijection with one another:
+                $$\{A_0 \cong A_1 \cong ...\}$$
+            such that:
+                $$\mu(A_0) = \mu(A_1) = ... = n$$
+        \end{remark}
+        \begin{remark}[Measures are functions] \label{remark: measures_are_functions}
+            Measures in the sense of definition \ref{def: measures} actually have \say{underlying functions}, which agree with the traditional notion. This is nothing special: in viewing a given measure:
+                $$\mu: \Sigma^{\op} \to \R_{\geq 0}$$
+            as a function:
+                $$\mu: \Sigma \to \R_{\geq 0}$$
+            one is simply disregarding morphisms and concerning only objects, which are precisely the elements of the domain and codomain.
+            
+            We mention this not simply to reconcile definition \ref{def: measures}, however. Because $\R_{\geq 0}$ is a totally ordered set, it can be given the Alexandroff topology (cf. definition \ref{def: alexandroff_topology}) wherein open sets are precisely its objects. As a consequence, an $\R_{\geq 0}$-valued sheaf on the site of open subsets of a topological space is nothing but a continuous function; this is a fact that we shall make use of to show that measures are sheaves in the natural Alexandroff topology on $\sigma$-algebras (cf. corollary \ref{coro: measures_are_sheaves}).
+        \end{remark}
+        
+        \begin{definition}[Measurable sets]
+            Let $X$ be a set, and let $\Sigma$ be a $\sigma$-algebra over $X$. Then, the elements of $\Sigma$ are called \textbf{measurable subsets} of $X$\footnote{Note how by thinking of measures as functors, one would naturally have to think of measurable sets as elements of $\sigma$-algebras.}. 
+        \end{definition}
+        \begin{example}
+            Given any topology $\calO$ on a set $X$, its \say{complement space} $(X, \bar{\calO})$ (namely, the topology generated by the closed sets of $(X, \calO)$) will have the same measure with respect to any measure. That is, for any measure:
+                $$\mu: \calO^{\op} \to \R_{\geq 0}$$
+            one has:
+                $$\mu(\calO) = \mu(\bar{\calO})$$
+            This is a simple consequence of the fact that complements are unique as well as $\sigma$-algebras being closed under complements by definition.
+        \end{example}
+        
+        Let us now move on to discussing continuity properties of measures.
+        \begin{definition}[The Alexandroff topology] \label{def: alexandroff_topology}
+            Every poset has a structure of a topological space, the \textbf{Alexandroff/poset topology}. This is the topology wherein a subset $S$ of a poset $(\calP, \preceq)$ is open if it is \textbf{upward-closed}, that is:
+                $$\bigg((x \preceq y) \wedge (x \in S)\bigg) \implies y \in S$$
+        \end{definition}
+        \begin{remark}[$\sigma$-algebras are Alexandroof spaces]
+            Since $\sigma$-algebras are partially ordered, they naturally carry the Alexandroff topology. 
+        \end{remark}
+        \begin{convention}
+            Since partially ordered sets are categories in an obvious way, the Alexandroff site of a partially ordered set $\calP$ shall also be denoted by $\calP$. This is obviously an abuse of notation, since technically, $\calP$ is the terminal object its canonically induced Alexandroff site. 
+        \end{convention}
+        \begin{remark}
+            A simple fact that we will be using repeatedly is that the Alexandroff-open subsets of any \textit{totally ordered} set $(R, <)$ are just the singletons whose elements are the elements/objects of $R$. This comes directly from the definition of totally ordered sets as partially ordered sets with at most one arrow between any pair of objects.
+        \end{remark}
+        
+        \begin{lemma}[Continuity of monotonic functions] \label{lemma: continuity_of_monotonic_functions}
+            A function:
+                $$f: \calA \to \calB$$
+            between two partially ordered sets $(\calA, \leq), (\calB, \leq)$ is continuous in the Alexandroff topology if and only if it is monotonic.
+        \end{lemma}
+            \begin{proof}
+                
+            \end{proof}
+        \begin{theorem}[Monotonic functions are sheaves] \label{theorem: monotonic_functions_are_sheaves}
+            Any monotonic function
+                $$m: \calP \to R$$
+            from a partially ordered sets $(\calP, \leq)$ to a totally ordered set $(R, <)$ uniquely determines a sheaf on the Alexandroff site of $\calP$:
+                $$\mu: \calP^{\op} \to (R, <)$$
+            Conversely, any such sheaf
+        \end{theorem}
+            \begin{proof}
+                
+            \end{proof}
+        \begin{corollary}[Measures are sheaves] \label{coro: measures_are_sheaves}
+            Let $X$ be a set and let $\Sigma$ be a $\sigma$-algebra on $X$. Then, any measure:
+                $$\mu: \Sigma^{\op} \to \R_{\geq 0}$$
+            is an $\R_{\geq 0}$-valued sheaf on the Alexandroff site $\Sigma$.
+        \end{corollary}
+            \begin{proof}
+                Refer to remark \ref{remark: measures_are_functions}.
+            \end{proof}
+        
+        \begin{definition}[Measure spaces]
+            A \textbf{measure space} is a triple $(X, \Sigma, \mu)$ of a set $X$, a $\sigma$-algebra $\Sigma$ on that set, and a measure $\mu$ on that $\sigma$-algebra.
+        \end{definition}
+        \begin{example}[Borel measures]
+            For every metric space $(X,d)$, one may construct a so-called Borel space $(X, \B(X), \mu_{\B})$, wherein $\mu_{\B}$ is the measure on the Borel algebra $\B(X)$ that takes in (co)limits of open balls in the topology induced by the metric $d$ and returns the diametre of those open subsets (recall that the diametre of a set $S$ is given by $\sup_{x,y \in S} d(x,y)$).
+
+            More generally, one can construct a Borel measure space on any locally compact Hausdorff space.
+        \end{example}
+        \begin{example}[Dirac measure]
+            Let $X = \R^n$, and fix an arbitrary point $y \in \R^n$. Then, we define the Dirac delta-measure at $y$ to be the following functor from an arbitrary $\sigma$-algebra $\Sigma$ on $\R^n$ into the ordered set $\{0 < 1\}$:
+                $$\delta_y(A) = 
+                    \begin{cases}
+                        \text{$1$ if $y \in A$}
+                        \\
+                        \text{$0$ if $y \not \in A$}
+                    \end{cases}
+                $$
+            In other words, this measure is given by the characteristic function $\chi_A$ (which itself is also a full and essentialy surjective functor, so everything checks out). It should be noted that commonly, the $\sigma$-algebra $\Sigma$ is taken to be $\calP(\R^n)$ or $\B(\R^n)$.
+        \end{example}
+        \begin{example}
+            Let $(X,d)$ be a metric space of topological dimension $n \in \N$, and consider the $\sigma$-algebra $\B(X)$ on $X$. Then, the Lebesgue measure $\ell$ on $\B(X)$ is the functor given by:
+                $$\ell\left(\B_{\e}(x)\right) := \frac1n \left|\bbS^{n-1}\right| \e^n$$
+            wherein $\B_{\e}(x)$ denotes the open $\e$-ball centered at the point $x \in X$, and $\left|\bbS^d\right| = 2\pi^{\frac{n}{2}} \frac{1}{\Gamma(\frac{n}{2})}$ is the surface area of the unit $d$-sphere ($d < n$).
+
+            The Lebesgue measure has two important properties, known as \textbf{inner and outer regularity} in what follows, we consider $A \in \B(X)$:
+                \begin{itemize}
+                    \item \textbf{(Inner regularity)} $\ell(A) := \inf\left\{\ell(U) \mid \text{$U \supseteq A$ open}\right\}$
+                    \item \textbf{(Outer regularity)} $\ell(A) := \sup\left\{\ell(K) \mid \text{$K \subseteq A$ compact}\right\}$
+                \end{itemize}
+            Showing that these properties hold is simple; they are direct consequences of the fact that one can cover any open set with open balls, and that any open covering of a compact set can be reduced down to a finite one.
+        \end{example}
+        \begin{definition}[Sets of measure zero] \label{def: measure_zero_set}
+            A set $X$ is said to be of measure zero if and only if for all $\sigma$-algebras $\Sigma$ and all measures $\mu$ on $\Sigma$, the essential image of $\mu$ is the trivial poset $\{*\} \cong \{0\} \subset \R_{\geq 0}$. Equivalently, a subset $E$ of a set $X$ is said to be of \textbf{measure zero} if and only if $\mu(X) = \mu(X \setminus E)$.
+        \end{definition}
+
+    \subsection{Operations with measures}
+        To easily talk about restrictions of measures, let us have a bit of a digression and discuss subobject classifers beforehand.
+        
+        \begin{definition}[Subobject classifiers]
+            Let $\C$ be a finitely complete category (and hence with a terminal object $\1$). Then, a subobject classifier is a monomorphism $\1 \to \2$ such that for every monomorphism $i: U \hookrightarrow X$ in $\C$, there exists a unique morphism $\chi_U: X \to 2$ making the following into a pullback square:
+                $$
+                    \begin{tikzcd}
+                        U \arrow[d, "i"', tail] \arrow[r] & \1 \arrow[d, "\top", tail] \\
+                        X \arrow[r, "\chi_U"]             & 2                         
+                    \end{tikzcd}
+                $$
+        \end{definition}
+        \begin{convention}[Some categorical logic terminologies]
+            If a subobject classifier exists, i.e. if an object $\2 \in \C$ as above exists, then it is called \textbf{an object of truth values}, the morphism:
+                $$\top: \1 \to \2$$
+            is called a truth value, and the corresponding global element is the value "true".
+            \\
+            We note that the subobjects $U$ classified by the truth values are subterminal, i.e. their inclusions into the ambient object $X$ are unique with respect to each truth value. The logic here reads:
+                $$\forall \left(\top: \1 \hookrightarrow \2\right): \exists! \left(i: U \hookrightarrow X\right)$$
+            This fact is a direct consequence of the definition of subobject classifiers, and of the universal property of pullbacks.
+        \end{convention}
+        
+        \begin{proposition}[The subobject presheaf]
+            Let $\C$ be a locally small finitely complete category. Then, it has object classifiers if and only if the presheaf:
+                $$\Sub_{\C}: \C^{\op} \to \Sets$$
+            given by $\Sub_{\C}(X) := \{\text{subobjects of $X$}\}$. In that case, if $\top: \1 \to \2$ is a subobject classifier, then the object $\2$ represents the presheaf $\Sub_{\C}$, i.e. there is a natural isomorphism:
+                $$\Sub_{\C}(-) \cong \C(-, \2)$$
+            Moreover, when $\C$ is also well-powered (i.e. all objects have small subobject posets), the presheaf $\Sub_{\C}$ is a (pseudo-functor associated to a) Grothendieck fibration in (small) posets over $\C$; that is to say, . 
+        \end{proposition}
+            \begin{proof}
+                
+            \end{proof}
+            
+        \begin{remark}[Measure subspaces/restriction of measures]
+            Let $X$ be a set, let $\Sigma$ be a $\sigma$-algebra on $X$, and let $\mu$ be a measure on $\Sigma$. Suppose also, that $X' \in \Sigma$ is a measurable subset of $X$. Then, we may construct a measure subspace $(X', \Sigma', \mu')$ of $(X, \Sigma, \mu)$, wherein $\Sigma'$ consists of $\Sigma$-measurable subsets of $X'$, and $\mu'$ is the restriction of $\mu$ to $\Sigma'$.
+            \\
+            To make things a bit clearer, let us elaborate on how one might restrict a measure down onto a $\sigma$-subalgebra. Consider the canonical (continuous) inclusion:
+                $$i: \Sigma' \hookrightarrow \Sigma$$
+            of Alexandroff spaces, which induces a geometric morphism between Grothendieck topoi:
+                $$
+                    \begin{tikzcd}
+                        {\Sh(\Sigma')} & {\Sh(\Sigma)}
+                        \arrow[""{name=0, anchor=center, inner sep=0}, "{i_*}"', shift right=2, from=1-1, to=1-2]
+                        \arrow[""{name=1, anchor=center, inner sep=0}, "{i^*}"', shift right=2, from=1-2, to=1-1]
+                        \arrow["\dashv"{anchor=center, rotate=-90}, draw=none, from=1, to=0]
+                    \end{tikzcd}
+                $$
+            At this point, we should acknowledge the fact that measures are actually $\R_{\geq 0}$-valued sheaves on $\sigma$-algebras viewed as Alexandroff sites $\Ouv(\Sigma)$, and so given a measure $\mu \in \Sh_{\R_{\geq 0}}(\Sigma)$, one may restrict it to a measure $\mu' \in \Sh_{\R_{\geq 0}}(\Sigma')$ via the canonical map:
+                $$i^{\#}: \mu \to i_*\mu'$$
+            Thus, we get a measure subspace $(X', \Sigma', \mu' = \mu \rvert_{\Sigma'})$
+        \end{remark}
+        
+        Let $(X, \Sigma, \mu)$ and $(X', \Sigma', \mu')$ be measure spaces, and consider the product of sets $X \x X'$. 
+        \begin{theorem}[Fubini] \label{theorem: fubini}
+            
+        \end{theorem}
+            \begin{proof}
+                
+            \end{proof}
+
+    \subsection{Comparing measures}
+        \begin{definition}[Absolute continuity and domination] \label{def: absolute_continuity_and_domination}
+            Let $X$ be a set and $\Sigma$ be a $\sigma$-algebra on $X$. Let $\mu, \nu: \Sigma \to \R$ be $\sigma$-finite measures. Then, we say that $\mu$ is \textbf{absolutely continuous} with respect to $\nu$, or that $\nu$ \textbf{dominates} $\mu$, written:
+                $$\mu \ll \nu$$
+            if and only if:
+                $$\forall S \in \Sigma: \nu(S) = 0 \implies \mu(S) = 0$$
+        \end{definition}
+        \begin{theorem}[Radon-Nikodym] \label{theorem: radon_nikodym}
+            Let $X$ be a set, $\Sigma$ be a $\sigma$-algebra on $X$, and let $\mu \ll \nu$ be two $\sigma$-finite measures on $X$. Then, there will exist a $\Sigma$-measurable function $f: X \to \R_{\geq 0}$ such that:
+                $$\forall S \in \Sigma: \nu(S) = \int_S f d\mu$$
+        \end{theorem}
+            \begin{proof}
+                \todo[inline]{Though there is a proof by von Neumann that relies on H\"older's inequality (and some Hilbert space techniques), I believe it is more natural to use Monotone Convergence to prove this, and then use Radon-Nikodym to establish the probability measure in the proof of H\"older's inequality that will allow us to use Jensen's inequality. Ultimately, the point is that the Radon-Nikodym theorem is something that one should reasonably expect to be true.}
+            \end{proof}

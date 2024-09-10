@@ -1,0 +1,174 @@
+\section{Normed spaces}
+    Throughout, $K$ shall be a complete archimedean field, so either $\R$ or $\bbC$. All vector spaces, unless stated otherwise, shall be $K$-vector spaces. 
+ 
+    \subsection{Generalities on topological vector spaces}
+        \begin{lemma}[(Co)limits of normed spaces]
+            
+        \end{lemma}
+            \begin{proof}
+                
+            \end{proof}
+
+    \subsection{The Hahn-Banach Theorem and duality}
+        One fundamental problem in the theory of normed spaces is the question of whether the dual space may actually just be trivial. We know this to not be true always (e.g. for any measure space $(X, \mu)$, the spaces $L^p(X, \mu)$ and $L^q(X, \mu)$ are both infinite-dimensional - hence non-trivial - and are dual if $\frac1p + \frac1q = 1$) and in fact, as the Hahn-Banach Theorem will show, the dual space tends to be quite large, provided that the normed is \say{controlled} somehow.
+
+        For convenience, let us begin by introducing the following terminology:
+        \begin{definition}[Sublinearity] \label{def: sublinearity}
+            A function $\rho: E \to \R$ on a vector space $E$ is said to be \textbf{sublinear} if and only if:
+            \begin{itemize}
+                \item $\rho$ satisfies the triangle inequality, i.e.:
+                    $$\forall x, y \in X: \rho(x + y) \leq \rho(x) + \rho(y)$$
+                \item $\rho$ preserves scalar multiplication, i.e.:
+                    $$\forall \lambda \in K: \forall x \in E: \rho(\lambda x) = \lambda \rho(x)$$
+            \end{itemize}
+        \end{definition}
+        \begin{example}
+            Norms and semi-norms are sublinear. 
+        \end{example}
+        \begin{definition}[Dominance] \label{def: dominance}
+            A real-valued function $\rho: X \to \R$ on a set $X$ is said to \textbf{dominant} another such function $f: X \to \R$ if:
+                $$\forall x \in X: f(x) \leq \rho(x)$$
+            In such a situation, we shall write:
+                $$f \leq \rho$$
+        \end{definition}
+
+        The following lemma is very important.
+        \begin{lemma}[Sublinear functions extend finitely] \label{lemma: sublinear_functions_extend_finitely}
+            Let $K := \R$ and let $E$ be an $\R$-vector space. Let $\rho: E \to \R$ be a sublinear function that dominates an $\R$-linear functional:
+                $$\varphi_0: E_0 \to \R$$
+            defined on some subspace $E_0 \subseteq E$. Then, there shall exist an extension:
+                $$\varphi_1: E_1 \to \R$$
+            (i.e. $\varphi_1|_{E_0} = \varphi_0$) that remains linear and dominated by $\rho$, where $E_1 \subseteq E$ is any subspace such that $\dim E_1/E_0 < +\infty$. 
+        \end{lemma}
+            \begin{proof}
+                We can prove this lemma by proving that for any $x_1 \in E \setminus E_0$, there shall exist an extension $\varphi_1: E_0 \oplus \R x_1 \to \R$ that remains linear and dominated by $\rho$. One can then repeat the process $\dim E_1/E_0$ times to get the full assertion. To this end, we shall need to specify how the expressions of the kind below are given:
+                    $$\varphi_1( x + \lambda x_1 )$$
+                for all $x \in E$ and $\lambda \in \R$. Consider, then, the following, which holds due to definition \ref{def: sublinearity}:
+                    $$\rho(x + y) = \rho( x + \lambda x_1 - \lambda x_1 + y ) \leq \rho(x + \lambda x_1) + \rho(-\lambda x_1 + y)$$
+                for all $x, y \in E$ and all $\lambda \in \R$. That $\varphi_0$ is linear and that $\varphi_0 \leq \rho$ together tell us that:
+                    $$\varphi_0(x) + \varphi_0(y) = \varphi_0(x + y) \leq \rho(x + y)$$
+                and hence:
+                    $$\varphi_0(x) + \varphi_0(y) \leq \rho(x + \lambda x_1) + \rho(-\lambda x_1 + y)$$
+                for all $x, y \in E_0$. Notice, then, that if we were to let:
+                    $$\varphi_1(x + \lambda x_1) := \varphi_0(x) + \lambda \alpha_1$$
+                for some choice of $\alpha_1 \in \R$ then because we would like:
+                    $$\varphi_1(x + \lambda x_1) \leq \rho(x + \lambda x_1)$$
+                we will have to choose $\alpha_1$ to be such that:
+                    $$\varphi_0(x) + \lambda \alpha_1 \leq \rho(x + \lambda x_1) \iff \lambda \alpha_1 \leq \rho(x + \lambda x_1) - \varphi_0(x)$$
+                for all $x \in E$. Since we only need to specify $\alpha_1 := \varphi_1(x_1)$, we can simply set $\lambda := 1$ and then choose:
+                    $$\alpha_1 := \inf_{x \in E} \left( \rho(x + x_1) - \varphi_0(x) \right)$$
+            \end{proof}
+        \begin{remark}[Some comments about the proof]
+            One key detail about lemma \ref{lemma: sublinear_functions_extend_finitely} (and hence also theorem \ref{theorem: hahn_banach}, which depends on said lemma) is that it relies crucially on everything being defined over a totally ordered archimedean field - so that theidea that a sublinear function can dominate a functional would even make sense - and on said archimedean field being complete, so that we can consider infima. 
+        \end{remark}
+        The Hahn-Banach Theorem tells us that $\R$-linear functionals actually extend all the way by a certain limiting procedure. 
+        \begin{theorem}[Hahn-Banach: non-triviality of dual spaces] \label{theorem: hahn_banach}
+            Let $K := \R$ and let $E$ be an $\R$-vector space. Let $\rho: E \to \R$ be a sublinear function that dominates an $\R$-linear functional:
+                $$\varphi_0: E_0 \to \R$$
+            defined on some subspace $E_0 \subseteq E$. Then, there shall exist an extension:
+                $$\varphi_{\infty}: E \to \R$$
+            (i.e. $\varphi_{\infty}|_{E_0} = \varphi_0$) that remains linear and dominated by $\rho$.
+
+            Since $\varphi_{\infty} \in E^*$, this means that the dual space $E^*$ is non-trivial, since it is known that by picking $E_0$ to be finite-dimensional, one can always be guaranteed that there is some non-trivial $\varphi_0 \in E_0^*$ (and hence the extension $\varphi_{\infty}$ is also non-trivial).
+        \end{theorem}
+            \begin{proof}
+                By lemma \ref{lemma: sublinear_functions_extend_finitely}, we know that there is an ascending chain of subspaces of $E$:
+                    $$E_0 \subset E_1 \subset E_2 \subset ...$$
+                which is possibly non-terminating and is such that $\dim E_{i + 1}/E_i = 1$ for all $i \in \N$, and each term $E_i$ comes equipped with a linear extension $\varphi_i: E_i \to \R$ that is dominated by the given sublinear function $\rho$. It is clear that by construction, we also have that:
+                    $$\varphi_{i + 1|_{E_i}} = \varphi_i$$
+                and so we have a filtered diagram $\{(E_i, \varphi_i)\}_{i \in \N}$ in the slice category $\R\-\Vect_{/\R}$. The category $\R\-\Vect$ is cocomplete, and slices of cocomplete categories are themselves cocomplete, so the (filtered) colimit:
+                    $$(E_{\infty}, \varphi_{\infty}) := \indlim_{i \in \N} (E_i, \varphi_i)$$
+                exists in $\R\-\Vect_{/\R}$. It remains to show that $E_{\infty} \cong E$ and $\varphi_{\infty} \leq \rho$.
+
+                To prove that $E_{\infty} \cong E$, let us suppose to the contrary (for the sake of deriving a contradiction) that one can identify $E_{\infty}$ with a \textit{proper} subspace of $E$. This would imply that there exists some $x \in E \setminus E_{\infty}$. Should we also have that $\varphi_{\infty} \leq \rho$, then we know by lemma \ref{lemma: sublinear_functions_extend_finitely} that one can then simply extend the linear functional $\varphi_{\infty}$ once more, to a linear functional $\varphi_{\infty + 1}: E_{\infty} \oplus \R x \to \R$ such that $\varphi_{\infty + 1} \leq \rho$. The universal property of colimits guarantees, however, that there would be a unique isomorphism $(E_{\infty}, \varphi_{\infty}) \xrightarrow[]{\cong} (E_{\infty} \oplus \R x, \varphi_{})$ in $\R\-\Vect_{/\R}$, which is clearly nonsensical as $x \not = 0$, so we indeed have that $E_{\infty} \cong E$.
+
+                To prove that $\varphi_{\infty} \leq \rho$, simply note that if $\varphi_{\infty} \not \leq \rho$ then there would exist $i \in \N$ and some $x \in E_i$ such that:
+                    $$\varphi_{\infty}|_{E_i}(x) := \varphi_i(x) > \rho(x)$$
+                which is contradictory to the fact that every $\varphi_i$ is dominated by $\rho$.
+            \end{proof}
+        \begin{corollary}[Complex Hahn-Banach and norm extension] \label{coro: norm_extensions}
+            Now, let $K$ be an arbitrary complete archimedean field again, and let $E$ be a $K$-vector space and let $\varphi_0: E_0 \to K$ be a $K$-linear functional defined on some subspace $E_0 \subseteq E$. Suppose also that $\rho: E \to \R_{\geq 0}$ is a semi-norm. If:
+                $$\forall x \in E_0: |\varphi_0(x)| \leq \rho(x)$$
+            then there shall exist a linear extension:
+                $$\varphi_{\infty}: E \to \R$$
+            of $\varphi_0$ which is such that:
+                $$\forall x \in E: |\varphi_{\infty}(x)| \leq \rho(x)$$
+
+            In particular, if $E$ is normed and $\rho$ is given by $\rho(x) := \norm{\varphi_0}_{E^*} \norm{x}_E$ then:
+                $$\norm{\varphi_0}_{E^*} = \norm{\varphi_{\infty}}_{E^*}$$
+        \end{corollary}
+            \begin{proof}
+                If $K = \R$ then the assertion comes directly from the fact that $\varphi_0(x) \leq |\varphi_0(x)|$ and from theorem \ref{theorem: hahn_banach}.
+
+                If $K = \bbC$ then we can reduce the assertion to the real case by writing $\varphi_0 := \Re(\varphi_0) + i \Im(\varphi_0)$; by linearity, we even have that:
+                    $$\Im(\varphi_0) = \Re(i \varphi_0)$$
+            \end{proof}
+
+        Another easy corollary of the Hahn-Banach Theorem is that there is a non-trivial (and representable) duality functor:
+            $$(-)^* := \Hom_K(-, \R): K\-\Vect \to K\-\Vect^{\op}$$
+        with a non-trivial restriction:
+            $$(-)^*_{\cont} \cong \Hom_{K, \cont}(-, \R): K\-\Vect_{\norm{-}} \to K\-\Vect_{\norm{-}}^{\op}$$
+        down to the subcategory of normed vector spaces and \textit{continuous} linear maps between them, called the \textbf{continuous duality} functor. This restriction maps normed vector spaces $E$ to $E^*_{\cont}$ equipped with the sup-norm. Again, let us remark that even though the functors $(-)^*$ and $(-)^*_{\cont}$ do exist abstractly (as they are just contravariant hom-functors), we do not know before the Hahn-Banach Theorem as to whether or not they might have reasonably large essential images.
+        
+        The following definition is tautologically equivalent to the definition of contravariant hom-functors, though we state it regardless for the sake of establishing the terminologies. 
+        \begin{definition}[Transposition] \label{def: transposition}
+            Given a (continuous) $K$-linear map $T: E \to E'$, we call its image $T^*: E'^* \to E^*$ (respectively, $T^*_{\cont}: E'^*_{\cont} \to E^*_{\cont}$) under the (continuous) duality functor the \textbf{(continuous) transpose} of $T$. Explicitly, this is given by:
+                $$T^*(\psi)(x) := \psi( T(x) )$$
+            for all $\psi \in E'^*$ and all $x \in E$ (and likewise for $T^*_{\cont}$).
+        \end{definition}
+
+        Let us now investigate the properties of the functor $(-)^*_{\cont}$.
+        \begin{convention}
+            To avoid notation clutter, the self-composition of $(-)^*_{\cont}$ shall be denoted by $(-)^{**}_{\cont}$.
+        \end{convention}
+        \begin{lemma}[Continuous duality is involutive] \label{lemma: continuous_duality_involutive}
+            The continuous duality functor $(-)^*_{\cont}$ is involutive, i.e. $(-)^{**}_{\cont}$ is the identity functor. 
+        \end{lemma}
+            \begin{proof}
+                Firstly, we shall need to prove that there is an isometry $E \xrightarrow[]{\cong} ( E^*_{\cont} )^*_{\cont}$ for any normed vector space $E$. We claim that this is given by:
+                    $$x \mapsto (E^*_{\cont} \xrightarrow[]{\ev_x} \R)$$
+                where:
+                    $$\ev_x(\varphi) := \varphi(x)$$
+                To see that this is an isometry, simple note that the following holds for all $x \in E$ and all $\varphi \in E^*_{\cont}$:
+                    $$\norm{\ev_x}_{\sup} := \sup_{\varphi \in E^*_{\cont}, \norm{\varphi}_{E^*} = 1} |\ev_x(\varphi)| = \sup_{\varphi \in E^*_{\cont}, \norm{\varphi}_{E^*} = 1} \abs{\varphi(x)} = \norm{x}_E$$
+
+                Next, let $E, E'$ be normed spaces and denote the canonical isometries between them and their continuous double duals by $\ev$ and $\ev'$ respectively. Let $T: E \to E'$ be a continuous linear map. Then, precisely because $\ev$ and $\ev'$ are isometric, we have the following:
+                    $$\norm{ T^{**}_{\cont} }_{\sup} = \norm{ \ev' \circ T \circ \ev^{-1} }_{\sup} := \sup_{y \in E^{**}_{\cont}} \frac{ \norm{ (\ev' \circ T \circ \ev^{-1})(y) }_{\sup} }{\norm{y}_E} = \sup_{y \in E^{**}_{\cont}} \frac{\norm{T(y)}_{E'}}{\norm{y}_E} = \norm{T}_{\sup}$$
+                This concludes the proof that there is an isometry:
+                    $$\Hom_{K, \cont}(E, E') \xrightarrow[]{\cong} \Hom_{K, \cont}(E^{**}_{\cont}, E'^{**}_{\cont})$$
+            \end{proof}
+        For the proof of the following proposition, it will be useful to note that if $\Phi: V \to V'$ is any linear map between normed spaces, then:
+            $$\forall v \in V: \norm{\Phi}_{V^*} := \sup_{v \in V} \frac{\norm{\Phi(v)}}{\norm{v}_V} \implies \norm{\Phi}_{V^*} \norm{v}_V \geq \abs{\Phi(v)}$$
+        \begin{proposition}[Norms of transpositions] \label{prop: transposition_norms}
+            Let $T: E \to E'$ be any continuous linear map between normed spaces. Then:
+                $$\norm{T}_{\sup} = \norm{T^*_{\cont}}_{\sup}$$
+            In fact, the continuous duality functor $(-)_{\cont}^*$ is not only fully faithful, but also isometric on hom-spaces, in the sense that each of the $K$-linear isomorphisms:
+                $$\Hom_{K, \cont}(E, E') \xrightarrow[]{\cong} \Hom_{K, \cont}(E'^*_{\cont}, E^*_{\cont})$$
+            is moreover an isometry, for all $E, E' \in \Ob( K\-\Vect_{\norm{-}} )$.
+        \end{proposition}
+            \begin{proof}
+                For any $\psi \in E'^*_{\cont}$ and any $x \in E$, we have that:
+                    $$\abs{ T^*_{\cont}(\psi)(x) } = \abs{\psi(T(x))} \leq \norm{\psi}_{E^*} \norm{T(x)}_{E'} \leq \norm{\psi}_{E^*} \norm{T}_{\sup} \norm{x}_E$$
+                
+            \end{proof}
+        \begin{proposition}[Properties of continuous duals] \label{def: properties_of_continuous_duals}
+            The continuous duality functor $(-)^*_{\cont}$ preserves the following (co)limits in $K\-\Vect_{\norm{-}}$:
+            \begin{enumerate}
+                \item finite direct sums, and
+                \item epimorphisms (which get mapped to ).
+            \end{enumerate}
+        \end{proposition}
+            \begin{proof}
+                \begin{enumerate}
+                    \item 
+                    \item 
+                \end{enumerate}
+            \end{proof}
+
+    \subsection{The Baire Category Theorem}
+
+    \subsection{Uniform boundedness}
+
+    \subsection{Open mappings}
+
+    \subsection{The Closed Graph Theorem}
