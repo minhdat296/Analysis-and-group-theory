@@ -234,23 +234,61 @@
                 $$F^*_{\cont} \xrightarrow[]{\cong} E^*_{\cont}/\Ann_{E^*_{\cont}}(F)$$
                 $$\psi \mapsto \psi|_F$$
         \end{corollary}
-        \begin{remark}[Split monomorphisms of normed spaces: linear closed immersions retract]
-            Via proposition \ref{prop: properties_of_continuous_duals}, we see that the category $K\-\Vect_{\norm{-}}$ in fact also admits split monomorphisms, which are precisely linear closed immersions.
-
-            If $E$ is any normed space and $F$ is any subspace therein, then:
-                $$E^*_{\cont} \cong F^*_{\cont} \oplus \Ann_{E^*_{\cont}}(F)$$
-            by the definition of $\Ann_{E^*_{\cont}}(F)$ as in proposition \ref{prop: properties_of_continuous_duals}. Next, let us consider a short exact sequence in $K\-\Vect_{\norm{-}}$:
-                $$0 \to F \xrightarrow[]{\ker \pi} E \xrightarrow[]{\pi} Q \to 0$$
-            wherein $F \subseteq E$ is a closed subspace. In this situation, we now know that there is a linear isometry:
-                $$T: \Ann_{E^*_{\cont}}(F) \xrightarrow[]{\cong} Q^*_{\cont}$$
-            and hence there is an isomorphism of normed spaces:
-                $$\id_{F^*_{\cont}} \oplus T: F^*_{\cont} \oplus \Ann_{E^*_{\cont}}(F) \xrightarrow[]{\cong} F^*_{\cont} \oplus Q^*_{\cont}$$
-            From this, we see that there is a section:
-                $$s: F^*_{\cont} \to E^*_{\cont}$$
-            of $\coker \pi^*_{\cont}: E^*_{\cont} \to F^*_{\cont}$ given by inclusion into the first direct summand. Now, since $(-)^*_{\cont}$ is involutive (see lemma \ref{lemma: continuous_duality_involutive}), we can apply the functor once more to get a linear continuous retract:
-                $$s^*_{\cont}: E \to F$$
-            (note the implicit identifications of $E, F$ with the continuous double duals).
+        \begin{proposition}[Split monomorphisms of normed spaces: linear closed immersions retract] \label{prop: split_monomorphisms_of_normed_spaces}
+            The category $K\-\Vect_{\norm{-}}$ in fact also admits split monomorphisms, which are precisely linear closed immersions.
+        \end{proposition}
+            \begin{proof}
+                If $E$ is any normed space and $F$ is any subspace therein, then:
+                    $$E^*_{\cont} \cong F^*_{\cont} \oplus \Ann_{E^*_{\cont}}(F)$$
+                by the definition of $\Ann_{E^*_{\cont}}(F)$ as in proposition \ref{prop: properties_of_continuous_duals}. Next, let us consider a short exact sequence in $K\-\Vect_{\norm{-}}$:
+                    $$0 \to F \xrightarrow[]{\ker \pi} E \xrightarrow[]{\pi} Q \to 0$$
+                wherein $F \subseteq E$ is a closed subspace. In this situation, we now know that there is a linear isometry:
+                    $$T: \Ann_{E^*_{\cont}}(F) \xrightarrow[]{\cong} Q^*_{\cont}$$
+                and hence there is an isomorphism of normed spaces:
+                    $$\id_{F^*_{\cont}} \oplus T: F^*_{\cont} \oplus \Ann_{E^*_{\cont}}(F) \xrightarrow[]{\cong} F^*_{\cont} \oplus Q^*_{\cont}$$
+                From this, we see that there is a section:
+                    $$s: F^*_{\cont} \to E^*_{\cont}$$
+                of $\coker \pi^*_{\cont}: E^*_{\cont} \to F^*_{\cont}$ given by inclusion into the first direct summand. Now, since $(-)^*_{\cont}$ is involutive (see lemma \ref{lemma: continuous_duality_involutive}), we can apply the functor once more to get a linear continuous retract:
+                    $$s^*_{\cont}: E \to F$$
+                (note the implicit identifications of $E, F$ with the continuous double duals).
+            \end{proof}
+        \begin{corollary}[Annihilators vs. orthogonal complements] \label{coro: annihilators_vs_orthogonal_complements}
+            Let $E$ be a normed space and $F \subseteq E$ be a closed vector subspace thereof. Then, there shall be a linear isometry:
+                $$F^{\perp}_{\cont} \cong ( \Ann_{E^*_{\cont}}(F) )^*_{\cont}$$
+        \end{corollary}
+            \begin{proof}
+                The definition of annihlators guarantee us that:
+                    $$E^*_{\cont} \cong F^*_{\cont} \oplus \Ann_{E^*_{\cont}}(F)$$
+                Since we also know that $(-)^*_{\cont}$ is involutive (see lemma \ref{lemma: continuous_duality_involutive}), meaning that there are linear isometries between $E, F$ and their continuous double duals $E^{**}_{\cont}, F^{**}_{\cont}$, continuously dualising the isomorphism above shall yield\footnote{We are also using the fact that $(-)^*_{\cont}$ preserves finite direct sums (see proposition \ref{prop: properties_of_continuous_duals}).}:
+                    $$E \cong F \oplus \Ann_{E^*_{\cont}}(F)^*_{\cont}$$
+                and hence there is a linear isometry:
+                    $$F^{\perp}_{\cont} \cong ( \Ann_{E^*_{\cont}}(F) )^*_{\cont}$$
+                wherein the LHS is the orthogonal complement $F^{\perp}$ of $F$ inside $E$, equipped with the subspace topology inherited from the norm topology on $E$.
+            \end{proof}
+        \begin{remark}[Orthogonal complements are continuous sections]
+            Let $E$ be a normed space and $F \subseteq E$ be a closed vector subspace thereof.
+        
+            Note that by construction, $\Ann_{E^*_{\cont}}(F)$ is a closed vector subspace of $E^*$ (for any vector subspace $F \subseteq E$ actually, not just closed ones) and fits into the following short exact sequence:
+                $$0 \to \Ann_{E^*_{\cont}}(F) \to E^*_{\cont} \to F^*_{\cont} \to 0$$
+            where the arrow $E^*_{\cont} \to F^*_{\cont}$ is the image under $(-)^*_{\cont}$ of the inclusion $F \hookrightarrow E$. This, in turn, gives rise to a short exact sequence:
+                $$0 \to F \to E \to ( \Ann_{E^*_{\cont}}(F) )^*_{\cont} \to 0$$
+            Since $\Ann_{E^*_{\cont}}(F)$ is a closed subspace of $E^*_{\cont}$, its inclusion into $E^*_{\cont}$ admits a retract $E^*_{\cont} \to \Ann_{E^*_{\cont}}(F)$, which gives rise to a section $( \Ann_{E^*_{\cont}}(F) )^*_{\cont} \to E$. The image of this section is nothing but $F^{\perp}_{\cont}$, per the definition of orthogonal complements. As such, we see that corollary \ref{coro: annihilators_vs_orthogonal_complements} really is a consequence of the fact that $K\-\Vect_{\norm{-}}$ admits split monomorphisms, as shown in proposition \ref{prop: split_monomorphisms_of_normed_spaces}.
         \end{remark}
+        
+        \begin{lemma}[A density criterion] \label{lemma: density_orthogonal_complement_criterion}
+            Let $E$ be a normed space. A vector subspace $W \subseteq E$ is dense if and only if $W^{\perp}_{\cont} \cong 0$.
+        \end{lemma}
+            \begin{proof}
+                Suppose firstly that we have a dense vector subspace $W \subseteq E$. This is to say that any point $x \in E$ is the limit of some Cauchy sequence $\{w_n\}_{n \geq 0} \subset W$. Then, for all $\varphi \in \Ann_{E^*}(W)$, we shall have the following as a consequence of $\varphi$ being continuous:
+                    $$\varphi(x) = \lim_{n \to +\infty} \varphi(w_n) = 0$$
+                But this implies that $\varphi(x) = 0$ for all $x \in E$, i.e. $\varphi = 0$. From this, we infer that:
+                    $$\Ann_{E^*}(W) \cong 0$$
+                which then implies that:
+                    $$W^{\perp}_{\cont} \cong 0$$
+                by duality (cf. corollary \ref{coro: annihilators_vs_orthogonal_complements}).
+
+                Conversely, if $W^{\perp}_{\cont} \cong 0$, then $W = E$, and hence $\overline{W} = E$ trivially, which means that $W$ is tautologically dense inside $E$.
+            \end{proof}
 
         Now, let $E$ be a normed space and $E^*$ be its algebraic linear dual (without any topology equipped for now). There is an evident bilinear pairing:
             $$\<-, -\>: E^* \tensor_K E \to K$$
@@ -329,17 +367,21 @@
         \begin{definition}[Hilbert spaces] \label{def: hilbert_spaces}
             Let $\sigma$ be a field automorphism of $K$.
         
-            A \textbf{Hilbert space} is a complete Hausdorff topological vector space space $H$ equipped with a $\sigma$-braided and positive-definite $K$-bilinear form $\<-, -\>_H: H \x H \to K$ (called an \textbf{inner product}), with the braidedness condition meaning that:
+            A \textbf{Hilbert space} is a vector space space $H$ equipped with a $\sigma$-braided, positive-definite, and non-degenerate $K$-bilinear form $\<-, -\>_H: H \x H \to K$ (called an \textbf{inner product}), with the braidedness condition meaning that:
                 $$\forall x, y \in H: \<x, y\>_H = \sigma( \<y, x\>_H )$$
             The inner product $\<-, -\>$ is said to be \textbf{symmetric} if and only if $\sigma = \id_K$, and \textbf{Hermitian} if and only if $\sigma = (-)^{\dagger}$; note that for complete archimedean local fields, these are the only two possible field automorphisms (since $\Gal(\bbC/\R) \cong \Z/2$). 
         \end{definition}
-        \begin{proposition}[Induced norms] \label{prop: induced_norms}
+        \begin{proposition}[Induced norms] \label{prop: induced_norms_on_hilbert_spaces}
             Let $H$ be a Hilbert space. Then, there will be an induced norm $\norm{-}_H$ on $H$ given by:
                 $$\forall x \in H: \norm{x}_H := \sqrt{\<x, x\>_H}$$
+            When equipped with the topology induced by this norm, Hilbert spaces become normed spaces. 
         \end{proposition}
             \begin{proof}
                 Firstly, let us note that $\norm{-}_H$ is a well-defined function $H \to \R_{\geq 0}$ due to the positive-semi-definiteness of $\<-, -\>_H$. Next, the triangle inequality is due to the Cauchy-Schwarz inequality. Finally, to show that $\norm{x}_H = 0$ if and only if $x = 0$, we can simply make use of positive-definiteness.
             \end{proof}
+        \begin{convention}
+            \textit{A priori}, Hilbert spaces are not complete (at least according to definition \ref{def: hilbert_spaces}; it is common in the literature to require that Hilbert spaces are complete right from the beginning, but we find this to be circular\footnote{From the beginning, Hilbert spaces do not carry any topology, so it does not make any sense to require them to be complete. Only after we have shown that inner products induce norms on Hilbert spaces can we meaningfully require them to be complete.}). However, let us assume from now on that every Hilbert space is complete with respect to its norm topology. In particular, this means that Hilbert spaces are now Banach spaces whose norms come from inner products.
+        \end{convention}
         The following is arguably the most ubiquitous and most useful family of examples of Hilbert spaces.  
         \begin{example}[$L^2$-spaces] \label{example: L_2_spaces_as_hilbert_spaces}
             Let $(X, \mu)$ be a measure space. In theorem \ref{theorem: L_p_space_duality}, it is shown that for any $p, q \in \N_{\geq 1} \cup \{+\infty\}$ such that $\frac1p + \frac1q = 1$, one has a linear homeomorphism:
@@ -353,31 +395,84 @@
                 $$\norm{f}_{L^2(X, \mu)}^2 = \int_X \abs{f}^2 d\mu = \<f, f\>_{L^2(X, \mu)}$$
             to see that the induced norm coincides with the $L^2$-norm.
         \end{example}
-        \begin{example}
-            Any finite-dimensional inner product space is a Hilbert space.
+        \begin{example}[Finite-dimensional Hilbert spaces]
+            Any finite-dimensional inner product space is a Hilbert space. In fact, any finite-dimensional vector space can be upgraded to a Hilbert space in a canonical manner: by letting the inner product be the dot product (but of course, there are inner products that are not the dot product).
         \end{example}
 
         \begin{theorem}[Riesz's Representability Theorem] \label{theorme: riesz_representation_theorem}
-            Let $H$ be a Hilbert space. Then, any linear functional $\varphi \in H^*$ will be representable, in the sense that there exists a unique $y \in H$ such that:
-                $$\varphi = \<-, y\>_H$$
-            In other words, the inner product of any Hilbert space is non-degenerate, and for all $y \in H$, the linear functional $\<-, y\>_H$ is continuous with respect to the topology generated by $\norm{-}_H$, and one has a linear isometry:
-                $$H \xrightarrow[]{\cong} H^*_{\cont}$$
+            Let $H$ be a Hilbert space. Then, any continuous linear functional $\varphi \in H^*_{\cont}$ will be representable, in the sense that there exists a unique $y_{\varphi} \in H$ such that:
+                $$\varphi = \<-, y_{\varphi}\>_H$$
+            In other words, for all $y \in H$, the linear functional $\<-, y\>_H$ is continuous with respect to the topology generated by $\norm{-}_H$, and one has a linear isometry\footnote{\say{$D$} for \say{duality}.}:
+                $$D_H: H \xrightarrow[]{\cong} H^*_{\cont}$$
             which is given by $y \mapsto \<-, y\>_H$.
         \end{theorem}
             \begin{proof}
-                Let $\varphi \in H^*$ and $y \in H$ be arbitrary. Our goal shall be to show that $y$ can be such that:
-                    $$(\varphi - \<-, y\>_H)(x) = 0$$
+                Let us exploit the fact that there is a linear isometry $\ev: H \xrightarrow[]{\cong} H^{**}_{\cont}$ given by $x \mapsto \ev_x$ with $\ev_x: H^*_{\cont} \to K$ being given by $\ev_x[\varphi] := \varphi(x)$ for all $\varphi \in H^*_{\cont}$ (see lemma \ref{lemma: continuous_duality_involutive}) in order to identify elements of $H$ with those of $H^{**}_{\cont}$ by means of pulling back along this linear isometry. It now suffices to construct a linear isometry:
+                    $$P_H: H^{**}_{\cont} \to H^*_{\cont}$$
+                We claim that the underlying linear isomorphism can be given by:
+                    $$P_H(\ev_y) := \<-, y\>_H$$
+                (we will need to verify the continuity of each of the functional $\<-, y\>_H$ too, to be able to conclude that the codomain of $P_H$ is actually $H^*_{\cont}$, not merely all of $H^*$); linearity is easy to see, so let us focus on proving that it is bijective.
                 
+                Firstly, to prove that $P_H$ is injective:
+                    $$\ker P_H \cong \{ y \in H \mid \forall x \in H: \<x, y\>_H = 0 \}$$
+                Since the bilinear form $\<-, -\>_H$ is non-degenerate, we can conclude immediately that:
+                    $$\ker P_H \cong 0$$
+                i.e. that $P_H$ is injective. This also guarantees that any vector $y_{\varphi} \in H$ such that:
+                    $$\varphi = \<-, y_{\varphi}\>_H$$
+                is necessarily unique: $\ev: H \xrightarrow[]{\cong} H^{**}_{\cont}$ is a linear isometry - so in particular, it is injective - meaning that the composition $P_H \circ \ev$ is also injective.
+                
+                To see that $P_H$ is surjective, let us note first of all that each $\<-, y\>_H: H \to K$ is continuous by virtue of being bounded (which is per the definition of inner products), and hence $\im P_H \subseteq H^*_{\cont}$. Next, observe that $P_H$ is continuous: to prove this, note firstly that since $H$ is complete by virtue of being a Hilbert space, any Cauchy sequence is convergent\footnote{Hilbert spaces are normed space, hence Hausdorff, so limit points will be unique if they exist.}, and then let $\{y_m\}_{m \geq 0} \to y$ is a (convergent) Cauchy sequence in $H$ and then consider\footnote{We are using the fact that $\{\ev_{y_m}\}_{m \geq 0} \to \ev_y$ if and only if $\{y_m\}_{m \geq 0} \to y$ as the map $\ev: H \to H^{**}_{\cont}$ is an isometry.}\footnote{We leave it to the reader to show that $\norm{ \<x, -\>_H }_{H^*_{\cont}} = \norm{x}_H$ is true for all $x \in H$.}:
+                    $$\forall \e > 0: m, n \gg 0 \implies \abs{P_H(\ev_{y_m} - \ev_{y_n})(x)} = \abs{ \< x, y_m - y_n \>_H } \leq \norm{y_m - y_n}_H \norm{ \<x, -\>_H }_{H^*_{\cont}} < \e \norm{x}_H$$
+                for all $x \in H$, from which one sees that:
+                    $$\forall \e > 0: m, n \gg 0 \implies \norm{ P_H(\ev_{y_m} - \ev_{y_n}) }_{H^*_{\cont}} < \e$$
+                which proves that $P_H$ is continuous. We now claim that $\im P_H$ is dense inside $H^*_{\cont}$; this will help us prove surjectivity because $\{\ev_{y_m}\}_{m \geq 0} \to \ev_y$ if and only if $\{y_m\}_{m \geq 0} \to y$ for Cauchy sequences in $H^{**}_{\cont}$ and in $H$ respectively, as the map $\ev: H \to H^{**}_{\cont}$ is an isometry, and hence for any $\varphi \in H^*_{\cont}$, there exists a unique $y_{\varphi} \in H$ such that $\varphi = \<-, y_{\varphi}\>$. To do this, we will be using lemma \ref{lemma: density_orthogonal_complement_criterion}, which tells us that it shall suffice to show that:
+                    $$(\im P_H)^{\perp}_{\cont} \cong 0$$
+                Let us suppose for the sake of deriving a contradiction that $(\im P_H)^{\perp}_{\cont} \not \cong 0$, i.e.:
+                    $$\exists \varphi \in H^*_{\cont} \setminus \{0\}: \varphi(\im P_H) = 0$$
+                The construction of $P_H$, however, stipulates that there is a linear isometry:
+                    $$H \cong \im P_H$$
+                which suggests to us that:
+                    $$\varphi(\im P_H) = 0 \iff (\forall x \in H: \varphi(x) = 0) \iff \varphi = 0$$
+                But this contradicts the assumption that $\varphi \not = 0$, so it must be the case that:
+                    $$(\im P_H)^{\perp}_{\cont} \cong 0$$
+                and hence $\im P_H$ is dense inside $H^*_{\cont}$.
+
+                Finally, because we have that:
+                    $$\forall y \in H: \norm{ \<-, y\>_H }_{H^*_{\cont}} = \norm{y}_H = \norm{\ev_y}_{H^{**}_{\cont}}$$
+                (the last equality is due to $\ev$ being an isometry) there is indeed a linear isometry:
+                    $$D_H: H \to H^*_{\cont}$$
+                which we now know to be given by $D_H := P_H \circ \ev$. 
             \end{proof}
         \begin{corollary}[Uniformity of Hilbert spaces] \label{coro: hilbert_space_uniformity}
-            In Hilbert spaces, sequences converge if and only if they converge weakly. Phrased dually, sequences of continuous functionals on HIlbert spaces converge uniformly if and only if they converge pointwise.
+            In Hilbert spaces, sequences converge if and only if they converge weakly. Phrased dually, sequences of continuous functionals on Hilbert spaces converge uniformly if and only if they converge pointwise.
         \end{corollary}
             \begin{proof}
-                
+                Strong convergence automatically implies weak convergence, so let us focus on the converse direction.
+            
+                To that end, pick a weakly convergent sequence $\{\varphi_n\}_{n \geq 0} \xrightarrow[]{\weak} \varphi$ in $H^*$, which means that:
+                    $$\forall x \in H: \forall \e > 0: n \gg 0 \implies \abs{\ev_x[\varphi_n - \varphi]} = \abs{\varphi_n(x) - \varphi(x)} < \e$$
+                From this, we infer that:
+                    $$\norm{ \varphi_n - \varphi }_{H^*_{\cont}} = \sup_{x \in H, \norm{x}_H = 1} \abs{\varphi_n(x) - \varphi(x)} < \e$$
+                which shows that there is strong convergence:
+                    $$\{\varphi_n\}_{n \geq 0} \to \varphi$$
+                Thus, we have shown that weak convergence in $H^*$ implies convergence therein, and since $H^*_{\cont}$ is linearly isometric to $H$ by theorem \ref{theorme: riesz_representation_theorem}, we see thus that the same statement holds for $H$.
             \end{proof}
-        \begin{example}[Riesz–Markov–Kakutani representation theorem: measures are functionals]
+        \begin{definition}[Gram-Schmidt orthonormalisation]
+            
+        \end{definition}
+        \begin{corollary}[Orthonormal bases] \label{coro: orthonormal_bases_for_hilbert_spaces}
+            Every Hilbert space admits a topological orthonormal basis.
+        \end{corollary}
+            \begin{proof}
+                We claim that any topological basis $\{x_i\}_{i \in I}$ for a given Hilbert space $H$ can be refined into an orthonormal one. By theorem \ref{theorme: riesz_representation_theorem}, such a basis induces a dual topological basis $\{x_i^* := \<-, x_i\>_H\}_{i \in I}$ for $H^*_{\cont}$. One can then find a family of vectors $\{e_i\}_{i \in I} \subset H$ such that:
+                    $$\forall i \in I: \<e_i, x_j\>_H := \delta_{i, j}$$
+                The vectors $e_i$ can be obtained by the Gram-Schmidt procedure, which also guarantees that they are linearly independent from one another. Finally, to show that $\overline{\bigoplus_{i \in I} \bbC e_i} \cong H$ (i.e. that $\{e_i\}_{i \in I}$ indeed \textit{topological} spans $H$), let us note that by the Gram-Schmidt procedure, this is the case if and only if $\{\<-, x_i\>\}_{i \in I}$ is a topological basis for $H^*_{\cont}$. But by corollary \ref{coro: hilbert_space_uniformity}, this is the case if and only if $\{x_i\}_{i \in I}$ is a topological basis for $H$, which is true by assumption.
+            \end{proof}
+
+        Let us end the subsection with some examples. 
+        \begin{example}[Riesz-Markov-Kakutani representation theorem: measures are functionals]
             
         \end{example}
-        \begin{example}[$L^2$-space over a compact Lie group]
+        \begin{example}[$L^2$-spaces over compact Lie groups and Fourier series; Plancherel's Theorem]
             
         \end{example}

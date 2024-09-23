@@ -1,0 +1,40 @@
+\section{Finite groups}
+    \subsection{Sylow subgroups}
+        A very basic result in the theory of finite group is one by Lagrange, which tells us that should $G$ be a finite group and $H \leq G$ be a subgroup thereof, then:
+            $$\ord(H) \mid \ord(G)$$
+        The converse, however, is not true: in general, one does not expect to find a subgroup $H$ of a prescribed order $d \mid \ord(G)$. Fortunately, the next best thing is available, namely that one can still expect $G$ to admit maximal $p$-subgroups. That is to say, if $\ord(G)$ has (positive) prime factorisation:
+            $$\ord(G) := \prod_i p_i^{r_i}$$
+        then there shall exist subgroups $H_i$ which are of orders $p_i^{r_i}$ and hence maximal amongst the $p_i$-subgroups of $G$. Furthermore, if $H_i, H_i'$ are two maximal $p_i$-subgroups of $G$, then they will even be necessarily conjugate to one another, thus limiting how spreaded out these trees of subgroups of $G$ can be. Finally, it is even known that the number of maximal $p_i$-subgroups of $G$ (so really, the number of conjugacy classes of any given such subgroup) is congruent to $1$ modulo $p_i$.
+
+        In honour of the Norwegian mathematician who discovered the remarkable results listed above, Peter Ludvig Meidell Sylow, maximal $p_i$-subgroups of $G$ are afforded a special name:
+        \begin{definition}[Sylow subgroups] \label{def: sylow_subgroups}
+            A \textbf{Sylow $p$-subgroup} of a finite group $G$ is a subgroup $H \leq G$ that is maximal amongst all $p$-subgroups of $G$.
+        \end{definition}
+        \begin{lemma}[A maximality criterion for $p$-subgroups] \label{lemma: maximality_criterion_for_p_subgroups}
+            Let $G$ be a finite group and $p$ be a prime. If $H \leq G$ is a $p$-subgroup, then $H$ will be a Sylow $p$-subgroup of $G$ if and only if $\gcd( [G : H], p ) = 1$. 
+        \end{lemma}
+            \begin{proof}
+                Set $\ord(H) := p^n$.
+            
+                Suppose firstly that $H$ is a Sylow $p$-subgroup. By Lagrange's Theorem, we know that $[G : H] = \frac{\ord(G)}{\ord(H)} = \frac{\ord(G)}{p^n}$, and since $n$ is as large as possible, $[G : H]$ therefore does not contain any power of $p$ as a factor (i.e. there does not exist any $m \geq 1$ such that $p^m \mid [G : H]$), and hence $\gcd( [G : H], p ) = 1$.
+
+                Conversely, suppose that $\gcd([G : H], p) = 1$. This means that there does not exist any $m \geq 1$ such that $p^m \mid [G : H]$. By Lagrange's Theorem again, we know that $\ord(G) = [G : H] \ord(H) = [G : H] p^n$. We see thus that $n$ as large as possible so that $p^n \mid \ord(G)$, and hence $H$ is a Sylow $p$-subgroup by definition. 
+            \end{proof}
+        \begin{example}[Abelian Sylow $p$-subgroups]
+            If $E$ is a finite abelian group then by the Decomposition Theorem for finitely generated abelian groups, we know that:
+                $$E \cong \bigoplus_i \Z/p_i^{r_i}$$
+            and hence the Sylow $p_i$-subgroups of $E$ shall be isomorphic to $\Z/p_i^{r_i}$. This, in turn, implies that for finite abelian groups, Sylow $p$-subgroups not only exist but for each $p \mid \ord(E)$, there is only one such subgroup up to isomorphisms.
+        \end{example}
+        \begin{example}[Sylow $p$-subgroups of $\GL_n(\F_q)$]
+            Let $p$ be a prime and let $q := p^k$ for some $k \geq 1$, and then consider the finite field $\F_q$ of $q$-elements, obtainable as the splitting field of $x^q - x \in \F_p[x]$.
+
+            Next, consider the group of invertible $n \x n$ matrices with entries coming from $\F_q$, i.e. $\GL_n(\F_q)$. In general, the order of $\GL_n(k)$ for any field $k$ is nothing but the number of possible bases for $k^{\oplus n}$, since an $n \x n$ matrix is invertible if and only if its columns form a basis for $k^{\oplus n}$, 
+        \end{example}
+        \begin{lemma}[Conjugacies of Sylow subgroups] \label{lemma: conjugacies_of_sylow_subgroups}
+            Let $G$ be a finite group and $p$ be a prime. If $H$ is a Sylow $p$-subgroup of $G$, then for any $g \in G$, $\Ad_G(g) \cdot H$ will also be a Sylow $p$-subgroup of $G$.
+        \end{lemma}
+            \begin{proof}
+                
+            \end{proof}
+
+    \subsection{Characters theory}
