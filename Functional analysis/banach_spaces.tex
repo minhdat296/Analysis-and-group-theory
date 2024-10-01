@@ -28,28 +28,68 @@
                 \end{enumerate}
             \end{proof}
 
-        \begin{theorem}[The Baire Category Theorem] \label{theorem: baire_category}
+        \begin{definition}[Baire spaces] \label{def: baire_spaces}
+            A \textbf{Baire space} is a topological space in which countable intersections of dense open subsets are once again dense.
+        \end{definition}
+        \begin{definition}[Meagre subsets] \label{def: meagre_subsets}
+            A subset $M$ of a topological space $X$ is said to \textbf{meagre} if and only if $\overline{M}$ has an empty interior. 
+        \end{definition}
+        \begin{lemma}[Meagre subsets are complements of dense subsets] \label{lemma: meagre_subsets_are_complements_of_dense_subsets}
+            Let $X$ be a topological space. A subset $M \subseteq X$ is then meagre if and only if $S := X \setminus \overline{M}$ is dense. Equivalently, a subset $S \subseteq X$ is dense if and only if $X \setminus S$ is meagre.
+        \end{lemma}
+            \begin{proof}
+                If $M \subseteq X$ is meagre then by definition, $(\overline{M})^{\circ} = \varnothing$ and hence we have that:
+                    $$S := X \setminus \overline{M} = X \setminus ( (\overline{M})^{\circ} \cup \del \overline{M} ) = X \setminus \del \overline{M} = X \setminus \overline{\del \overline{M}}$$
+                From this, we see that:
+                    $$\overline{S} = \overline{X \setminus \overline{\del \overline{M}}} = X \setminus (\del \overline{M})^{\circ} = X \setminus \varnothing = X$$
+                i.e. $S$ is dense by definition.
+                
+                Conversely, if $S := X \setminus \overline{M}$ is dense, then:
+                    $$\overline{ X \setminus \overline{M} } = X$$
+                At the same time, we have that:
+                    $$\overline{ X \setminus \overline{M} } = X \setminus M^{\circ} = X \setminus (\overline{M})^{\circ}$$
+                Thus, $(\overline{M})^{\circ} = \varnothing$ necessarily, i.e. $M$ is meagre.
+            \end{proof}
+        The lemma above allows for some flexibility with the definition of Baire spaces.
+        \begin{lemma}[Baire spaces via meagre subsets] \label{lemma: baire_spaces_via_meagre_subsets}
+            An equivalent characterisation of Baire spaces is as follows: a topological space $X$ is Baire if and only if countable unions of meagre closed subsets of $X$ are once more meagre. 
+        \end{lemma}
+            \begin{proof}
+                Suppose firstly that $X$ is Baire and consider some countable union $M := \bigcup_{n \in \N} M_n$ of meagre closed subsets $M_n \subseteq X$. By lemma \ref{lemma: meagre_subsets_are_complements_of_dense_subsets}, we know that there exist dense open subsets $U_n \subseteq X$ using which we can write $M_n := X \setminus U_n$. We then have that:
+                    $$M := \bigcup_{n \in \N} M_n = \bigcup_{n \in \N} (X \setminus U_n) = X \setminus \bigcap_{n \in \N} U_n$$
+                As $X$ is a Baire space, $U := \bigcap_{n \in \N} U_n$ must be dense by virtue of being a countable intersection of dense subsets of $X$, and by lemma \ref{lemma: meagre_subsets_are_complements_of_dense_subsets}, the complement $M = X \setminus U$ must therefore be meagre.
+
+                Conversely, suppose that countable unions $M := \bigcup_{n \in \N} M_n$ of meagre closed subsets $M_n \subseteq X$ are once more meagre. By lemma \ref{lemma: meagre_subsets_are_complements_of_dense_subsets}, we know that $X \setminus M$ is dense, and we can also find dense open subsets $U_n \subseteq X$ such that $M_n := X \setminus U_n$. Then, consider the following:
+                    $$X \setminus M = X \setminus \bigcup_{n \in \N} (X \setminus U_n) = X \setminus \bigcap_{n \in \N} U_n$$
+                Since $M$ is meagre, $\bigcap_{n \in \N} U_n$ must be dense by lemma \ref{lemma: meagre_subsets_are_complements_of_dense_subsets}, and by varying the meagre subsets $M_n$, we shall get that the intersections of any countable collection of dense subsets of $X$ is once more dense, hence $X$ is Baire by definition.
+            \end{proof}
+        \begin{theorem}[The Baire Category Theorem\footnote{In general topology, this is usually referred to as the Baire Category Theorem I. We will not be needing the Baire Category II.}] \label{theorem: baire_category}
+            Assuming the Axiom of Choice along with ZF, every complete metric space is Baire. Without the Axiom of Choice but still with ZF, every \underline{separable} complete metric space is Baire.
+        \end{theorem}
+            \begin{proof}
+                Suppose for the sake of deriving a contradiction that $X$ is a metric space that is complete but not Baire, i.e. there exists a countable collection $\{U_n\}_{n \in \N}$ of dense open subsets of $X$ whose intersection $U := \bigcap_{n \in \N} U_n$ is not dense. A subset of a topological space is dense if and only if it has a non-empty intersection with every non-empty open subset of that topological space. Thus, if $U$ is not dense, then there must exist some $\e > 0$ and $x \in X$ such that:
+                    $$\varnothing = U \cap \B_{\e}(x) = \left(\bigcap_{n \in \N} U_n\right) \cap \B_{\e}(x) = \bigcap_{n \in \N} U_n \cap \B_{\e}(x)$$
+                Despite this, each $U_n$ is dense by assumption, so $U_n \cap \B_{\e}(x) \not = \varnothing$ for all $n \in \N$ and all $\e > 0$ and all $x \in X$.
+            \end{proof}
+        \begin{remark}
+            Theorem \ref{theorem: baire_category} will be used for proving theorems \ref{theorem: uniform_boundedness}, \ref{theorem: open_mapping}, and \ref{theorem: closed_graph}, so it is important that we discuss it first of all.
+        \end{remark}
+
+        \begin{theorem}[Uniform boundedness] \label{theorem: uniform_boundedness}
             
         \end{theorem}
             \begin{proof}
                 
             \end{proof}
 
-        \begin{theorem}[Uniform boundedness]
+        \begin{theorem}[Open Mapping Theorem] \label{theorem: open_mapping}
             
         \end{theorem}
             \begin{proof}
                 
             \end{proof}
 
-        \begin{theorem}[Open Mapping Theorem]
-            
-        \end{theorem}
-            \begin{proof}
-                
-            \end{proof}
-
-        \begin{theorem}[Closed Graph Theorem]
+        \begin{theorem}[Closed Graph Theorem] \label{theorem: closed_graph}
             
         \end{theorem}
             \begin{proof}
