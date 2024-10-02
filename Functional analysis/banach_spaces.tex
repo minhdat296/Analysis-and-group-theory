@@ -63,12 +63,21 @@
                     $$X \setminus M = X \setminus \bigcup_{n \in \N} (X \setminus U_n) = X \setminus \bigcap_{n \in \N} U_n$$
                 Since $M$ is meagre, $\bigcap_{n \in \N} U_n$ must be dense by lemma \ref{lemma: meagre_subsets_are_complements_of_dense_subsets}, and by varying the meagre subsets $M_n$, we shall get that the intersections of any countable collection of dense subsets of $X$ is once more dense, hence $X$ is Baire by definition.
             \end{proof}
-        \begin{theorem}[The Baire Category Theorem\footnote{In general topology, this is usually referred to as the Baire Category Theorem I. We will not be needing the Baire Category II.}] \label{theorem: baire_category}
-            Assuming the Axiom of Choice along with ZF, every complete metric space is Baire. Without the Axiom of Choice but still with ZF, every \underline{separable} complete metric space is Baire.
+        \begin{theorem}[The Baire Category Theorem] \label{theorem: baire_category}
+            (Cf. \cite[\href{https://stacks.math.columbia.edu/tag/0CQN}{Tag 0CQN}]{stacks}) Assuming the Axiom of Choice along with ZF, every locally compact\footnote{\cite{stacks} uses the term \say{quasi-compact} which is more prevalent in algebraic geometry due to its French origin.} and Hausdorff topological space is Baire.
+            
+            Without the Axiom of Choice but still with ZF, every \underline{separable}, locally compact, and Hausdorff topological space is Baire.
         \end{theorem}
             \begin{proof}
-                
+                Choose a countable collection $\{U_n\}_{n \geq 0}$ of dense open proper subset of a locally compact and Hausdorff space $X$, and since the set of open subsets of $X$ is partially ordered by inclusion, we can assume without any loss of generality that $U_n \supseteq U_{n + 1}$ for all $n \geq 0$; note that one can not assume the other way around, i.e. that $U_n \subseteq U_{n + 1}$, since it is not always guaranteed that there may exist a larger dense proper subset containing a given dense proper subset. Let:
+                    $$U := \bigcap_{n \geq 0} U_n$$
+
+                Given any $x \in X$, let us show that $x \in \overline{U}$, which amounts to showing that given any open neighbourhood $B_x \ni x$, one has that $B_x \cap U \not = \varnothing$. Since each $U_n$ is dense, we have that $B_x \cap U_n \not = \varnothing$, and hence:
+                    $$\forall N \in \N: B_x \cap \bigcap_{n = 0}^N U_n = \bigcap_{n = 0}^N B_x \cap U_n \not = \varnothing$$
             \end{proof}
+        \begin{remark}[There are two ? + a comment on the proof]
+            In the literature (cf. e.g. \cite[Theorem 2.2.2]{litvak_functional_analysis_notes}), theorem \ref{theorem: baire_category} is usually referred to as the Baire Category Theorem II. The Baire Category Theorem I is the specialisation of the Theorem II to (complete) metric spaces. In practice, we will usually just be making use of the Theorem I, though we have chosen to prove the Baire Category Theorem II instead to highlight the fact that it is a purely topological assertion.
+        \end{remark}
         \begin{remark}
             Theorem \ref{theorem: baire_category} will be used for proving theorems \ref{theorem: uniform_boundedness}, \ref{theorem: open_mapping}, and \ref{theorem: closed_graph}, so it is important that we discuss it first of all.
         \end{remark}
@@ -102,11 +111,20 @@
                     $$\forall x \in X: \sup_{n \geq 0} \norm{ T_n(x) }_Y < +\infty$$
                 then the sequence will automatically be uniformly bounded, in the sense that:
                     $$\sup_{n \geq 0} \norm{T_n}_{\Hom_{K, \cont}(X, Y)} < +\infty$$
-                \item \textbf{(Strong uniform boundedness):} In fact, the assertion remains true should the sequence $\{T_n\}_{n \geq 0}$ be pointwise bounded only on a non-meagre subset of $X$. 
+                \item \textbf{(Strong uniform boundedness):} In fact, the same assertion remains true should the sequence $\{T_n\}_{n \geq 0}$ be pointwise bounded only on a non-meagre subset of $X$. 
             \end{enumerate}
         \end{theorem}
             \begin{proof}
-                
+                \begin{enumerate}
+                    \item Suppose for the sake of deriving a contradiction that $\{T_n\}_{n \geq 0}$ is \textit{not} uniformly bounded. Without any loss of generality, suppose also that $\norm{T_n}_{\Hom_{K, \cont}(X, Y)} \geq \frac{1}{\delta^n}$ for every $n \geq 0$ and some $\delta > 1$. We will now attempt to show that our initial assumption will lead to a contradiction by showing that $\sup_{n \geq 0} \norm{T_n}_{\Hom_{K, \cont}(X, Y)}$ must now be bounded above by a finite number. By lemma \ref{lemma: suprema_of_averages}, we know that:
+                        $$\sup_{n \geq 0} \sup_{\xi \in \B_{\e}(0)} \norm{T_n(\xi)}_Y \geq \sup_{n \geq 0} \e \norm{T_n}_{\Hom_{K, \cont}(X, Y)} \geq \sup_{n \geq 0} \e \frac{1}{\delta^n} = \e$$
+                    for all $\e > 0$. Now, observe that because $\{T_n\}_{n \geq 0}$ is pointwise bounded, $\sup_{n \geq 0} \norm{T_n(\xi)}_Y$ is finite, and because each $T_n$ is continuous and hence bounded, each $\sup_{\xi \in \B_{\e}(0)} \norm{T_n(\xi)}_Y$ is also finite. Thus:
+                        $$\sup_{n \geq 0} \sup_{\xi \in \B_{\e}(0)} \norm{T_n(\xi)}_Y < +\infty$$
+                    but at the same time, this contradicts what we have above, which is that:
+                        $$\forall \e > 0: \sup_{n \geq 0} \sup_{\xi \in \B_{\e}(0)} \norm{T_n(\xi)}_Y \geq \e$$
+                    Therefore, $\{T_n\}_{n \geq 0}$ is uniformly bounded.
+                    \item This version relies on theorem \ref{theorem: baire_category}. 
+                \end{enumerate}
             \end{proof}
         \begin{corollary}[The category of Banach spaces is self-enriching] \label{coro: hom_between_banach_spaces_are_banach_spaces}
             If $X, Y$ are Banach spaces then $\Hom_{K, \cont}(X, Y)$ will also be a Banach space.
