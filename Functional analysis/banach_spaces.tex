@@ -32,7 +32,7 @@
             A \textbf{Baire space} is a topological space in which countable intersections of dense open subsets are once again dense.
         \end{definition}
         \begin{definition}[Meagre subsets] \label{def: meagre_subsets}
-            A subset $M$ of a topological space $X$ is said to \textbf{meagre} if and only if $\overline{M}$ has an empty interior. 
+            A subset $M$ of a topological space $X$ is said to \textbf{meagre} or \textbf{nowhere dense} if and only if $\overline{M}$ has an empty interior. 
         \end{definition}
         \begin{lemma}[Meagre subsets are complements of dense subsets] \label{lemma: meagre_subsets_are_complements_of_dense_subsets}
             Let $X$ be a topological space. A subset $M \subseteq X$ is then meagre if and only if $S := X \setminus \overline{M}$ is dense. Equivalently, a subset $S \subseteq X$ is dense if and only if $X \setminus S$ is meagre.
@@ -63,19 +63,53 @@
                     $$X \setminus M = X \setminus \bigcup_{n \in \N} (X \setminus U_n) = X \setminus \bigcap_{n \in \N} U_n$$
                 Since $M$ is meagre, $\bigcap_{n \in \N} U_n$ must be dense by lemma \ref{lemma: meagre_subsets_are_complements_of_dense_subsets}, and by varying the meagre subsets $M_n$, we shall get that the intersections of any countable collection of dense subsets of $X$ is once more dense, hence $X$ is Baire by definition.
             \end{proof}
+        \begin{remark}[Spaces of category I and of category II ?]
+            In the literature (see e.g. \cite[Definition, p. 37]{litvak_functional_analysis_notes}), spaces of so-called \say{category I} and \say{category II} are also mentioned. A topological space is of the former category if it can be written as a countable union of meagre subsets, while it is of the latter category if it is not of category I.
+
+            Through lemma \ref{lemma: baire_spaces_via_meagre_subsets}, one sees that a space of category II is nothing but a Baire space, and thus a space of category I is any non-Baire space.
+
+            We will not be referring to topological spaces as belonging either to the category I or category II, not least because this gives the impression that there are categories of topological spaces (in the sense of category theory) called \say{I} and \say{II}, but also because we would like to avoid confusion with the Baire Category Theorems I and II (see remark \ref{remark: baire_category_theorems_1_and_2}).
+        \end{remark}
+            
         \begin{theorem}[The Baire Category Theorem] \label{theorem: baire_category}
             (Cf. \cite[\href{https://stacks.math.columbia.edu/tag/0CQN}{Tag 0CQN}]{stacks}) Assuming the Axiom of Choice along with ZF, every locally compact\footnote{\cite{stacks} uses the term \say{quasi-compact} which is more prevalent in algebraic geometry due to its French origin.} and Hausdorff topological space is Baire.
             
             Without the Axiom of Choice but still with ZF, every \underline{separable}, locally compact, and Hausdorff topological space is Baire.
         \end{theorem}
             \begin{proof}
-                Choose a countable collection $\{U_n\}_{n \geq 0}$ of dense open proper subset of a locally compact and Hausdorff space $X$, and since the set of open subsets of $X$ is partially ordered by inclusion, we can assume without any loss of generality that $U_n \supseteq U_{n + 1}$ for all $n \geq 0$; note that one can not assume the other way around, i.e. that $U_n \subseteq U_{n + 1}$, since it is not always guaranteed that there may exist a larger dense proper subset containing a given dense proper subset. Let:
-                    $$U := \bigcap_{n \geq 0} U_n$$
-
-                Given any $x \in X$, let us show that $x \in \overline{U}$, which amounts to showing that given any open neighbourhood $B_x \ni x$, one has that $B_x \cap U \not = \varnothing$. Since each $U_n$ is dense, we have that $B_x \cap U_n \not = \varnothing$, and hence:
-                    $$\forall N \in \N: B_x \cap \bigcap_{n = 0}^N U_n = \bigcap_{n = 0}^N B_x \cap U_n \not = \varnothing$$
+                Choose a countable collection $\{U_n\}_{n \geq 0}$ of dense open proper subset of a locally compact and Hausdorff space $X$, and since the set of open subsets of $X$ is partially ordered by inclusion, we can assume without any loss of generality that $U_n \supset U_{n + 1}$ for all $n \geq 0$; note that one can not assume the other way around, i.e. that $U_n \subset U_{n + 1}$, since it is not always guaranteed that there may exist a larger dense proper subset containing a given dense proper subset. Given any $x \in X$, let us show that $x \in \overline{\bigcap_{n \geq 0} U_n}$, which amounts to showing that given any open neighbourhood $B_x \ni x$, one has that $B_x \cap \bigcap_{n \geq 0} U_n \not = \varnothing$. 
+                
+                To begin, note that since each $U_n$ is dense, we have that $B_x \cap U_n \not = \varnothing$. Because $U_n \supset U_{n + 1}$ for each $n \geq 1$ per out assumption above, this implies that this gives rise to a descending chain of non-empty open subsets of $X$ as follows:
+                    $$B_x \cap (U_0 \setminus U_1) \supset B_x \cap (U_1 \setminus U_2) \supset ...$$
+                For each $n \geq 0$, the set $B_x \cap (U_n \setminus U_{n + 1})$ is an open neighbourhood of $x$. By the fact that $X$ is locally compact, there must exist non-empty compact subsets:
+                    $$D_n \subset B_x \cap (U_n \setminus U_{n + 1})$$
+                for every $n \geq 0$. Since $X$ is locally compact, the compact subsets $D_n$ are closed. Now, we claim that it is possible to choose the non-empty compact subsets $D_n$ such that:
+                    $$\bigcap_{n \geq 0} D_n \not = \varnothing$$
+                Since $B_x \cap (U_n \setminus U_{n + 1}) \supset B_x \cap (U_{n + 1} \setminus U_{n + 2})$ for all $n \geq 0$, we have that $(B_x \cap (U_n \setminus U_{n + 1})) \cap (B_x \cap (U_{n + 1} \setminus U_{n + 2})) = B_x \cap (U_{n + 1} \setminus U_{n + 2})$, and hence:
+                    $$D_n \cap D_{n + 1} \subset B_x \cap (U_{n + 1} \setminus U_{n + 2}) = (B_x \cap U_{n + 1}) \setminus (B_x \cap U_{n + 2})$$
+                which then implies that:
+                    $$D_n \cap D_{n + 1} \subset B_x \cap U_{n + 1} \not = \varnothing$$
+                and then:
+                    $$X \setminus (D_n \cap D_{n + 1}) \supset X \setminus (B_x \cap U_{n + 1}) = (X \setminus B_x) \cup (X \setminus U_{n + 1})$$
+                Since $X$ is Hausdorff, $D_n \cap D_{n + 1}$ is compact, and hence closed, and so $X \setminus (D_n \cap D_{n + 1})$ is open, which means that $(X \setminus (D_n \cap D_{n + 1}))^{\circ} = X \setminus (D_n \cap D_{n + 1})$. At the same time, we have by lemma \ref{lemma: meagre_subsets_are_complements_of_dense_subsets} that, because $U_{n + 1}$ is dense, its complement is meagre, and so:
+                    $$\left( (X \setminus B_x) \cup (X \setminus U_{n + 1}) \right)^{\circ} = (X \setminus B_x)^{\circ} \cup \varnothing = X \setminus \overline{B_x}$$
+                Since $X$ is Hausdorff, one can always choose the open neighbourhood $B_x \ni x$ such that $X \setminus \overline{B_x} \not = X$. In that case, we would have that:
+                    $$X \setminus (D_n \cap D_{n + 1}) \not \supset X$$
+                and hence:
+                    $$D_n \cap D_{n + 1} \not = \varnothing$$
+                We then have that:
+                    $$\bigcap_{n \geq 0} D_n \not = \varnothing$$
+                as needed.
+                    
+                Now, note that:
+                    $$D_n \subset B_x \cap (U_n \setminus U_{n + 1}) = (B_x \cap U_n) \setminus (B_x \cap U_{n + 1})$$
+                and hence:
+                    $$D_n \subset B_x \cap U_n$$
+                From this, we infer that:
+                    $$\varnothing = \bigcap_{n \geq 0} D_n \subset \bigcap_{n \geq 0} B_x \cap U_n = B_x \cap \bigcap_{n \geq 0} U_n$$
+                and hence $\bigcap_{n \geq 0} U_n$ is indeed dense inside $X$.
             \end{proof}
-        \begin{remark}[There are two ? + a comment on the proof]
+        \begin{remark}[There are two ? + a comment on the proof] \label{remark: baire_category_theorems_1_and_2}
             In the literature (cf. e.g. \cite[Theorem 2.2.2]{litvak_functional_analysis_notes}), theorem \ref{theorem: baire_category} is usually referred to as the Baire Category Theorem II. The Baire Category Theorem I is the specialisation of the Theorem II to (complete) metric spaces. In practice, we will usually just be making use of the Theorem I, though we have chosen to prove the Baire Category Theorem II instead to highlight the fact that it is a purely topological assertion.
         \end{remark}
         \begin{remark}

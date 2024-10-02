@@ -281,15 +281,15 @@
                 $$
                     \begin{tikzcd}
                         U \arrow[d, "i"', tail] \arrow[r] & \1 \arrow[d, "\top", tail] \\
-                        X \arrow[r, "\chi_U"]             & 2                         
+                        X \arrow[r, "\chi_U"]             & \2                         
                     \end{tikzcd}
                 $$
         \end{definition}
         \begin{convention}[Some categorical logic terminologies]
             If a subobject classifier exists, i.e. if an object $\2 \in \C$ as above exists, then it is called \textbf{an object of truth values}, the morphism:
                 $$\top: \1 \to \2$$
-            is called a truth value, and the corresponding global element is the value "true".
-            \\
+            is called a truth value, and the corresponding global element is the value \say{true}.
+            
             We note that the subobjects $U$ classified by the truth values are subterminal, i.e. their inclusions into the ambient object $X$ are unique with respect to each truth value. The logic here reads:
                 $$\forall \left(\top: \1 \hookrightarrow \2\right): \exists! \left(i: U \hookrightarrow X\right)$$
             This fact is a direct consequence of the definition of subobject classifiers, and of the universal property of pullbacks.
