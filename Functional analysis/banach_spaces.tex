@@ -67,29 +67,62 @@
             Assuming the Axiom of Choice along with ZF, every complete metric space is Baire. Without the Axiom of Choice but still with ZF, every \underline{separable} complete metric space is Baire.
         \end{theorem}
             \begin{proof}
-                Suppose for the sake of deriving a contradiction that $X$ is a metric space that is complete but not Baire, i.e. there exists a countable collection $\{U_n\}_{n \in \N}$ of dense open subsets of $X$ whose intersection $U := \bigcap_{n \in \N} U_n$ is not dense. A subset of a topological space is dense if and only if it has a non-empty intersection with every non-empty open subset of that topological space. Thus, if $U$ is not dense, then there must exist some $\e > 0$ and $x \in X$ such that:
-                    $$\varnothing = U \cap \B_{\e}(x) = \left(\bigcap_{n \in \N} U_n\right) \cap \B_{\e}(x) = \bigcap_{n \in \N} U_n \cap \B_{\e}(x)$$
-                Despite this, each $U_n$ is dense by assumption, so $U_n \cap \B_{\e}(x) \not = \varnothing$ for all $n \in \N$ and all $\e > 0$ and all $x \in X$.
+                
             \end{proof}
         \begin{remark}
             Theorem \ref{theorem: baire_category} will be used for proving theorems \ref{theorem: uniform_boundedness}, \ref{theorem: open_mapping}, and \ref{theorem: closed_graph}, so it is important that we discuss it first of all.
         \end{remark}
 
+        \begin{lemma}[Suprema of averages] \label{lemma: suprema_of_averages}
+            Let $X, Y$ be normed spaces and let $T: X \to Y$ be a continuous linear map between them. Fix $\e > 0$ and a centre $x \in X$. Then:
+                $$\sup_{x' \in \B_{\e}(x)} \norm{T(x)}_Y \geq \e \norm{T}_{\Hom_{K, \cont}(X, Y)}$$
+        \end{lemma}
+            \begin{proof}
+                Since every point $x' \in \B_{\e}(x)$ is of distance $< \e$ away from $x$, taking a supremum over all such points is the same as taking a supremum over all translations $x \pm \xi$, with $\xi \in \B_{\e}(0)$; essentially, we are taking $\xi := x' - x$. Thus, consider the following:
+                    $$
+                        \begin{aligned}
+                            & \sup_{x' \in \B_{\e}(x)} \norm{T(x)}_Y
+                            \\
+                            = & \sup_{\xi \in \B_{\e}(0)} \max\left\{ \norm{T(x \pm \xi)}_Y \right\}
+                            \\
+                            \geq & \sup_{\xi \in \B_{\e}(0)} \frac12\left( \norm{T(x + \xi)}_Y + \norm{T(x - \xi)}_Y \right) \: \text{(maxima are larger than or equal to averages)}
+                            \\
+                            \geq & \sup_{\xi \in \B_{\e}(0)} \norm{T(\xi)}_Y \: \text{(triangle inequality)}
+                            \\
+                            = & \sup_{\xi \in \B_{\e}(0)} \norm{\xi}_X \norm{T}_{\Hom_{K, \cont}(X, Y)}
+                            \\
+                            = & \e \norm{T}_{\Hom_{K, \cont}(X, Y)}
+                        \end{aligned}
+                    $$
+            \end{proof}
         \begin{theorem}[Uniform boundedness] \label{theorem: uniform_boundedness}
+            Let $X$ be a Banach space and $Y$ be a normed space, and let $\{T_n\}_{n \geq 0}$ be a sequence in $\Hom_{K, \cont}(X, Y)$.
+            \begin{enumerate}
+                \item \textbf{(\textit{Na\"ive} uniform boundedness):} If the sequence is \textbf{pointwise bounded} in the sense that:
+                    $$\forall x \in X: \sup_{n \geq 0} \norm{ T_n(x) }_Y < +\infty$$
+                then the sequence will automatically be uniformly bounded, in the sense that:
+                    $$\sup_{n \geq 0} \norm{T_n}_{\Hom_{K, \cont}(X, Y)} < +\infty$$
+                \item \textbf{(Strong uniform boundedness):} In fact, the assertion remains true should the sequence $\{T_n\}_{n \geq 0}$ be pointwise bounded only on a non-meagre subset of $X$. 
+            \end{enumerate}
+        \end{theorem}
+            \begin{proof}
+                
+            \end{proof}
+        \begin{corollary}[The category of Banach spaces is self-enriching] \label{coro: hom_between_banach_spaces_are_banach_spaces}
+            If $X, Y$ are Banach spaces then $\Hom_{K, \cont}(X, Y)$ will also be a Banach space.
+        \end{corollary}
+            \begin{proof}
+                
+            \end{proof}
+
+        \begin{theorem}[Open Mapping Theorem: continuous linear maps are open] \label{theorem: open_mapping}
             
         \end{theorem}
             \begin{proof}
                 
             \end{proof}
 
-        \begin{theorem}[Open Mapping Theorem] \label{theorem: open_mapping}
-            
-        \end{theorem}
-            \begin{proof}
-                
-            \end{proof}
-
-        \begin{theorem}[Closed Graph Theorem] \label{theorem: closed_graph}
+        \begin{theorem}[Closed Graph Theorem: continuous linear maps reflect limits] \label{theorem: closed_graph}
             
         \end{theorem}
             \begin{proof}
