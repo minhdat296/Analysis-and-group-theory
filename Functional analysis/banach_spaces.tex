@@ -31,14 +31,18 @@
         \begin{definition}[Baire spaces] \label{def: baire_spaces}
             A \textbf{Baire space} is a topological space in which countable intersections of dense open subsets are once again dense.
         \end{definition}
-        \begin{definition}[Meagre subsets] \label{def: meagre_subsets}
-            A subset $M$ of a topological space $X$ is said to \textbf{meagre} or \textbf{nowhere dense} if and only if $\overline{M}$ has an empty interior. 
+        \begin{definition}[Nowhere dense and meagre subsets] \label{def: nowhere_dense_and_meagre_subsets}
+            A subset $M$ of a topological space $X$ is said to be:
+            \begin{itemize}
+                \item \textbf{nowhere dense} if $\overline{M}$ has an empty interior,
+                \item \textbf{meagre} if it can be written as a countable union of nowhere dense subsets; clearly, nowhere dense subsets of $X$ are also meagre. 
+            \end{itemize}
         \end{definition}
-        \begin{lemma}[Meagre subsets are complements of dense subsets] \label{lemma: meagre_subsets_are_complements_of_dense_subsets}
-            Let $X$ be a topological space. A subset $M \subseteq X$ is then meagre if and only if $S := X \setminus \overline{M}$ is dense. Equivalently, a subset $S \subseteq X$ is dense if and only if $X \setminus S$ is meagre.
+        \begin{lemma}[Nowhere subsets are complements of dense subsets] \label{lemma: nowhere_dense_subsets_are_complements_of_dense_subsets}
+            Let $X$ be a topological space. A subset $M \subseteq X$ is then nowhere dense if and only if $S := X \setminus \overline{M}$ is dense. Equivalently, a subset $S \subseteq X$ is dense if and only if $X \setminus S$ is nowhere dense.
         \end{lemma}
             \begin{proof}
-                If $M \subseteq X$ is meagre then by definition, $(\overline{M})^{\circ} = \varnothing$ and hence we have that:
+                If $M \subseteq X$ is nowhere dense then by definition, $(\overline{M})^{\circ} = \varnothing$ and hence we have that:
                     $$S := X \setminus \overline{M} = X \setminus ( (\overline{M})^{\circ} \cup \del \overline{M} ) = X \setminus \del \overline{M} = X \setminus \overline{\del \overline{M}}$$
                 From this, we see that:
                     $$\overline{S} = \overline{X \setminus \overline{\del \overline{M}}} = X \setminus (\del \overline{M})^{\circ} = X \setminus \varnothing = X$$
@@ -48,23 +52,24 @@
                     $$\overline{ X \setminus \overline{M} } = X$$
                 At the same time, we have that:
                     $$\overline{ X \setminus \overline{M} } = X \setminus M^{\circ} = X \setminus (\overline{M})^{\circ}$$
-                Thus, $(\overline{M})^{\circ} = \varnothing$ necessarily, i.e. $M$ is meagre.
+                Thus, $(\overline{M})^{\circ} = \varnothing$ necessarily, i.e. $M$ is nowhere dense.
             \end{proof}
+        
         The lemma above allows for some flexibility with the definition of Baire spaces.
         \begin{lemma}[Baire spaces via meagre subsets] \label{lemma: baire_spaces_via_meagre_subsets}
             An equivalent characterisation of Baire spaces is as follows: a topological space $X$ is Baire if and only if countable unions of meagre closed subsets of $X$ are once more meagre. 
         \end{lemma}
             \begin{proof}
-                Suppose firstly that $X$ is Baire and consider some countable union $M := \bigcup_{n \in \N} M_n$ of meagre closed subsets $M_n \subseteq X$. By lemma \ref{lemma: meagre_subsets_are_complements_of_dense_subsets}, we know that there exist dense open subsets $U_n \subseteq X$ using which we can write $M_n := X \setminus U_n$. We then have that:
+                Suppose firstly that $X$ is Baire and consider some countable union $M := \bigcup_{n \in \N} M_n$ of meagre closed subsets $M_n \subseteq X$. By lemma \ref{lemma: nowhere_dense_subsets_are_complements_of_dense_subsets}, we know that there exist dense open subsets $U_n \subseteq X$ using which we can write $M_n := X \setminus U_n$. We then have that:
                     $$M := \bigcup_{n \in \N} M_n = \bigcup_{n \in \N} (X \setminus U_n) = X \setminus \bigcap_{n \in \N} U_n$$
-                As $X$ is a Baire space, $U := \bigcap_{n \in \N} U_n$ must be dense by virtue of being a countable intersection of dense subsets of $X$, and by lemma \ref{lemma: meagre_subsets_are_complements_of_dense_subsets}, the complement $M = X \setminus U$ must therefore be meagre.
+                As $X$ is a Baire space, $U := \bigcap_{n \in \N} U_n$ must be dense by virtue of being a countable intersection of dense subsets of $X$, and by lemma \ref{lemma: nowhere_dense_subsets_are_complements_of_dense_subsets}, the complement $M = X \setminus U$ must therefore be meagre.
 
-                Conversely, suppose that countable unions $M := \bigcup_{n \in \N} M_n$ of meagre closed subsets $M_n \subseteq X$ are once more meagre. By lemma \ref{lemma: meagre_subsets_are_complements_of_dense_subsets}, we know that $X \setminus M$ is dense, and we can also find dense open subsets $U_n \subseteq X$ such that $M_n := X \setminus U_n$. Then, consider the following:
+                Conversely, suppose that countable unions $M := \bigcup_{n \in \N} M_n$ of meagre closed subsets $M_n \subseteq X$ are once more meagre. By lemma \ref{lemma: nowhere_dense_subsets_are_complements_of_dense_subsets}, we know that $X \setminus M$ is dense, and we can also find dense open subsets $U_n \subseteq X$ such that $M_n := X \setminus U_n$. Then, consider the following:
                     $$X \setminus M = X \setminus \bigcup_{n \in \N} (X \setminus U_n) = X \setminus \bigcap_{n \in \N} U_n$$
-                Since $M$ is meagre, $\bigcap_{n \in \N} U_n$ must be dense by lemma \ref{lemma: meagre_subsets_are_complements_of_dense_subsets}, and by varying the meagre subsets $M_n$, we shall get that the intersections of any countable collection of dense subsets of $X$ is once more dense, hence $X$ is Baire by definition.
+                Since $M$ is meagre, $\bigcap_{n \in \N} U_n$ must be dense by lemma \ref{lemma: nowhere_dense_subsets_are_complements_of_dense_subsets}, and by varying the meagre subsets $M_n$, we shall get that the intersections of any countable collection of dense subsets of $X$ is once more dense, hence $X$ is Baire by definition.
             \end{proof}
         \begin{remark}[Spaces of category I and of category II ?]
-            In the literature (see e.g. \cite[Definition, p. 37]{litvak_functional_analysis_notes}), spaces of so-called \say{category I} and \say{category II} are also mentioned. A topological space is of the former category if it can be written as a countable union of meagre subsets, while it is of the latter category if it is not of category I.
+            In the literature (see e.g. \cite[Definition, p. 37]{litvak_functional_analysis_notes}), spaces of so-called \say{category I} and \say{category II} are also mentioned. A topological space is of category I if it is meagre, while it is of category II if it is not of category I, i.e. non-meagre.
 
             Through lemma \ref{lemma: baire_spaces_via_meagre_subsets}, one sees that a space of category II is nothing but a Baire space, and thus a space of category I is any non-Baire space.
 
@@ -91,7 +96,7 @@
                     $$D_n \cap D_{n + 1} \subset B_x \cap U_{n + 1} \not = \varnothing$$
                 and then:
                     $$X \setminus (D_n \cap D_{n + 1}) \supset X \setminus (B_x \cap U_{n + 1}) = (X \setminus B_x) \cup (X \setminus U_{n + 1})$$
-                Since $X$ is Hausdorff, $D_n \cap D_{n + 1}$ is compact, and hence closed, and so $X \setminus (D_n \cap D_{n + 1})$ is open, which means that $(X \setminus (D_n \cap D_{n + 1}))^{\circ} = X \setminus (D_n \cap D_{n + 1})$. At the same time, we have by lemma \ref{lemma: meagre_subsets_are_complements_of_dense_subsets} that, because $U_{n + 1}$ is dense, its complement is meagre, and so:
+                Since $X$ is Hausdorff, $D_n \cap D_{n + 1}$ is compact, and hence closed, and so $X \setminus (D_n \cap D_{n + 1})$ is open, which means that $(X \setminus (D_n \cap D_{n + 1}))^{\circ} = X \setminus (D_n \cap D_{n + 1})$. At the same time, we have by lemma \ref{lemma: nowhere_dense_subsets_are_complements_of_dense_subsets} that, because $U_{n + 1}$ is dense, its complement is nowhere dense, and so:
                     $$\left( (X \setminus B_x) \cup (X \setminus U_{n + 1}) \right)^{\circ} = (X \setminus B_x)^{\circ} \cup \varnothing = X \setminus \overline{B_x}$$
                 Since $X$ is Hausdorff, one can always choose the open neighbourhood $B_x \ni x$ such that $X \setminus \overline{B_x} \not = X$. In that case, we would have that:
                     $$X \setminus (D_n \cap D_{n + 1}) \not \supset X$$
@@ -484,7 +489,7 @@
                 
             \end{proof}
 
-    \subsection{Hilbert spaces; some harmonic analysis}
+    \subsection{Hilbert spaces}
         \begin{convention}
             The complex conjugation of some complex number $z := a + ib$ shall be denoted by $z^{\dagger} := a - ib$.
         \end{convention}
