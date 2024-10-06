@@ -259,7 +259,7 @@
             If $k(\alpha)/k$ is a simple algebraic extension with minimal polynomial $f$, then one can also think of the isomorphism $k[x]/f \xrightarrow[]{\cong} k(\alpha)$ given by $x \mapsto \alpha$ as arising from the evaluation map $\ev_{\alpha}: k[x] \to k(\alpha)$ given by $\ev_{\alpha}(g) := g(\alpha)$ for all $g \in k[x]$. Note that $\ker \ev_{\alpha} \cong (f)$ precisely. Through this, one recovers the more traditional approach to minimal polynomials, i.e. that $f$ is the monic (irreducible) polynomial of smallest degree such that $f(\alpha) = 0$.
         \end{remark}
         
-        \begin{remark}[Minimal polynomials in field theory vs. in linear algebra]
+        \begin{remark}[Minimal polynomials in field theory vs. in linear algebra] \label{remark: minimal_polynomials_of_matrices}
             Let $d$ be a positive integer and $k$ be a field.
             
             Recall from linear algebra that the \textbf{minimal polynomial} of an $d \x d$ matrix $A \in \Mat_d(k)$ is the monic polynomial of least degree $\mu_A \in k[x]$ such that $\mu_A(A) = 0$. At the same time, if $k(\alpha)/k$ is a simple algebraic extension with minimal polynomial $f \in k[x]$ (in the sense of proposition \ref{prop: minimal_polynomials}), then one gets a $k$-linear operator:
@@ -466,7 +466,7 @@
             \end{enumerate}
         \end{definition}
         \begin{remark}
-            A very important distinction to make is, that \textit{it is not true that if $k'/k$ is separable then the minimal polynomial of any $\alpha \in k'$ splits completely into linear factors over $k'$ (cf. definition \ref{def: normal_and_galois_extensions})!} This is because in general, any arbitrarily given separable extension may differ from an algebraic closure. 
+            A very important distinction to make is, that \textit{it is not true that if $k'/k$ is separable then the minimal polynomial of any $\alpha \in k'$ splits completely into linear factors over $k'$!} This is because in general, any arbitrarily given separable extension may differ from an algebraic closure. 
         \end{remark}
         \begin{lemma}[A separability criterion for polynomials] \label{lemma: separability_criterion_for_polynomials}
             Let $k$ be a field. A polynomial $f(x) \in k[x]$ is separable if and only if $\left(f(x), \frac{d}{dx} f(x)\right) = k[x]$.
@@ -481,6 +481,16 @@
 
                 Conversely, if $\frac{d}{dx} f(x)$ and $f(x)$ generate the unit ideal of $k[x]$, then $(x - \alpha_j) \nmid \frac{d}{dx} f(x)$ for all $1 \leq j \leq \deg f$. If we assume for the sake of deriving a contradiction that there exist $1 \leq i \not = j \leq \deg f$ for which $\alpha_i = \alpha_j$. But then, because $\frac{d}{dx} f(x) = \sum_{j = 1}^{\deg f} \prod_{i = 1, i \not = j}^{\deg f} (x - \alpha_i)$, our assumption would then imply that there exists some $1 \leq j \leq \deg f$ such that $(x - \alpha_j) \mid \frac{d}{dx} f(x)$, which is absurd. Therefore, $f(x)$ must be separable.
             \end{proof}
+
+        The following theorem completes the classification of simple algebraic extensions, after lemma \ref{lemma: classification_of_simple_extensions}.
+        \begin{theorem}[Finite separable extensions are simple] \label{theorem: finite_separable_extensions_are_simple}
+            Any finite separable extension is simple.
+        \end{theorem}
+            \begin{proof}
+                
+            \end{proof}
+
+        \todo[inline]{Purely inseparable extensions}
         The following is a peculiarity of extensions over positive characteristics. 
         \begin{proposition}[Purely inseparable polynomials] \label{prop: purely_inseparable_polynomials}
             Let $p$ be a prime and $k$ be a field of characteristic $p$. Then, 
@@ -489,6 +499,9 @@
                 
             \end{proof}
         \begin{definition}[Purely inseparable extensions] \label{def: purely_inseparable_extensions}
+            
+        \end{definition}
+        \begin{definition}[Perfect fields and perfections of fields of positive characteristics] \label{def: perfect_fields}
             
         \end{definition}
         \begin{example}[Perfections are purely inseparable] \label{example: perfections_are_purely_inseparable}
@@ -507,8 +520,48 @@
             \end{proof}
 
         \todo[inline]{Splitting fields}
+        \begin{lemma}[Irreducible polynomials have no repeated roots] \label{lemma: irreducible_polynomials_have_no_repeated_roots}
+            Let $k$ be a field 
+        \end{lemma}
+            \begin{proof}
+                
+            \end{proof}
+        \begin{proposition}[Splitting fields] \label{prop: splitting_fields}
+            Let $k$ be a field.
+            \begin{enumerate}
+                \item For any polynomial $f \in k[x]$ there exists a \underline{minimal} finite subextension $K_f/k$ of $k^{\alg}/k$, called the \textbf{splitting field} of $f$, such that the image of $f$ under $k[x] \hookrightarrow K_f[x]$ is completely reducible into linear factors. Also, \say{the} splitting field of any $f \in k[x]$ is unique up to non-unique isomorphisms.
+                \item Moreover, $K_f/k$ is separable if and only if $f$ is irreducible.
+                \item Finally, $[K_f : k] \leq (\deg f)!$ in general, with equality occuring if and only if $K_f/k$ is separable.
+            \end{enumerate}
+        \end{proposition}
+            \begin{proof}
+                \begin{enumerate}
+                    \item The first statement is clear from proposition \ref{prop: algebraic_closures_contain_all_roots}. 
+                    
+                    To prove the second statement, observe that if $f = \prod_{i = 1}^{\deg f} (x - \alpha_i)^{e_i}$ in $k^{\alg}[x]$ then $K_f \cong k(\alpha_1, ..., \alpha_{\deg f})$ by lemma \ref{lemma: finitely_generated_algebraic_extensions_are_finite}. The same lemma then implies the uniqueness of $K_f$ up to non-unique isomorphisms\footnote{For instance, these isomorphisms can be given by actions of $S_{\deg f}$ on the set of roots $\{\alpha_1, ..., \alpha_{\deg f}\}$. We will revisit this crucial detail in subsection \ref{subsection: field_automorphisms}.}.
+                    \item If $f \in k[x]$ is irreducible then by lemma \ref{lemma: irreducible_polynomials_have_no_repeated_roots}, its image in $k^{\alg}[x]$ necessarily factors into linear factors, each with power $1$, i.e. $f = \prod_{i = 1}^{\deg f} (x - \alpha_i)$ in $k^{\alg}[x]$, with the roots $\alpha_i$ being pairwise distinct. This implies that $K_f/k$ is separable by definition. 
 
-    \subsection{Galois groups and the Galois Correspondence}
+                    Conversely, suppose that $K_f/k$ is separable. This extension is also finite - per the previous section - and so it is simple according to lemma \ref{lemma: finitely_generated_algebraic_extensions_are_finite}. Then, by proposition \ref{prop: minimal_polynomials} and the uniqueness of splitting fields, we see that $K_f \cong k[x]/$ and hence, by corollary \ref{coro: maximal_ideals_of_polynomial_rings_over_fields}, $f \in k[x]$ must be irreducible.
+                    \item 
+                \end{enumerate}
+            \end{proof}
+
+    \subsection{Field automorphisms and the Galois Correspondence} \label{subsection: field_automorphisms}
+        \todo[inline]{Normal extension}
+        
         \begin{definition}[Normal and Galois extensions] \label{def: normal_and_galois_extensions}
-            
+            Let $k$ be a field and let $K/k$ be an algebraic field extension.
+            \begin{enumerate}
+                \item We say that $K/k$ is \textbf{normal} if the image under $k[x] \hookrightarrow K[x]$ of the minimal polynomial of every $\alpha \in K$ splits completely into linear factors.
+                \item We say that $K/k$ is \textbf{Galois} if it is finite, separable, and normal.
+            \end{enumerate}
         \end{definition}
+
+        \begin{example}[Cyclotomic extensions]
+            
+        \end{example}
+        \begin{example}[Finite fields]
+            
+        \end{example}
+
+        \todo[inline]{Galois theory}
