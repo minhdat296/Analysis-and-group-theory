@@ -86,7 +86,9 @@
                 \todo[inline]{Minkowski's inequality + some standard $\e$-$\delta$ convergence arguments.}
             \end{proof}
 
-        \begin{lemma}[Comparing $L^p$ and $L^q$-norms] \label{lemma: comparing_L_p_norms}
+        \todo[inline]{$L^p$-spaces (infinite measures)}
+
+        \begin{lemma}[Comparing $L^p$ and $L^q$-norms: finite-measure cases] \label{lemma: comparing_L_p_norms_for_finite_measures}
             Let $(X, \Sigma, \mu)$ be a measure space and choose $1 \leq p, q \leq +\infty$. If $p < q$ and $\mu(X)$ is finite, then:
                 $$\norm{f}_{L^p(X, \mu)} \leq \mu(X)^{\frac1p - \frac1q} \norm{f}_{L^q(X, \mu)}$$
             Furthermore, the constant $\mu(X)^{\frac1p - \frac1q}$ is sharp.
@@ -102,27 +104,147 @@
                 which is as desired.
             \end{proof}
             
-        \begin{example}[$\ell^p$-spaces]
-            The datum of a $K$-valued function on the finite set $\{1, ..., n\}$ is the same as a vector in $K^n$. If we endow $\{1, ..., n\}$ with the $\sigma$-algebra $\calP(\{1, ..., n\})$ (the power set of $X$) and with the counting measure:
+        \begin{example}[$\ell^p$-spaces] \label{example: ell_p_spaces}
+            The datum of a $K$-valued function on the finite set $\{1, ..., n\}$ is the same as a vector in $K^{\oplus n}$. If we endow $\{1, ..., n\}$ with the $\sigma$-algebra $\calP(\{1, ..., n\})$ (the power set of $X$) and with the counting measure:
                 $$\mu_{\discrete}: \calP(\{1, ..., n\}) \to \R_{\geq 0}$$
             which is given by:
                 $$\mu_{\discrete}(S) := |S|$$
             for all $S \in \calP(\{1, ..., n\})$ (and hence $\{1, ..., n\}$ is a measure-finite space), then the normed spaces:
-                $$\ell^p(K^n) := (K^n, \norm{-}_{L^p(\{1, ..., n\}, \mu)})$$
+                $$\ell^p(K^{\oplus n}) := (K^{\oplus n}, \norm{-}_{L^p(\{1, ..., n\}, \mu)})$$
             and:
                 $$L^p(\{1, ..., n\}, \mu_{\discrete}\})$$
             for every $p \in \N_{\geq 1} \cup \{+\infty\}$ will be isomorphic to one another. To be thorough, let us note that in this case, the norm $\norm{-}_{L^p(\{1, ..., n\}, \mu)}$ is given by:
                 $$\norm{(x_1, ..., x_n)}_{L^p(X, \mu)} := \left( \int_{\{1, ..., n\}} |x|^p d\mu_{\discrete} \right)^{\frac1p} = \left( \sum_{i = 1}^n |x_i|^p \right)^{\frac1p}$$
-            for all functions $x: \{1, ..., n\} \to K$ given by $x(i) := x_i$ for all $1 \leq i \leq n$. $\ell^p(K^n)$ is therefore an example of a finite-dimensional $L^p$-space.
+            for all functions $x: \{1, ..., n\} \to K$ given by $x(i) := x_i$ for all $1 \leq i \leq n$. $\ell^p(K^{\oplus n})$ is therefore an example of a finite-dimensional $L^p$-space.
 
             For each $p, q \in \N_{\geq 1} \cup \{+\infty\}$ such that $\frac1p + \frac1q = 1$, we have a homeomorphism:
-                $$\ell^q(K^n) \cong \ell^p(K^n)^*_{\weak}$$
-            by theorem \ref{theorem: L_p_space_duality}, and by finite-dimensionality, the homeomorphism above is actually an isometry (see theorem \ref{theorem: finite_dimensional_weak_duality}). Also by finite-dimensionality, each $\varphi \in \ell^p(K^n)^*_{\weak}$ is representable by some $y := (y_1, ..., y_n) \in \ell^q(K^n)$ in the sense that:
+                $$\ell^q(K^{\oplus n}) \cong \ell^p(K^{\oplus n})^*_{\weak}$$
+            by theorem \ref{theorem: L_p_space_duality}, and by finite-dimensionality, the homeomorphism above is actually an isometry (see theorem \ref{theorem: finite_dimensional_weak_duality}). Also by finite-dimensionality, each $\varphi \in \ell^p(K^{\oplus n})^*_{\weak}$ is representable by some $y := (y_1, ..., y_n) \in \ell^q(K^{\oplus n})$ in the sense that:
                 $$\varphi(x) := x \cdot y := \sum_{i = 1}^n x_i y_i$$
-            for all $x := (x_1, ..., x_n) \in \ell^p(K^n)$, where $\cdot$ is the usual dot product. The discrete version of H\"older's inequality thus reads:
+            for all $x := (x_1, ..., x_n) \in \ell^p(K^{\oplus n})$, where $\cdot$ is the usual dot product. The discrete version of H\"older's inequality thus reads:
                 $$\abs{x \cdot y} \leq \norm{x}_{L^p(X, \mu)} \norm{y}_{L^q(X, \mu)}$$
 
-            Each $\ell^p(K^n)$ is also complete with respect to the topology defined by its norm. Note also that when $p = q = 2$, $\ell^2(K^n)$ will be a Hilbert space.
+            Each $\ell^p(K^{\oplus n})$ is also complete with respect to the topology defined by its norm. Note also that when $p = q = 2$, $\ell^2(K^{\oplus n})$ will be a Hilbert space.
         \end{example}
+
+        \begin{convention}
+            For every $1 \leq p \leq +\infty$ and every set $\Gamma$, let us abbreviate:
+                $$\ell^p(\Gamma) := \ell^p(K^{\oplus \Gamma})$$
+            and:
+                $$\norm{-}_p := \norm{-}_{\ell^p(K^{\oplus \Gamma})}$$
+        \end{convention}
+
+        Now, even though norms on finite-dimensional vector spaces in general are all equivalent to one another \textit{a priori}\todo{Write a lemma for this fact.}, in the case of $\ell^p$-norms on finite-dimensional vector spaces, we can actually write down explicitly how much they differ from one another.
+        \begin{lemma}[Sharp comparison of $\ell^p$-norms in finite-dimensions] \label{lemma: sharp_comparison_of_ell_p_norms_in_finite_dimensions}
+            Fix $n \in \N$ and let $1 \leq p < q < +\infty$. Then:
+                $$c \norm{-}_p \leq \norm{-}_q \leq C \norm{-}_p$$
+            as norms on $K^{\oplus n}$, wherein $c = n^{\frac1q - \frac1p}$ and $C = 1$. Furthermore, these constants are sharp.
+        \end{lemma}
+            \begin{proof}
+                Since $\mu_{\discrete}(\{1, ..., n\}) = n$ is finite by construction, lemma \ref{lemma: comparing_L_p_norms_for_finite_measures} applies and tells us that if $p < q$ then:
+                    $$\norm{-}_p \leq n^{\frac1p - \frac1q} \norm{-}_q$$
+                and that the constant $n^{\frac1p - \frac1q}$ is sharp, so we can take:
+                    $$c := n^{-(\frac1p - \frac1q)} = $$
+
+                To find $C$, let us use to fact that norms homogeneous to assume without any loss of generality that $\norm{x}_q = 1$. This forces $\abs{x_i}^q \leq 1$ for all $1 \leq i \leq n$, and hence $p < q$ implies that:
+                    $$\norm{x}_q = \left( \int_{\{1, ..., n\}} \abs{x}^q d\mu_{\discrete} \right)^{\frac1q} \leq \left( \int_{\{1, ..., n\}} \abs{x}^p d\mu_{\discrete} \right)^{\frac1p} = \norm{x}_p$$
+                Thus, we can take:
+                    $$C := 1$$
+            \end{proof}
+
+        \todo[inline]{$L^p$-spaces (infinite measures)}
+
+         \begin{lemma}[$L^p$-space inclusions for infinite measures] \label{lemma: L_p_space_inclusions_infinite_measures}
+            Let $(X, \Sigma, \mu)$ be a measure space and choose $1 \leq p, q \leq +\infty$. If $p < q$ and:
+                $$\inf_{S \in \Sigma, S \not = \varnothing} \mu(S) > 0$$
+            (i.e. there are no non-empty measure-zero sets), and:
+                $$\mu(S) = +\infty$$
+            then there will be a strict inclusion:
+                $$L^p(X, \mu) \subset L^q(X, \mu)$$
+        \end{lemma}
+            \begin{proof}
+                For each $n \in \N$, let:
+                    $$X_{> n} := \{ x \in X \mid \forall f \in L^p(X, \mu): \abs{f(x)} > n \}$$
+                Then, we have that:
+                    $$\norm{f}_{L^p(X, \mu)}^p := \int_X \abs{f}^p d\mu \geq \sum_{n \geq 0} \int_{X_{> n}} \abs{ n \chi_{X_{> n}} }^p d\mu = \sum_{n \geq 0} \int_{X_{> n}} n^p d\mu = \sum_{n \geq 0} n^p \mu(X_{> n})$$
+                From this, we gather that:
+                    $$\forall n \in \N: \frac{1}{n^p} \norm{f}_{L^p(X, \mu)} \geq \mu(X_{> n})$$
+                and hence:
+                    $$n \gg 0 \implies 0 \geq \mu(X_{> n})$$
+                and since $\mu$ takes values in $\R_{\geq 0}$, the above implies that $\mu(X_{> n}) = 0$ whenever $n \gg 0$. As we have assumed that:
+                    $$\inf_{S \in \Sigma, S \not = \varnothing} \mu(S) > 0$$
+                i.e.:
+                    $$\mu(S) = 0 \iff S = \varnothing$$
+                the fact that $\mu(X_{> n}) = 0$ whenever $n \gg 0$ now implies that:
+                    $$n \gg 0 \implies X_{> n} = \varnothing$$
+                This means that for $n \gg 0$, there are no functions $f \in L^p(X, \mu)$ for which there exists any $x\ in X$ such that $\abs{f(x)} > n$; in other words, any $f \in L^p(X, \mu)$ must be bounded, i.e. $\norm{f}_{\infty}$ is finite.
+
+                Now, observe that since $1 \leq p < q$, the functions $(-)^p, (-)^q: \R_{\geq 0} \to \R_{\geq 0}$ are monotonic and we also have that:
+                    $$(-)^q \leq (-)^p$$
+                Next, let:
+                    $$X_{\leq 1} := \{ x \in X \mid \forall f \in L^p(X, \mu): \abs{f(x)} \leq 1 \}$$
+                and note that:
+                    $$X = X_{\leq 1} \sqcup X_{> 1}$$
+                which means that:
+                    $$\int_X (-) d\mu = \int_{X_{\leq 1}} (-) d\mu + \int_{X_{> 1}} (-) d\mu$$
+                We are now led to consider the following:
+                    $$\norm{f}_{L^q(X, \mu)}^q := \int_X \abs{f}^q d\mu = \int_{X_{\leq 1}} \abs{f}^q d\mu + \int_{X_{> 0}} \abs{f}^q d\mu \leq \int_{X_{\leq 1}} \abs{f}^p d\mu + \norm{f}_{\infty} = \norm{f}_{L^p(X_{> 1}, \mu)}^p + \norm{f}_{\infty}$$
+                Since $f \in L^p(X, \mu)$ and since $X_{> 1}$ is a measurable subset of $X$ (and also because $f$ is bounded \textit{a priori}), the expression $\norm{f}_{L^p(X_{> 1}, \mu)}^p + \norm{f}_{\infty}$ is finite, and hence we can conclude that $f \in L^q(X, \mu)$. We thus have:
+                    $$L^p(X, \mu) \subset L^q(X, \mu)$$
+                and the inclusion is strict because $\abs{f}^q = \abs{f}^p$ if and only if $\abs{f} = 1$ (supposing that $p < q$).
+            \end{proof}
+
+        \begin{example}[Separability of $\ell^p$ of countable dimensions (finite $p$)] \label{example: ell_p_spaces_of_countable_dimensions_are_separable}
+            Let $\Gamma$ be a set and let $1 \leq p < +\infty$. If $\Gamma$ is countable then $\ell^p(\Gamma)$ will be separable.
+
+            \todo[inline]{Add a proof}
+        \end{example}
+        \begin{example}[Inseparability of $\ell^p$ of uncountable dimensions (finite $p$)] \label{example: ell_p_spaces_of_uncountable_dimensions_finite_p_are_inseparable}
+            Let $\Gamma$ be a set and let $1 \leq p < +\infty$. If $\Gamma$ is uncountable then $\ell^p(\Gamma)$ will be inseparable.
+        \end{example}
+        \begin{example}[Inseparability of $\ell^{\infty}$ of infinite dimensions] \label{example: ell_infinity_spaces_of_infinite_dimensions_is_inseparable}
+            Let $\Gamma$ be an infinite set. We claim that:
+                $$c_0(\Gamma) := \{ f: \Gamma \to \bbK \mid \forall \e > 0: \text{the set $\{ \gamma \in \Gamma \mid \abs{f(\gamma)} > \e \}$ is finite} \}$$
+            is an inseparable, and hence:
+                $$\ell^{\infty}(\Gamma)$$
+            will also be inseparable, as it contains $c_0(\Gamma)$ as a normed subspace.
+
+            We will prove the main claim regarding the inseparability of $c_0(\Gamma)$ and hence of $\ell^{\infty}(\Gamma)$ later. First of all, let us justify that the former is a normed subspace of the latter. 
+        
+            Consider $X := c_0(\Gamma)$. Any vector subspace of a normed space is also a normed space with respect to the subspace topology, via restricting the domain of the norm, so it is sufficient to show that $c_0(\Gamma)$ is a vector subspace of $\ell^{\infty}(\Gamma)$.
+                    
+            For this, recall firstly that $\ell^{\infty}(\Gamma) = L^{\infty}(\Gamma, \mu)$ consists of functions $f: \Gamma \to \bbK$ which are $\mu$-integrable and bounded $\mu$-almost everywhere. By construction, $\mu(S) \not = 0$ for all countable subsets $S \subset \Gamma$, so the unbounded locus of $f$ must either be empty, when $\Gamma$ is countable, or an uncountable subset of $\Gamma$ when $\Gamma$ is uncountable. One sees thus that $\ell^{\infty}(\Gamma)$ coincides with the space of functions $f: \Gamma \to \bbK$ such that $f|_S$ is bounded for any countable subset $S \subset \Gamma$.
+            
+            Next, note that the sets $\{ \gamma \in \Gamma \mid \abs{f(\gamma)} > \e \}$ being finite for all $\e > 0$ implies that if $f \in c_0(\Gamma)$ then $f(\gamma) = 0$ for all but finitely many $\gamma \in \Gamma$. Therefore, any $f \in c_0(\Gamma)$ will automatically be bounded after restricted to some countable subset of $\Gamma$, and hence $c_0(\Gamma)$ is a subset of $\ell^{\infty}(\Gamma)$. It is clear that if $f, g \in c_0(\Gamma)$ and $a, b \in \bbK$ then we will also have that $af(\gamma) + bg(\gamma) = 0$ for all but finitely many $\gamma \in \Gamma$, and hence $c_0(\Gamma)$ is a vector subspace of $\ell^{\infty}(\Gamma)$. The pair $( c_0(\Gamma), \norm{-}_{\infty} )$ is therefore a normed space.
+        \end{example}
+        \begin{proof}[Proof of claims in examples \ref{example: ell_p_spaces_of_uncountable_dimensions_finite_p_are_inseparable} and \ref{example: ell_infinity_spaces_of_infinite_dimensions_is_inseparable}]
+            Let us now give a uniform argument for the claims in examples \ref{example: ell_p_spaces_of_uncountable_dimensions_finite_p_are_inseparable} and \ref{example: ell_infinity_spaces_of_infinite_dimensions_is_inseparable}. Hence forth, let $X$ be:
+            \begin{itemize}
+                \item either $\ell^p(\Gamma)$ for $\Gamma$ uncountable and $1 \leq p < +\infty$,
+                \item or $\ell^{\infty}(\Gamma)$ for any infinite set $\Gamma$, countable or not.
+            \end{itemize}
+            The claim is that $X$ is \underline{inseparable} as a topological space.
+
+            \todo[inline]{Add a proof}
+        \end{proof}
+
+        \todo[inline]{$p$-direct sums}
+
+        \begin{convention}
+            If $V, W$ are normed spaces and $1 \leq p \leq +\infty$, then it is typical to write:
+                $$V \oplus_p W$$
+            to mean $V \oplus W$ (the usual algebraic direct sum, \textit{sans topologie}) equipped with the norm given for all $(v, w) \in V \oplus W$ by:
+                $$
+                    \norm{(v, w)}_{V \oplus_p W} :=
+                    \begin{cases}
+                        \text{$(\norm{v}_V^p + \norm{w}_W^p)^{\frac1p}$ if $1 \leq p < +\infty$}
+                        \\
+                        \text{$\max\{ \norm{v}_V, \norm{w}_W \}$ if $p = +\infty$}
+                    \end{cases}
+                $$
+            (cf. \cite[Example, p. 24]{litvak_functional_analysis_notes}). Let us refer to $V \oplus_p W$ as the $p$-direct sum of $V$ and $W$.
+        \end{convention}
+
+    \subsection{Existence of uniqueness of solutions to ODEs}
 
     \subsection{Sobolev spaces}
