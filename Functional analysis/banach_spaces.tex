@@ -8,6 +8,10 @@
     \end{convention}
  
     \subsection{Generalities on topological vector spaces}
+        \begin{definition}[Banach spaces] \label{def: banach_spaces}
+            A \textbf{Banach space} (over $K$) is a complete normed $K$-vector space. There is also a category $K\-\Ban$ of Banach spaces, which is the full subcategory of $K\-\Vect_{\norm{-}}$, wherein objects are Banach spaces.
+        \end{definition}
+    
         \begin{remark}[Quotient norms] \label{remark: quotient_norms}
             Let $\pi: E \to Q$ be a continuous quotient map of normed spaces. Elements of $\bar{x} \in Q$ (for each of which there is an element $x \in E$, due to $\pi$ being surjective) can be written as cosets:
                 $$\bar{x} := x + \ker \pi$$
@@ -143,14 +147,14 @@
                         \end{aligned}
                     $$
             \end{proof}
-        \begin{theorem}[Uniform boundedness] \label{theorem: uniform_boundedness}
+        \begin{theorem}[Uniform Boundedness Principle] \label{theorem: uniform_boundedness}
             Let $X$ be a Banach space and $Y$ be a normed space, and let $\{T_n\}_{n \geq 0}$ be a sequence in $\Hom_{K, \cont}(X, Y)$.
             \begin{enumerate}
                 \item \textbf{(\textit{Na\"ive} uniform boundedness):} If the sequence is \textbf{pointwise bounded} in the sense that:
                     $$\forall x \in X: \sup_{n \geq 0} \norm{ T_n(x) }_Y < +\infty$$
                 then the sequence will automatically be uniformly bounded, in the sense that:
                     $$\sup_{n \geq 0} \norm{T_n}_{\Hom_{K, \cont}(X, Y)} < +\infty$$
-                \item \textbf{(Strong uniform boundedness):} In fact, the same assertion remains true should the sequence $\{T_n\}_{n \geq 0}$ be pointwise bounded only on a non-meagre subset of $X$. 
+                \item \textbf{(Strong uniform boundedness\footnote{Also called the Banach-Steinhaus Theorem.}):} In fact, the same assertion remains true should the sequence $\{T_n\}_{n \geq 0}$ be pointwise bounded only on a non-meagre subset of $X$. 
             \end{enumerate}
         \end{theorem}
             \begin{proof}
@@ -165,22 +169,48 @@
                     \item This version relies on theorem \ref{theorem: baire_category}. 
                 \end{enumerate}
             \end{proof}
-        \begin{corollary}[The category of Banach spaces is self-enriching] \label{coro: hom_between_banach_spaces_are_banach_spaces}
-            If $X, Y$ are Banach spaces then $\Hom_{K, \cont}(X, Y)$ will also be a Banach space.
+        The following is an important corollary to the Uniform Boundedness Principle.
+        \begin{corollary}[Uniform limits of pointwise convergent sequences of continuous linear maps] \label{coro: uniform_limits_of_pointwise_convergent_sequences_of_continuous_linear_maps}
+            Let $X$ be a Banach space and $Y$ be a normed space. Suppose that:
+                $$\{T_n\}_{n \geq 0} \subset \Hom_{K, \cont}(X, Y)$$
+            is a pointwise convergent sequence, i.e. $\{T_n(x)\}_{n \geq 0}$ is convergent with respect to $\norm{-}_Y$. Then, there shall exist $T \in \Hom_{K, \cont}(X, Y)$ such that:
+                $$\{T_n(x)\}_{n \geq 0} \to T(x)$$
+            with respect to $\norm{-}_Y$.
+
+            We shall refer to $T$ as above as the \textbf{uniform limit} of the pointwise convergent sequence $\{T_n\}_{n \geq 0}$.
         \end{corollary}
+            \begin{proof}
+                Convergent sequences in metric spaces are bounded \textit{a priori}, so the pointwise convergent sequence $\{T_n(x)\}_{n \geq 0} \subset Y$ is pointwise bounded. By theorem \ref{theorem: uniform_boundedness}, it is also uniformly bounded, say there is a constant $M > 0$ such that:
+                    $$\forall n \geq 0: \norm{T_n}_{\Hom_{K, \cont}(X, Y)} \leq M$$
+                From this, we infer that for every $x \in X$,
+
+                \todo[inline]{Not done}
+            \end{proof}
+        Later on, this corollary will be used for proving that $K\-\Ban$ is enriched over itself (see lemma \ref{lemma: hom_between_banach_spaces_are_banach_spaces}).
+
+        \begin{proposition}[Compact linear maps] \label{prop: compact_linear_maps}
+            \todo[inline]{Compact linear maps}
+        \end{proposition}
             \begin{proof}
                 
             \end{proof}
 
-        \begin{theorem}[Open Mapping Theorem: continuous linear maps are open] \label{theorem: open_mapping}
-            
-        \end{theorem}
+        \begin{proposition}[Weakly bounded sequences] \label{prop: weakly_bounded_sequences}
+            \todo[inline]{Weakly bounded sequences}
+        \end{proposition}
             \begin{proof}
                 
+            \end{proof}
+
+        \begin{theorem}[Open Mapping Theorem] \label{theorem: open_mapping}
+            Surjective continuous linear maps between Banach spaces are open.
+        \end{theorem}
+            \begin{proof}
+                \todo[inline]{Prove Open Mapping Theorem}
             \end{proof}
 
         \begin{theorem}[Closed Graph Theorem: continuous linear maps reflect limits] \label{theorem: closed_graph}
-            
+            \todo[inline]{Closed Graph Theorem}
         \end{theorem}
             \begin{proof}
                 
@@ -281,7 +311,46 @@
                     $$\Im(\varphi_0) = \Re(i \varphi_0)$$
             \end{proof}
 
-        Another easy corollary of the Hahn-Banach Theorem is that there is a non-trivial (and representable) duality functor:
+        A somewhat non-trivial consequence of the Hahn-Banach Theorem is that the category $K\-\Ban$ is enriched over itself (see lemma \ref{lemma: hom_between_banach_spaces_are_banach_spaces}), i.e. the hom-space between two Banach spaces is once again a Banach space. This also requires the Uniform Boundedness Principle (theorem \ref{theorem: uniform_boundedness}) as a prerequiresite. 
+        \begin{lemma}[Domain completion\footnote{If only I could call this the \say{Domain Expansion Lemma} ...}] \label{lemma: domain_completion}
+            If $X, Y$ are normed spaces then $\Hom_{K, \cont}(X, Y)$. Denote by $X^{\wedge}$ the completion of $X$. Then, there shall be a linear isometry:
+                $$\Phi_Y: \Hom_{K, \cont}(X^{\wedge}, Y) \xrightarrow[]{\cong} \Hom_{K, \cont}(X, Y)$$
+            that is natural in $Y$.
+        \end{lemma}
+            \begin{proof}
+                \todo[inline]{Not done}
+            \end{proof}
+        \begin{lemma}[The category of Banach spaces is self-enriching] \label{lemma: hom_between_banach_spaces_are_banach_spaces}
+            If $X, Y$ are normed spaces then $\Hom_{K, \cont}(X, Y)$ will be a Banach space if and only if $Y$ is a Banach space. Consequently, the category $K\-\Ban$ is self-enriching.
+        \end{lemma}
+            \begin{proof}
+                By lemma \ref{lemma: domain_completion}, we can assume without loss of generality that $X$ is Banach.
+                
+                Assume firstly that $Y$ is Banach. Then, any Cauchy sequence $\{T_n\}_{n \geq 0} \subset \Hom_{K, \cont}(X, Y)$ will be pointwise convergent in $Y$. By corollary \ref{coro: uniform_limits_of_pointwise_convergent_sequences_of_continuous_linear_maps}, there exists a uniform limit $\{T_n\}_{n \geq 0} \to T$, thus showing that any Cauchy sequence in $\Hom_{K, \cont}(X, Y)$ converges with respect to $\norm{-}_{\Hom_{K, \cont}(X, Y)}$ The normed space $\Hom_{K, \cont}(X, Y)$ is therefore Banach.
+
+                Conversely, suppose that $\Hom_{K, \cont}(X, Y)$ is Banach. For each $x \in X$, consider the evaluation map:
+                    $$\ev_x: \Hom_{K, \cont}(X, Y) \to Y$$
+                given by:
+                    $$\ev_x[T] := T(x)$$
+                which clearly makes it linear. We claim that $\ev_x$ is also continuous and surjective, thus making $Y$ a Banach space with respect to the quotient topology inherited from $\Hom_{K, \cont}(X, Y)$. Since $\Hom_{K, \cont}(X, Y)$ is Banach, any Cauchy sequence $\{T_n\}_{n \geq 0} \subset \Hom_{K, \cont}(X, Y)$ will be convergent with respect to $\norm{-}_{\Hom_{K, \cont}(X, Y)}$, say to some $T \in \Hom_{K, \cont}(X, Y)$ (which is unique because $\Hom_{K, \cont}(X, Y)$ is Hausdorff by virtue of being a metric space). Consequently, $\{T_n(x)\}_{n \geq 0} \to T(x)$ with respect to $\norm{-}_Y$, and hence:
+                    $$\lim_{n \to +\infty} \ev_x[T_n] = \lim_{n \to +\infty} T_n(x) = T(x) = \ev_x[T] = \ev_x\left[ \lim_{n \to +\infty} T_n \right]$$
+                from which we gather that $\ev_x$ is continuous. Next, to prove that $\ev_x$ is surjective, note firstly that for each $x \in X$, there exists $x^* \in X^*_{\cont}$ such that:
+                    $$x^*(x) = 1$$
+                Then, for each $y \in Y$, there exists $\varphi_y \in \Hom_{K, \cont}(X, Y)$ given by:
+                    $$\forall x \in X: \varphi_y(x) := x^*(x) y = y$$
+                which clearly shows that $\ev_x$ is surjective, so we are done.
+            \end{proof}
+        \begin{corollary}[Duals of normed spaces are Banach] \label{coro: duals_of_normed_space_are_banach}
+            Let $X$ be normed space and let $X^*_{\cont} := \Hom_{K, \cont}(X, K)$. Then $X^*_{\cont}$ will be a Banach space, regardless of whether or not $X$ is Banach.
+        \end{corollary}
+            \begin{proof}
+                Clear from lemma \ref{lemma: hom_between_banach_spaces_are_banach_spaces} and the fact that $K$ is a Banach space over itself by assumption.
+            \end{proof}
+        \begin{remark}
+            By the Hahn-Banach Theorem (theorem \ref{theorem: hahn_banach}), $X^*_{\cont}$ is non-zero if and only if $X$ is non-zero, so corollary \ref{coro: duals_of_normed_space_are_banach} is a rather non-trivial result.
+        \end{remark}
+
+        Another (easy) corollary of the Hahn-Banach Theorem is that there is a non-trivial (and representable) duality functor:
             $$(-)^* := \Hom_K(-, \R): K\-\Vect \to K\-\Vect^{\op}$$
         with a non-trivial restriction:
             $$(-)^*_{\cont} \cong \Hom_{K, \cont}(-, \R): K\-\Vect_{\norm{-}} \to K\-\Vect_{\norm{-}}^{\op}$$
