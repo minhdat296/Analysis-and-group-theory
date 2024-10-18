@@ -8,21 +8,99 @@
     \end{convention}
  
     \subsection{Generalities on topological vector spaces}
-        \begin{definition}[Banach spaces] \label{def: banach_spaces}
-            A \textbf{Banach space} (over $K$) is a complete normed $K$-vector space. There is also a category $K\-\Ban$ of Banach spaces, which is the full subcategory of $K\-\Vect_{\norm{-}}$, wherein objects are Banach spaces.
-        \end{definition}
-    
-        \begin{remark}[Quotient norms] \label{remark: quotient_norms}
-            Let $\pi: E \to Q$ be a continuous quotient map of normed spaces. Elements of $\bar{x} \in Q$ (for each of which there is an element $x \in E$, due to $\pi$ being surjective) can be written as cosets:
-                $$\bar{x} := x + \ker \pi$$
-            for any choice of representative $x \in \pi^{-1}(\bar{x})$. From this and from the fact that $Q$ has the finest possible topology such that $\pi$ is continuous, one sees that:
-                $$\norm{\bar{x}}_Q := \inf_{y \in \ker \pi} \norm{x - y}_E = \dist(x, \ker \pi)$$
-        \end{remark}
-        \begin{lemma}[(Co)limits of normed spaces]
-            The category $K\-\Vect_{\norm{-}}$ has the following (co)limits:
+        \begin{definition}[Norms and normed spaces] \label{def: normed_spaces}
             \begin{enumerate}
-                \item epimorphisms,
                 \item 
+                \item 
+                \item Moreover, there is a category $K\-\Vect_{\norm{-}}$ whose objects are normed $K$-vector spaces and whose objects are continuous $K$-linear maps between them. 
+            \end{enumerate}
+        \end{definition}
+        \begin{lemma}[Norms are continuous] \label{lemma: norms_are_continuous}
+            Let $\R_{\geq 0}$ be equipped with the subspace topology inherited from the norm topology on $\R$ and let $(X, \norm{-}_X)$ be a normed space. Then, the norm $\norm{-}_X$ will be a continuous function with respect to the norm topologies on $X$ and on $\R_{\geq 0}$.
+        \end{lemma}
+            \begin{proof}
+                Choose a convergent sequence $\{x_n\}_{n \geq 0} \to x$ in $X$. This occurs if and only if:
+                    $$\forall \e > 0: \exists N \in \N: n \geq N \implies \norm{x_n - x}_X < \e$$
+                By the triangle inequality, we have that:
+                    $$\norm{x_n - x}_X \geq \abs{ \norm{x_n}_X - \norm{x}_X }$$
+                and hence:
+                    $$\forall \e > 0: \exists N \in \N: n \geq N \implies \abs{ \norm{x_n}_X - \norm{x}_X } < \e$$
+                This implies that the sequence $\{ \norm{x}_X \}_{n \geq 0}$ converges to $\norm{x}_X$ in $\R_{\geq 0}$, and hence $\norm{-}_X: X \to \R_{\geq 0}$ is a continuous function with respect to the norm topologies on $X$ and $\R_{\geq 0}$.
+            \end{proof}
+        \begin{proposition}[The operator norm] \label{prop: operator_norm}
+            \begin{enumerate}
+                \item Let $V, W$ be normed spaces and $\varphi: V \to W$ be a linear map. Then, we can define a norm on $\Hom_{K, \cont}(V, W)$, called the \textbf{operator norm}, given by:
+                    $$\norm{\varphi}_{\Hom_{K, \cont}(V, W)} := \sup_{v \in V, v \not = 0} \frac{ \norm{\varphi(v)}_W }{ \norm{v}_V }$$
+                \item Equivalently, the operator norm can be given by:
+                    $$\norm{\varphi}_{\Hom_{K, \cont}(V, W)} = \sup_{v \in V, \norm{v}_V = 1} \norm{\varphi(v)}_W$$
+                    $$\norm{\varphi}_{\Hom_{K, \cont}(V, W)} = \sup_{v \in V, 0 < \norm{v}_V \leq 1} \norm{\varphi(v)}_W$$
+                    $$\norm{\varphi}_{\Hom_{K, \cont}(V, W)} = \inf\{ M \in \R_{\geq 0} \mid \norm{\varphi(v)}_W \leq M \norm{v}_V \}$$
+            \end{enumerate}
+        \end{proposition}
+            \begin{proof}
+                \begin{enumerate}
+                    \item 
+                    \item 
+                \end{enumerate}
+            \end{proof}
+        \begin{lemma}[Bounded linear maps] \label{lemma: bounded_linear_maps}
+            A linear map $\varphi: V \to W$ between normed spaces $V, W$ is continuous if and only if it is bounded, i.e. $\norm{\varphi}_{\Hom_{K, \cont}(V, W)} < +\infty$.
+        \end{lemma}
+            \begin{proof}
+                Suppose firstly that $\varphi$ is bounded, say $\norm{\varphi}_{\Hom_{K, \cont}(V, W)} \leq M$ for some $M > 0$. To prove that $\varphi$ is continuous, we shall need to show that, for all $\e > 0$, if $\norm{v - v'}_V < \delta$ for some $\delta > 0$, then $\norm{\varphi(v - v')}_W < \e$. For this, consider the following, which holds by the definition of the operator norm:
+                    $$\norm{\varphi(v - v')}_W \leq \norm{\varphi}_{\Hom_{K, \cont}(V, W)} \norm{v - v'}_V < M \delta$$
+                Choosing $\delta := \frac{\e}{M}$ does the job.
+
+                Conversely, suppose that $\varphi$ is continuous, say for all $\e > 0$, there exists $\delta > 0$ such that $\norm{v}_V < \delta$ implies $\norm{\varphi(v)}_W < \e$. At the same time, suppose for the sake of deriving a contradiction that $\varphi$ is unbounded. By proposition \ref{prop: operator_norm}, this means that:
+                    $$\e > \norm{\varphi(v)}_W \geq M \norm{v}_V$$
+                for all $M \geq 0$, all $\e > 0$, and all $v \in V$ such that $\norm{v}_V < \delta$. This is clearly nonsense, so we have a contradiction. Thus, $\varphi$ must be bounded.
+            \end{proof}
+
+        \begin{definition}[Short linear maps] \label{def: short_linear_maps}
+            We say that a (continuous) linear map $\varphi: V \to W$ between two normed spaces $V, W$ is \textbf{short} (or is a \textbf{linear contraction}) if and only if $\norm{\varphi}_{\Hom_{K, \cont}(V, W)} \leq 1$. 
+        \end{definition}
+        \begin{definition}[Isometries] \label{def: isometries}
+            Let $(X, d_X), (Y, d_Y)$ be metric spaces. A continuous map $f: X \to Y$ is said to be \textbf{isometric} (or to be an \textbf{isometry}) if $\norm{-}_X = \norm{-}_Y \circ f$. 
+        \end{definition}
+        \begin{proposition}[$K\-\Ban_{\leq 1}$] \label{prop: category_of_banach_spaces_and_short_linear_maps}
+            There is another category of Banach spaces, denoted by $K\-\Ban_{\leq 1}$, whose objects are Banach spaces and whose morphisms are short linear maps. Isomorphisms in this category are linear isometric homeomorphisms (equivalently, surjective short isomorphisms); let us refer to these as \textbf{short isomorphisms}.
+        \end{proposition}
+            \begin{proof}
+                
+            \end{proof}
+        Clearly, $K\-\Ban_{\leq 1}$ is a non-full subcategory of $K\-\Ban$ with the same class of objects. It will also turn out to be the case that $K\-\Ban_{\leq 1}$ is a much nicer category than the larger category $K\-\Ban$ from an algebraic viewpoint, particularly because it is both complete and cocomplete. However, in analysis, one can not be content with just linear maps of norms $\leq 1$, so one is forced to study the more \say{defective} category $K\-\Ban$.
+            
+        \begin{example}[An unbounded linear map] \label{example: d/dx_is_unbounded}
+            Let $X$ be a compact metric space and let $D: C^1(X) \to C^0(K)$ be the linear map given by:
+                $$D(f)|_x := \frac{d}{dx} f(x)$$
+            We claim that this is an unbounded operator with respect to the sup-norms on $C^1(X)$ and $C^0(X)$.
+
+            To see why, pick $f, g \in C^1(X)$ such that $\norm{f - g}_{\infty} < \delta$ for some arbitrary $\delta > 0$, and then consider the following, which holds for all $\e > 0$:
+                $$
+                    \begin{aligned}
+                        \norm{Df|_x - Dg|_x}_{\infty} & = \norm{ \frac{d}{dx} f(x) - \frac{d}{dx} g(x) }_{\infty}
+                        \\
+                        & = \lim_{h \to 0} \frac1h \norm{ ( f(x + h) - f(x) ) - ( g(x + h) - g(x) ) }_{\infty}
+                        \\
+                        & = \lim_{h \to 0} \frac2h ( \norm{f}_{\infty} + \norm{g}_{\infty} )
+                        \\
+                        & \geq \e
+                    \end{aligned}
+                $$
+            wherein to get the second equality, we made use of the fact that norms are continuous (lemma \ref{lemma: norms_are_continuous}), and to get the last inequality, we made use of the fact that continuous functions on compact spaces are bounded, which implies via the definition of the sup-norm that that $\norm{f}_{\infty}, \norm{g}_{\infty}$ are both finite. We therefore can not pick any $\delta > 0$ such that $\norm{f - g}_{\infty} < \delta$ would imply $\norm{Df|_x - Dg|_x}_{\infty} < \e$ for all $\e > 0$, so $D$ is discontinuous. By lemma \ref{lemma: bounded_linear_maps}, it is therefore unbounded.
+
+            Another way to see that $D$ is unbounded is to notice that $D(e^{n x}) = n e^{n x}$, and since $X$ is compact, we can set $M := \norm{e^{n x}}_{\infty} < +\infty$ is finite as a consequence of $e^{n x}$ being continuous. This then implies that $\norm{D}_{\Hom_{K, \cont}(C^1(X), C^0(X))} \geq n \norm{e^{n x}}_{\infty}$ for all $n \geq 0$. Hence, $D$ is unbounded.
+        \end{example}
+    
+        \begin{lemma}[Colimits of normed spaces] \label{lemma: colimits_of_normed_spaces}
+            The category $K\-\Vect_{\norm{-}}$ has the following colimits.
+            \begin{enumerate}
+                \item \textbf{(Epimorphisms):} Let $\pi: X \to Q$ be a continuous quotient map of normed spaces. Elements of $\bar{x} \in Q$ (for each of which there is an element $x \in X$, due to $\pi$ being surjective) can be written as cosets:
+                    $$\bar{x} := x + \ker \pi$$
+                for any choice of representative $x \in \pi^{-1}(\bar{x})$. From this and from the fact that $Q$ has the finest possible topology such that $\pi$ is continuous, one sees that:
+                    $$\norm{\bar{x}}_Q := \inf_{y \in \ker \pi, y \not = 0} \norm{x - y}_E = \dist(x, \ker \pi)$$
+                \item \textbf{(Direct sums):} If $V, W$ are normed spaces, then $V \oplus W$ can also be endowed with a norm, namely the following:
+                    $$\norm{(v, w)}_{V \oplus W} := \norm{v}_V + \norm{w}_W$$
             \end{enumerate}
         \end{lemma}
             \begin{proof}
@@ -32,99 +110,45 @@
                 \end{enumerate}
             \end{proof}
 
-        \begin{definition}[Baire spaces] \label{def: baire_spaces}
-            A \textbf{Baire space} is a topological space in which countable intersections of dense open subsets are once again dense.
+        \todo[inline]{$p$-direct sums}
+
+        \begin{convention}
+            If $V, W$ are normed spaces and $1 \leq p \leq +\infty$, then it is typical to write:
+                $$V \oplus_p W$$
+            to mean $V \oplus W$ (the usual algebraic direct sum, \textit{sans topologie}) equipped with the norm given for all $(v, w) \in V \oplus W$ by:
+                $$
+                    \norm{(v, w)}_{V \oplus_p W} :=
+                    \begin{cases}
+                        \text{$(\norm{v}_V^p + \norm{w}_W^p)^{\frac1p}$ if $1 \leq p < +\infty$}
+                        \\
+                        \text{$\max\{ \norm{v}_V, \norm{w}_W \}$ if $p = +\infty$}
+                    \end{cases}
+                $$
+            (cf. \cite[Example, p. 24]{litvak_functional_analysis_notes}). Let us refer to $V \oplus_p W$ as the $p$-direct sum of $V$ and $W$.
+        \end{convention}
+
+    \subsection{Banach spaces}
+        \begin{definition}[Banach spaces] \label{def: banach_spaces}
+            A \textbf{Banach space} (over $K$) is a complete normed $K$-vector space. There is also a category $K\-\Ban$ of Banach spaces, which is the full subcategory of $K\-\Vect_{\norm{-}}$, wherein objects are Banach spaces.
         \end{definition}
-        \begin{definition}[Nowhere dense and meagre subsets] \label{def: nowhere_dense_and_meagre_subsets}
-            A subset $M$ of a topological space $X$ is said to be:
-            \begin{itemize}
-                \item \textbf{nowhere dense} if $\overline{M}$ has an empty interior,
-                \item \textbf{meagre} if it can be written as a countable union of nowhere dense subsets; clearly, nowhere dense subsets of $X$ are also meagre. 
-            \end{itemize}
-        \end{definition}
-        \begin{lemma}[Nowhere subsets are complements of dense subsets] \label{lemma: nowhere_dense_subsets_are_complements_of_dense_subsets}
-            Let $X$ be a topological space. A subset $M \subseteq X$ is then nowhere dense if and only if $S := X \setminus \overline{M}$ is dense. Equivalently, a subset $S \subseteq X$ is dense if and only if $X \setminus S$ is nowhere dense.
+        \begin{example}[$\ell^0(\N)$ (convergent countable sequences)] \label{example: convergent_sequences}
+            
+        \end{example}
+        \begin{example}[$c_0(\N)$ (null sequences)] \label{example: sequences_converging_to_zero}
+            
+        \end{example}
+        \begin{example}[$c_{00}(\N)$ (eventually zero sequences)] \label{example: eventually_zero_sequences}
+            
+        \end{example}
+
+        \begin{lemma}[Some colimits of Banach spaces] \label{lemma: colimits_of_banach_spaces}
+            The full subcategory $K\-\Ban \subset K\-\Vect$ is closed under epimorphisms and finite direct sums. 
         \end{lemma}
             \begin{proof}
-                If $M \subseteq X$ is nowhere dense then by definition, $(\overline{M})^{\circ} = \varnothing$ and hence we have that:
-                    $$S := X \setminus \overline{M} = X \setminus ( (\overline{M})^{\circ} \cup \del \overline{M} ) = X \setminus \del \overline{M} = X \setminus \overline{\del \overline{M}}$$
-                From this, we see that:
-                    $$\overline{S} = \overline{X \setminus \overline{\del \overline{M}}} = X \setminus (\del \overline{M})^{\circ} = X \setminus \varnothing = X$$
-                i.e. $S$ is dense by definition.
-                
-                Conversely, if $S := X \setminus \overline{M}$ is dense, then:
-                    $$\overline{ X \setminus \overline{M} } = X$$
-                At the same time, we have that:
-                    $$\overline{ X \setminus \overline{M} } = X \setminus M^{\circ} = X \setminus (\overline{M})^{\circ}$$
-                Thus, $(\overline{M})^{\circ} = \varnothing$ necessarily, i.e. $M$ is nowhere dense.
+                This is nothing but a corollary of lemma \ref{lemma: colimits_of_normed_spaces}.
             \end{proof}
-        
-        The lemma above allows for some flexibility with the definition of Baire spaces.
-        \begin{lemma}[Baire spaces via meagre subsets] \label{lemma: baire_spaces_via_meagre_subsets}
-            An equivalent characterisation of Baire spaces is as follows: a topological space $X$ is Baire if and only if countable unions of meagre closed subsets of $X$ are once more meagre. 
-        \end{lemma}
-            \begin{proof}
-                Suppose firstly that $X$ is Baire and consider some countable union $M := \bigcup_{n \in \N} M_n$ of meagre closed subsets $M_n \subseteq X$. By lemma \ref{lemma: nowhere_dense_subsets_are_complements_of_dense_subsets}, we know that there exist dense open subsets $U_n \subseteq X$ using which we can write $M_n := X \setminus U_n$. We then have that:
-                    $$M := \bigcup_{n \in \N} M_n = \bigcup_{n \in \N} (X \setminus U_n) = X \setminus \bigcap_{n \in \N} U_n$$
-                As $X$ is a Baire space, $U := \bigcap_{n \in \N} U_n$ must be dense by virtue of being a countable intersection of dense subsets of $X$, and by lemma \ref{lemma: nowhere_dense_subsets_are_complements_of_dense_subsets}, the complement $M = X \setminus U$ must therefore be meagre.
-
-                Conversely, suppose that countable unions $M := \bigcup_{n \in \N} M_n$ of meagre closed subsets $M_n \subseteq X$ are once more meagre. By lemma \ref{lemma: nowhere_dense_subsets_are_complements_of_dense_subsets}, we know that $X \setminus M$ is dense, and we can also find dense open subsets $U_n \subseteq X$ such that $M_n := X \setminus U_n$. Then, consider the following:
-                    $$X \setminus M = X \setminus \bigcup_{n \in \N} (X \setminus U_n) = X \setminus \bigcap_{n \in \N} U_n$$
-                Since $M$ is meagre, $\bigcap_{n \in \N} U_n$ must be dense by lemma \ref{lemma: nowhere_dense_subsets_are_complements_of_dense_subsets}, and by varying the meagre subsets $M_n$, we shall get that the intersections of any countable collection of dense subsets of $X$ is once more dense, hence $X$ is Baire by definition.
-            \end{proof}
-        \begin{remark}[Spaces of category I and of category II ?]
-            In the literature (see e.g. \cite[Definition, p. 37]{litvak_functional_analysis_notes}), spaces of so-called \say{category I} and \say{category II} are also mentioned. A topological space is of category I if it is meagre, while it is of category II if it is not of category I, i.e. non-meagre.
-
-            Through lemma \ref{lemma: baire_spaces_via_meagre_subsets}, one sees that a space of category II is nothing but a Baire space, and thus a space of category I is any non-Baire space.
-
-            We will not be referring to topological spaces as belonging either to the category I or category II, not least because this gives the impression that there are categories of topological spaces (in the sense of category theory) called \say{I} and \say{II}, but also because we would like to avoid confusion with the Baire Category Theorems I and II (see remark \ref{remark: baire_category_theorems_1_and_2}).
-        \end{remark}
-            
-        \begin{theorem}[The Baire Category Theorem] \label{theorem: baire_category}
-            (Cf. \cite[\href{https://stacks.math.columbia.edu/tag/0CQN}{Tag 0CQN}]{stacks}) Assuming the Axiom of Choice along with ZF, every locally compact\footnote{\cite{stacks} uses the term \say{quasi-compact} which is more prevalent in algebraic geometry due to its French origin.} and Hausdorff topological space is Baire.
-            
-            Without the Axiom of Choice but still with ZF, every \underline{separable}, locally compact, and Hausdorff topological space is Baire.
-        \end{theorem}
-            \begin{proof}
-                Choose a countable collection $\{U_n\}_{n \geq 0}$ of dense open proper subset of a locally compact and Hausdorff space $X$, and since the set of open subsets of $X$ is partially ordered by inclusion, we can assume without any loss of generality that $U_n \supset U_{n + 1}$ for all $n \geq 0$; note that one can not assume the other way around, i.e. that $U_n \subset U_{n + 1}$, since it is not always guaranteed that there may exist a larger dense proper subset containing a given dense proper subset. Given any $x \in X$, let us show that $x \in \overline{\bigcap_{n \geq 0} U_n}$, which amounts to showing that given any open neighbourhood $B_x \ni x$, one has that $B_x \cap \bigcap_{n \geq 0} U_n \not = \varnothing$. 
-                
-                To begin, note that since each $U_n$ is dense, we have that $B_x \cap U_n \not = \varnothing$. Because $U_n \supset U_{n + 1}$ for each $n \geq 1$ per out assumption above, this implies that this gives rise to a descending chain of non-empty open subsets of $X$ as follows:
-                    $$B_x \cap (U_0 \setminus U_1) \supset B_x \cap (U_1 \setminus U_2) \supset ...$$
-                For each $n \geq 0$, the set $B_x \cap (U_n \setminus U_{n + 1})$ is an open neighbourhood of $x$. By the fact that $X$ is locally compact, there must exist non-empty compact subsets:
-                    $$D_n \subset B_x \cap (U_n \setminus U_{n + 1})$$
-                for every $n \geq 0$. Since $X$ is locally compact, the compact subsets $D_n$ are closed. Now, we claim that it is possible to choose the non-empty compact subsets $D_n$ such that:
-                    $$\bigcap_{n \geq 0} D_n \not = \varnothing$$
-                Since $B_x \cap (U_n \setminus U_{n + 1}) \supset B_x \cap (U_{n + 1} \setminus U_{n + 2})$ for all $n \geq 0$, we have that $(B_x \cap (U_n \setminus U_{n + 1})) \cap (B_x \cap (U_{n + 1} \setminus U_{n + 2})) = B_x \cap (U_{n + 1} \setminus U_{n + 2})$, and hence:
-                    $$D_n \cap D_{n + 1} \subset B_x \cap (U_{n + 1} \setminus U_{n + 2}) = (B_x \cap U_{n + 1}) \setminus (B_x \cap U_{n + 2})$$
-                which then implies that:
-                    $$D_n \cap D_{n + 1} \subset B_x \cap U_{n + 1} \not = \varnothing$$
-                and then:
-                    $$X \setminus (D_n \cap D_{n + 1}) \supset X \setminus (B_x \cap U_{n + 1}) = (X \setminus B_x) \cup (X \setminus U_{n + 1})$$
-                Since $X$ is Hausdorff, $D_n \cap D_{n + 1}$ is compact, and hence closed, and so $X \setminus (D_n \cap D_{n + 1})$ is open, which means that $(X \setminus (D_n \cap D_{n + 1}))^{\circ} = X \setminus (D_n \cap D_{n + 1})$. At the same time, we have by lemma \ref{lemma: nowhere_dense_subsets_are_complements_of_dense_subsets} that, because $U_{n + 1}$ is dense, its complement is nowhere dense, and so:
-                    $$\left( (X \setminus B_x) \cup (X \setminus U_{n + 1}) \right)^{\circ} = (X \setminus B_x)^{\circ} \cup \varnothing = X \setminus \overline{B_x}$$
-                Since $X$ is Hausdorff, one can always choose the open neighbourhood $B_x \ni x$ such that $X \setminus \overline{B_x} \not = X$. In that case, we would have that:
-                    $$X \setminus (D_n \cap D_{n + 1}) \not \supset X$$
-                and hence:
-                    $$D_n \cap D_{n + 1} \not = \varnothing$$
-                We then have that:
-                    $$\bigcap_{n \geq 0} D_n \not = \varnothing$$
-                as needed.
-                    
-                Now, note that:
-                    $$D_n \subset B_x \cap (U_n \setminus U_{n + 1}) = (B_x \cap U_n) \setminus (B_x \cap U_{n + 1})$$
-                and hence:
-                    $$D_n \subset B_x \cap U_n$$
-                From this, we infer that:
-                    $$\varnothing = \bigcap_{n \geq 0} D_n \subset \bigcap_{n \geq 0} B_x \cap U_n = B_x \cap \bigcap_{n \geq 0} U_n$$
-                and hence $\bigcap_{n \geq 0} U_n$ is indeed dense inside $X$.
-            \end{proof}
-        \begin{remark}[There are two ? + a comment on the proof] \label{remark: baire_category_theorems_1_and_2}
-            In the literature (cf. e.g. \cite[Theorem 2.2.2]{litvak_functional_analysis_notes}), theorem \ref{theorem: baire_category} is usually referred to as the Baire Category Theorem II. The Baire Category Theorem I is the specialisation of the Theorem II to (complete) metric spaces. In practice, we will usually just be making use of the Theorem I, though we have chosen to prove the Baire Category Theorem II instead to highlight the fact that it is a purely topological assertion.
-        \end{remark}
-        \begin{remark}
-            Theorem \ref{theorem: baire_category} will be used for proving theorems \ref{theorem: uniform_boundedness}, \ref{theorem: open_mapping}, and \ref{theorem: closed_graph}, so it is important that we discuss it first of all.
-        \end{remark}
-
+    
+        Let us now discuss some fundamental theorems in the theory of Banach spaces, namely the Uniform Boundedness Principle, the Open Mapping Theorem, and the Closed Graph Theorem, as well as some of their implications regarding the homological structure of the category $K\-\Ban$, particularly how exactly\footnote{Pun intended.} this category deviates from being an abelian category. These are theorems \ref{theorem: uniform_boundedness}, \ref{theorem: open_mapping}, and \ref{theorem: closed_graph} respectively.
         \begin{lemma}[Suprema of averages] \label{lemma: suprema_of_averages}
             Let $X, Y$ be normed spaces and let $T: X \to Y$ be a continuous linear map between them. Fix $\e > 0$ and a centre $x \in X$. Then:
                 $$\sup_{x' \in \B_{\e}(x)} \norm{T(x)}_Y \geq \e \norm{T}_{\Hom_{K, \cont}(X, Y)}$$
@@ -169,38 +193,33 @@
                     \item This version relies on theorem \ref{theorem: baire_category}. 
                 \end{enumerate}
             \end{proof}
+        \begin{remark}
+            Let $X$ be a Banach space and $Y$ be a normed space, and let $\{T_n\}_{n \geq 0}$ be a sequence in $\Hom_{K, \cont}(X, Y)$. Note that if $\sup_{n \geq 0} \norm{ T_n(x) }_Y \leq M$, say, for all $x \in X$, then because:
+                $$\norm{T_n}_{\Hom_{K, \cont}(X, Y)} := \sup_{x \in X \setminus \{0\}} \frac{ \norm{T_n(x)}_Y }{ \norm{x}_X }$$
+            we are only guaranteed that:
+                $$\sup_{n \geq 0} \norm{T_n}_{\Hom_{K, \cont}(X, Y)} \leq M \norm{x}_X$$
+        \end{remark}
         The following is an important corollary to the Uniform Boundedness Principle.
-        \begin{corollary}[Uniform limits of pointwise convergent sequences of continuous linear maps] \label{coro: uniform_limits_of_pointwise_convergent_sequences_of_continuous_linear_maps}
-            Let $X$ be a Banach space and $Y$ be a normed space. Suppose that:
-                $$\{T_n\}_{n \geq 0} \subset \Hom_{K, \cont}(X, Y)$$
-            is a pointwise convergent sequence, i.e. $\{T_n(x)\}_{n \geq 0}$ is convergent with respect to $\norm{-}_Y$. Then, there shall exist $T \in \Hom_{K, \cont}(X, Y)$ such that:
-                $$\{T_n(x)\}_{n \geq 0} \to T(x)$$
-            with respect to $\norm{-}_Y$.
-
-            We shall refer to $T$ as above as the \textbf{uniform limit} of the pointwise convergent sequence $\{T_n\}_{n \geq 0}$.
+        \begin{corollary}[Compact limits of pointwise convergent sequences of continuous linear maps] \label{coro: compact_limits_of_pointwise_convergent_sequences_of_continuous_linear_maps}
+            Let $X$ be a Banach space and $Y$ be a normed space. Define $T \in \Hom_K(X, Y)$ by:
+                $$\forall x \in X: \lim_{n \to +\infty} \norm{T_n(x) - T(x)}_Y = 0$$
+            Then $T$ will be bounded, and hence $T \in \Hom_{K, \cont}(X, Y)$. Furthermore, $\{T_n|_Z\}_{n \geq 0} \to T|_Z$ with respect to $\norm{-}_{\Hom_{K, \cont}(X, Y)}$ on any \textit{compact} subspace $Z \subseteq X$.
         \end{corollary}
             \begin{proof}
-                Convergent sequences in metric spaces are bounded \textit{a priori}, so the pointwise convergent sequence $\{T_n(x)\}_{n \geq 0} \subset Y$ is pointwise bounded. By theorem \ref{theorem: uniform_boundedness}, it is also uniformly bounded, say there is a constant $M > 0$ such that:
-                    $$\forall n \geq 0: \norm{T_n}_{\Hom_{K, \cont}(X, Y)} \leq M$$
-                From this, we infer that for every $x \in X$,
+                In a metric space, a convergent sequence is automatically bounded, so the convergent sequence $\{T_n(x)\}_{n \geq 0} \subset Y$ must be bounded. By theorem \ref{theorem: uniform_boundedness}, this implies that $\{T_n\}_{\geq 0} \subset \Hom_{K, \cont}(X, Y)$ is also a bounded sequence. Set $M := \sup_{n \geq 0} \norm{T_n}_{\Hom_{K, \cont}(X, Y)}$. This implies that:
+                    $$\norm{T_n(x)}_Y \leq M \norm{x}_X$$
+                for every $n \geq 0$ and $x \in X$. Then, consider the following for $n$ sufficiently large so that $\norm{T(x) - T_n(x)}_Y < \e$ for all $\e > 0$:
+                    $$\norm{T(x)}_Y \leq \norm{T(x) - T_n(x)}_Y + \norm{T_n(x)}_Y < \e + M \norm{x}_X$$
+                As $\e > 0$ is arbitrary, this implies that $\norm{T(x)}_Y \leq M \norm{x}_X$ for all $x \in X$, and hence $\norm{T}_{\Hom_{K, \cont}(X, Y)} \leq M$.
 
-                \todo[inline]{Not done}
+                Now, compact subsets of metric spaces are closed and bounded by the Heine-Borel Theorem. If $Z \subseteq X$ is a compact subset wherein $\norm{z}_X \leq C$ for all $z \in Z$. Then, we shall have:
+                    $$\norm{T_n|_Z - T|_Z}_{\Hom_{K, \cont}(X, Y)} \leq C \sup_{z \in Z, \norm{z} \leq 1} \norm{ T_n(z) - T(z) }_Y < \e$$
+                for $n \geq 0$ sufficiently large and for all $\e > 0$. This shows that $\{T_n|_Z\}_{n \geq 0}$ converges uniformly to $T|_Z$ for $Z \subseteq X$ compact.
             \end{proof}
-        Later on, this corollary will be used for proving that $K\-\Ban$ is enriched over itself (see lemma \ref{lemma: hom_between_banach_spaces_are_banach_spaces}).
-
-        \begin{proposition}[Compact linear maps] \label{prop: compact_linear_maps}
-            \todo[inline]{Compact linear maps}
-        \end{proposition}
-            \begin{proof}
-                
-            \end{proof}
-
-        \begin{proposition}[Weakly bounded sequences] \label{prop: weakly_bounded_sequences}
-            \todo[inline]{Weakly bounded sequences}
-        \end{proposition}
-            \begin{proof}
-                
-            \end{proof}
+        \begin{definition}[Compact limits] \label{def: compact_limits}
+            We shall refer to $T$ as in corollary \ref{coro: compact_limits_of_pointwise_convergent_sequences_of_continuous_linear_maps} as the \textbf{compact limit} of the pointwise convergent sequence $\{T_n\}_{n \geq 0}$.
+        \end{definition}
+        Later on, this corollary will be used for proving that $K\-\Ban$ is enriched over itself (see lemma \ref{lemma: hom_between_banach_spaces_are_banach_spaces}). Corollary \ref{coro: compact_limits_of_pointwise_convergent_sequences_of_continuous_linear_maps} prompts the notion of compact linear maps. See proposition \ref{prop: compact_linear_maps}.
 
         \begin{theorem}[Open Mapping Theorem] \label{theorem: open_mapping}
             Surjective continuous linear maps between Banach spaces are open.
@@ -208,6 +227,40 @@
             \begin{proof}
                 \todo[inline]{Prove Open Mapping Theorem}
             \end{proof}
+        \begin{corollary}[Linear homeomorphisms] \label{coro: linear_homeomorphisms}
+            Any bijective continuous linear map between Banach spaces is automatically a (linear) homeomorphism.
+        \end{corollary}
+            \begin{proof}
+                Let $\varphi: X \to Y$ be a bijective continuous linear map. To prove that $\varphi^{-1}$ is continuous, we must show that $\varphi(U) = (\varphi^{-1})^{-1}(U) \subseteq Y$ is open for every open subspace $U \subseteq X$ By theorem \ref{theorem: open_mapping}, $\varphi$ is open, so we are already done.
+            \end{proof}
+            
+        \begin{lemma}[Extensions of Banach spaces] \label{lemma: banach_spaces_extensions}
+            \begin{enumerate}
+                \item 
+                \item 
+            \end{enumerate}
+        \end{lemma}
+            \begin{proof}
+                \begin{enumerate}
+                    \item 
+                    \item 
+                \end{enumerate}
+            \end{proof}
+        For a specific examples of monomorphisms of Banach spaces, both split and non-split, see subsection \ref{subsection: L_p_spaces}. Let us also remark that recognising split monomorphisms of Banach spaces is a deceptively difficult problem in practice. For instance, it is still unknown whether $L^1([0, 1])$ has any complemented Banach subspace. 
+
+        \begin{example}[Counter-example: topologically nilpotent operators] \label{example: topologically_nilpotent_operators}
+            Let $X$ be a Banach space and let $T \in \End_{K, \cont}(X)$. We say that $T$ is \textbf{topologically nilpotent} (also said to be \say{quasi-nilpotent}) if and only if:
+                $$\lim_{n \to +\infty} \norm{T^n}_{\End_{K, \cont}(X)}^{\frac1n} = 0$$
+            We claim that such a quasi-nilpotent operator $T$ is surjective if and only if $X \cong 0$.
+
+            Of course, if $X \cong 0$ then it will be discrete, so the only continuous linear endomorphism will be the only linear endomorphism thereon, namely the zero map. The zero map $0: 0 \to 0$ is trivially surjective and quasi-nilpotent, so we are done.
+
+            Conversely, suppose that $T \in \End_{K, \cont}(X)$ is quasi-nilpotent and surjective. By definition, this means that for all $\e > 0$ and all sufficiently large $n \geq 0$, we have that $\e > \norm{T^n}_{\End_{K, \cont}(X)}^{\frac1n}$. At the same time, because $T$ is surjective, we see via theorem \ref{theorem: open_mapping} that for each $y \in X$, there exists $x \in X$ and $C > 0$ such that $\norm{x}_X \leq C \norm{y}_X$ and $T(x) = y$, from which we infer that:
+                $$\norm{x}_X \leq C \norm{T(x)}_X \leq C \norm{T}_{\End_{K, \cont}(X)} \norm{x}_X$$
+            and hence:
+                $$\norm{T}_{\End_{K, \cont}(X)} \geq \frac1C$$
+            
+        \end{example}
 
         \begin{theorem}[Closed Graph Theorem: continuous linear maps reflect limits] \label{theorem: closed_graph}
             \todo[inline]{Closed Graph Theorem}
@@ -313,7 +366,7 @@
 
         A somewhat non-trivial consequence of the Hahn-Banach Theorem is that the category $K\-\Ban$ is enriched over itself (see lemma \ref{lemma: hom_between_banach_spaces_are_banach_spaces}), i.e. the hom-space between two Banach spaces is once again a Banach space. This also requires the Uniform Boundedness Principle (theorem \ref{theorem: uniform_boundedness}) as a prerequiresite. 
         \begin{lemma}[Domain completion\footnote{If only I could call this the \say{Domain Expansion Lemma} ...}] \label{lemma: domain_completion}
-            If $X, Y$ are normed spaces then $\Hom_{K, \cont}(X, Y)$. Denote by $X^{\wedge}$ the completion of $X$. Then, there shall be a linear isometry:
+            If $X, Y$ are normed spaces then $\Hom_{K, \cont}(X, Y)$. Denote by $X^{\wedge}$ the completion of $X$. Then, there shall be a short isomorphism:
                 $$\Phi_Y: \Hom_{K, \cont}(X^{\wedge}, Y) \xrightarrow[]{\cong} \Hom_{K, \cont}(X, Y)$$
             that is natural in $Y$.
         \end{lemma}
@@ -326,19 +379,21 @@
             \begin{proof}
                 By lemma \ref{lemma: domain_completion}, we can assume without loss of generality that $X$ is Banach.
                 
-                Assume firstly that $Y$ is Banach. Then, any Cauchy sequence $\{T_n\}_{n \geq 0} \subset \Hom_{K, \cont}(X, Y)$ will be pointwise convergent in $Y$. By corollary \ref{coro: uniform_limits_of_pointwise_convergent_sequences_of_continuous_linear_maps}, there exists a uniform limit $\{T_n\}_{n \geq 0} \to T$, thus showing that any Cauchy sequence in $\Hom_{K, \cont}(X, Y)$ converges with respect to $\norm{-}_{\Hom_{K, \cont}(X, Y)}$ The normed space $\Hom_{K, \cont}(X, Y)$ is therefore Banach.
+                Assume firstly that $Y$ is Banach. Then, any Cauchy sequence $\{T_n\}_{n \geq 0} \subset \Hom_{K, \cont}(X, Y)$ will be pointwise convergent in $Y$. By corollary \ref{coro: compact_limits_of_pointwise_convergent_sequences_of_continuous_linear_maps}, there exists a uniform limit $\{T_n\}_{n \geq 0} \to T$, thus showing that any Cauchy sequence in $\Hom_{K, \cont}(X, Y)$ converges with respect to $\norm{-}_{\Hom_{K, \cont}(X, Y)}$ The normed space $\Hom_{K, \cont}(X, Y)$ is therefore Banach.
 
                 Conversely, suppose that $\Hom_{K, \cont}(X, Y)$ is Banach. For each $x \in X$, consider the evaluation map:
                     $$\ev_x: \Hom_{K, \cont}(X, Y) \to Y$$
                 given by:
                     $$\ev_x[T] := T(x)$$
-                which clearly makes it linear. We claim that $\ev_x$ is also continuous and surjective, thus making $Y$ a Banach space with respect to the quotient topology inherited from $\Hom_{K, \cont}(X, Y)$. Since $\Hom_{K, \cont}(X, Y)$ is Banach, any Cauchy sequence $\{T_n\}_{n \geq 0} \subset \Hom_{K, \cont}(X, Y)$ will be convergent with respect to $\norm{-}_{\Hom_{K, \cont}(X, Y)}$, say to some $T \in \Hom_{K, \cont}(X, Y)$ (which is unique because $\Hom_{K, \cont}(X, Y)$ is Hausdorff by virtue of being a metric space). Consequently, $\{T_n(x)\}_{n \geq 0} \to T(x)$ with respect to $\norm{-}_Y$, and hence:
-                    $$\lim_{n \to +\infty} \ev_x[T_n] = \lim_{n \to +\infty} T_n(x) = T(x) = \ev_x[T] = \ev_x\left[ \lim_{n \to +\infty} T_n \right]$$
-                from which we gather that $\ev_x$ is continuous. Next, to prove that $\ev_x$ is surjective, note firstly that for each $x \in X$, there exists $x^* \in X^*_{\cont}$ such that:
-                    $$x^*(x) = 1$$
-                Then, for each $y \in Y$, there exists $\varphi_y \in \Hom_{K, \cont}(X, Y)$ given by:
-                    $$\forall x \in X: \varphi_y(x) := x^*(x) y = y$$
-                which clearly shows that $\ev_x$ is surjective, so we are done.
+                which clearly makes it linear. We claim that $\ev_x$ is also continuous and surjective, thus making $Y$ a Banach space with respect to the quotient topology inherited from $\Hom_{K, \cont}(X, Y)$.
+                \begin{itemize}
+                    \item Since $\Hom_{K, \cont}(X, Y)$ is Banach, any Cauchy sequence $\{T_n\}_{n \geq 0} \subset \Hom_{K, \cont}(X, Y)$ will be convergent with respect to $\norm{-}_{\Hom_{K, \cont}(X, Y)}$, say to some $T \in \Hom_{K, \cont}(X, Y)$ (which is unique because $\Hom_{K, \cont}(X, Y)$ is Hausdorff by virtue of being a metric space). Consequently, $\{T_n(x)\}_{n \geq 0} \to T(x)$ with respect to $\norm{-}_Y$, and hence:
+                        $$\lim_{n \to +\infty} \ev_x[T_n] = \lim_{n \to +\infty} T_n(x) = T(x) = \ev_x[T] = \ev_x\left[ \lim_{n \to +\infty} T_n \right]$$
+                    from which we gather that $\ev_x$ is continuous.
+                    \item Next, to prove that $\ev_x$ is surjective, pick an arbitrary $\phi \in X^*_{\cont}$, and then for each $y \in Y$, note that there exists $\Phi_y \in \Hom_{K, \cont}(X, Y)$ given by:
+                        $$\Phi_y(x) := \phi(x) y$$
+                    for every $x \in X$.
+                \end{itemize}
             \end{proof}
         \begin{corollary}[Duals of normed spaces are Banach] \label{coro: duals_of_normed_space_are_banach}
             Let $X$ be normed space and let $X^*_{\cont} := \Hom_{K, \cont}(X, K)$. Then $X^*_{\cont}$ will be a Banach space, regardless of whether or not $X$ is Banach.
@@ -371,16 +426,16 @@
             The continuous duality functor $(-)^*_{\cont}$ is involutive, i.e. $(-)^{**}_{\cont}$ is the identity functor. 
         \end{lemma}
             \begin{proof}
-                Firstly, we shall need to prove that there is an isometry $E \xrightarrow[]{\cong} ( E^*_{\cont} )^*_{\cont}$ for any normed vector space $E$. We claim that this is given by:
+                Firstly, we shall need to prove that there is a short isomorphism $E \xrightarrow[]{\cong} ( E^*_{\cont} )^*_{\cont}$ for any normed vector space $E$. We claim that this is given by:
                     $$x \mapsto (E^*_{\cont} \xrightarrow[]{\ev_x} \R)$$
                 where:
                     $$\ev_x[\varphi] := \varphi(x)$$
-                To see that this is an isometry, simple note that the following holds for all $x \in E$ and all $\varphi \in E^*_{\cont}$:
+                To see that this is a short isomorphism, simple note that the following holds for all $x \in E$ and all $\varphi \in E^*_{\cont}$:
                     $$\norm{\ev_x}_{\sup} := \sup_{\varphi \in E^*_{\cont}, \norm{\varphi}_{E^*_{\cont}} = 1} |\ev_x[\varphi]| = \sup_{\varphi \in E^*_{\cont}, \norm{\varphi}_{E^*_{\cont}} = 1} \abs{\varphi(x)} = \norm{x}_E$$
 
-                Next, let $E, E'$ be normed spaces and denote the canonical isometries between them and their continuous double duals by $\ev$ and $\ev'$ respectively. Let $T: E \to E'$ be a continuous linear map. Then, precisely because $\ev$ and $\ev'$ are isometric, we have the following:
+                Next, let $E, E'$ be normed spaces and denote the canonical short isomorphisms between them and their continuous double duals by $\ev$ and $\ev'$ respectively. Let $T: E \to E'$ be a continuous linear map. Then, precisely because $\ev$ and $\ev'$ are isometric, we have the following:
                     $$\norm{ T^{**}_{\cont} }_{\sup} = \norm{ \ev' \circ T \circ \ev^{-1} }_{\sup} := \sup_{y \in E^{**}_{\cont}} \frac{ \norm{ (\ev' \circ T \circ \ev^{-1})(y) }_{\sup} }{\norm{y}_E} = \sup_{y \in E^{**}_{\cont}} \frac{\norm{T(y)}_{E'}}{\norm{y}_E} = \norm{T}_{\sup}$$
-                This concludes the proof that there is an isometry:
+                This concludes the proof that there is a isometry:
                     $$\Hom_{K, \cont}(E, E') \xrightarrow[]{\cong} \Hom_{K, \cont}(E^{**}_{\cont}, E'^{**}_{\cont})$$
             \end{proof}
         For the proof of the following proposition, it will be useful to note that if $\Phi: V \to V'$ is any linear map between normed spaces, then:
@@ -388,9 +443,9 @@
         \begin{proposition}[Norms of transpositions] \label{prop: transposition_norms}
             Let $T: E \to E'$ be any continuous linear map between normed spaces. Then:
                 $$\norm{T}_{\sup} = \norm{T^*_{\cont}}_{\sup}$$
-            In fact, the continuous duality functor $(-)_{\cont}^*$ is not only fully faithful, but also isometric on hom-spaces, in the sense that each of the $K$-linear isomorphisms:
+            In fact, the continuous duality functor $(-)_{\cont}^*$ is not only fully faithful, but also short-isomorphic on hom-spaces, in the sense that each of the $K$-linear isomorphisms:
                 $$\Hom_{K, \cont}(E, E') \xrightarrow[]{\cong} \Hom_{K, \cont}(E'^*_{\cont}, E^*_{\cont})$$
-            is moreover an isometry, for all $E, E' \in \Ob( K\-\Vect_{\norm{-}} )$.
+            is moreover a short isomorphism, for all $E, E' \in \Ob( K\-\Vect_{\norm{-}} )$.
         \end{proposition}
             \begin{proof}
                 For any $\psi \in E'^*_{\cont}$ and any $x \in E$, we have that:
@@ -405,7 +460,7 @@
                 \item finite direct sums;
                 \item short exact sequences:
                     $$0 \to F \xrightarrow[]{\ker \pi} E \xrightarrow[]{\pi} Q \to 0$$
-                where $F \subseteq E$ is a closed subspace, and in fact, we have a linear isometry:
+                where $F \subseteq E$ is a closed subspace, and in fact, we have a short isomorphism:
                     $$T: \Ann_{E^*_{\cont}}(F) \xrightarrow[]{\cong} Q^*_{\cont}$$
                 determined by:
                     $$\forall x \in E: T[\varphi]( \pi(x) ) := \varphi(\pi(x))$$
@@ -421,7 +476,7 @@
                         $$0 \to Q^*_{\cont} \xrightarrow[]{\pi^*_{\cont}} E^*_{\cont} \xrightarrow[]{\coker \pi^*_{\cont}} F^*_{\cont} \to 0$$
                     wherein $Q^*_{\cont} \subseteq E^*_{\cont}$ is a closed subspace.
 
-                    Lastly, to prove that $T: \Ann_{E^*_{\cont}}(F) \to Q^*_{\cont}$ is an isometry, consider the following for any $\varphi \in \Ann_{E^*_{\cont}}(F)$:
+                    Lastly, to prove that $T: \Ann_{E^*_{\cont}}(F) \to Q^*_{\cont}$ is a short isomorphism, consider the following for any $\varphi \in \Ann_{E^*_{\cont}}(F)$:
                         $$\norm{T[\varphi]}_{Q^*_{\cont}} := \sup_{x \in E} \frac{ \abs{T[\varphi]( \pi(x) )} }{ \norm{\pi(x)}_Q } = \sup_{x \in E} \frac{ \abs{\varphi(\pi(x))} }{ \norm{\pi(x)}_Q } = \norm{\varphi}_{\Ann_{E^*_{\cont}}(F)}$$
                     wherein the last equality holds because $\varphi(F) = 0$ for all $\varphi \in \Ann_{E^*_{\cont}}(F)$. Linearity of $T$ is self-evident.
                 \end{enumerate}
@@ -429,7 +484,7 @@
         \begin{corollary}
             Let:
                 $$0 \to F \xrightarrow[]{\ker \pi} E \xrightarrow[]{\pi} Q \to 0$$
-            be a short exact sequence in $K\-\Vect_{\norm{-}}$, wherein $F \subseteq E$ is a closed subspace. Then there is a linear isometry:
+            be a short exact sequence in $K\-\Vect_{\norm{-}}$, wherein $F \subseteq E$ is a closed subspace. Then there is a short isomorphism:
                 $$F^*_{\cont} \xrightarrow[]{\cong} E^*_{\cont}/\Ann_{E^*_{\cont}}(F)$$
                 $$\psi \mapsto \psi|_F$$
         \end{corollary}
@@ -441,7 +496,7 @@
                     $$E^*_{\cont} \cong F^*_{\cont} \oplus \Ann_{E^*_{\cont}}(F)$$
                 by the definition of $\Ann_{E^*_{\cont}}(F)$ as in proposition \ref{prop: properties_of_continuous_duals}. Next, let us consider a short exact sequence in $K\-\Vect_{\norm{-}}$:
                     $$0 \to F \xrightarrow[]{\ker \pi} E \xrightarrow[]{\pi} Q \to 0$$
-                wherein $F \subseteq E$ is a closed subspace. In this situation, we now know that there is a linear isometry:
+                wherein $F \subseteq E$ is a closed subspace. In this situation, we now know that there is a short isomorphism:
                     $$T: \Ann_{E^*_{\cont}}(F) \xrightarrow[]{\cong} Q^*_{\cont}$$
                 and hence there is an isomorphism of normed spaces:
                     $$\id_{F^*_{\cont}} \oplus T: F^*_{\cont} \oplus \Ann_{E^*_{\cont}}(F) \xrightarrow[]{\cong} F^*_{\cont} \oplus Q^*_{\cont}$$
@@ -452,15 +507,15 @@
                 (note the implicit identifications of $E, F$ with the continuous double duals).
             \end{proof}
         \begin{corollary}[Annihilators vs. orthogonal complements] \label{coro: annihilators_vs_orthogonal_complements}
-            Let $E$ be a normed space and $F \subseteq E$ be a closed vector subspace thereof. Then, there shall be a linear isometry:
+            Let $E$ be a normed space and $F \subseteq E$ be a closed vector subspace thereof. Then, there shall be a short isomorphism:
                 $$F^{\perp}_{\cont} \cong ( \Ann_{E^*_{\cont}}(F) )^*_{\cont}$$
         \end{corollary}
             \begin{proof}
                 The definition of annihlators guarantee us that:
                     $$E^*_{\cont} \cong F^*_{\cont} \oplus \Ann_{E^*_{\cont}}(F)$$
-                Since we also know that $(-)^*_{\cont}$ is involutive (see lemma \ref{lemma: continuous_duality_involutive}), meaning that there are linear isometries between $E, F$ and their continuous double duals $E^{**}_{\cont}, F^{**}_{\cont}$, continuously dualising the isomorphism above shall yield\footnote{We are also using the fact that $(-)^*_{\cont}$ preserves finite direct sums (see proposition \ref{prop: properties_of_continuous_duals}).}:
+                Since we also know that $(-)^*_{\cont}$ is involutive (see lemma \ref{lemma: continuous_duality_involutive}), meaning that there are short isomorphisms between $E, F$ and their continuous double duals $E^{**}_{\cont}, F^{**}_{\cont}$, continuously dualising the isomorphism above shall yield\footnote{We are also using the fact that $(-)^*_{\cont}$ preserves finite direct sums (see proposition \ref{prop: properties_of_continuous_duals}).}:
                     $$E \cong F \oplus \Ann_{E^*_{\cont}}(F)^*_{\cont}$$
-                and hence there is a linear isometry:
+                and hence there is a short isomorphism:
                     $$F^{\perp}_{\cont} \cong ( \Ann_{E^*_{\cont}}(F) )^*_{\cont}$$
                 wherein the LHS is the orthogonal complement $F^{\perp}$ of $F$ inside $E$, equipped with the subspace topology inherited from the norm topology on $E$.
             \end{proof}
@@ -557,121 +612,3 @@
             \begin{proof}
                 
             \end{proof}
-
-    \subsection{Hilbert spaces}
-        \begin{convention}
-            The complex conjugation of some complex number $z := a + ib$ shall be denoted by $z^{\dagger} := a - ib$.
-        \end{convention}
-    
-        \begin{definition}[Hilbert spaces] \label{def: hilbert_spaces}
-            Let $\sigma$ be a field automorphism of $K$.
-        
-            A \textbf{Hilbert space} is a vector space space $H$ equipped with a $\sigma$-braided, positive-definite, and non-degenerate $K$-bilinear form $\<-, -\>_H: H \x H \to K$ (called an \textbf{inner product}), with the braidedness condition meaning that:
-                $$\forall x, y \in H: \<x, y\>_H = \sigma( \<y, x\>_H )$$
-            The inner product $\<-, -\>$ is said to be \textbf{symmetric} if and only if $\sigma = \id_K$, and \textbf{Hermitian} if and only if $\sigma = (-)^{\dagger}$; note that for complete archimedean local fields, these are the only two possible field automorphisms (since $\Gal(\bbC/\R) \cong \Z/2$). 
-        \end{definition}
-        \begin{proposition}[Induced norms] \label{prop: induced_norms_on_hilbert_spaces}
-            Let $H$ be a Hilbert space. Then, there will be an induced norm $\norm{-}_H$ on $H$ given by:
-                $$\forall x \in H: \norm{x}_H := \sqrt{\<x, x\>_H}$$
-            When equipped with the topology induced by this norm, Hilbert spaces become normed spaces. 
-        \end{proposition}
-            \begin{proof}
-                Firstly, let us note that $\norm{-}_H$ is a well-defined function $H \to \R_{\geq 0}$ due to the positive-semi-definiteness of $\<-, -\>_H$. Next, the triangle inequality is due to the Cauchy-Schwarz inequality. Finally, to show that $\norm{x}_H = 0$ if and only if $x = 0$, we can simply make use of positive-definiteness.
-            \end{proof}
-        \begin{convention}
-            \textit{A priori}, Hilbert spaces are not complete (at least according to definition \ref{def: hilbert_spaces}; it is common in the literature to require that Hilbert spaces are complete right from the beginning, but we find this to be circular\footnote{From the beginning, Hilbert spaces do not carry any topology, so it does not make any sense to require them to be complete. Only after we have shown that inner products induce norms on Hilbert spaces can we meaningfully require them to be complete.}). However, let us assume from now on that every Hilbert space is complete with respect to its norm topology. In particular, this means that Hilbert spaces are now Banach spaces whose norms come from inner products.
-        \end{convention}
-        The following is arguably the most ubiquitous and most useful family of examples of Hilbert spaces.  
-        \begin{example}[$L^2$-spaces] \label{example: L_2_spaces_as_hilbert_spaces}
-            Let $(X, \mu)$ be a measure space. In theorem \ref{theorem: L_p_space_duality}, it is shown that for any $p, q \in \N_{\geq 1} \cup \{+\infty\}$ such that $\frac1p + \frac1q = 1$, one has a linear homeomorphism:
-                $$L^q(X, \mu) \xrightarrow[]{\cong} L^p(X, \mu)^*_{\weak}$$
-            that is given by:
-                $$g \mapsto \int_X (-) g d\mu$$
-
-            Now, observe that when $p = q = 2$, not only does this weak duality holds, but it is in fact a weak \textit{self}-duality of $L^2(X, \mu)$, which allows us to define a bilinear pairing on this Banach space by:
-                $$\<f, g\>_{L^2(X, \mu)} := \int_X \abs{ fg } d\mu$$
-            using which the linear homeomorphism from before can be now alternatively given by $g \mapsto \<-, g\>$. One then verifies that:
-                $$\norm{f}_{L^2(X, \mu)}^2 = \int_X \abs{f}^2 d\mu = \<f, f\>_{L^2(X, \mu)}$$
-            to see that the induced norm coincides with the $L^2$-norm.
-        \end{example}
-        \begin{example}[Finite-dimensional Hilbert spaces]
-            Any finite-dimensional inner product space is a Hilbert space. In fact, any finite-dimensional vector space can be upgraded to a Hilbert space in a canonical manner: by letting the inner product be the dot product (but of course, there are inner products that are not the dot product).
-        \end{example}
-
-        \begin{theorem}[Riesz's Representability Theorem] \label{theorme: riesz_representation_theorem}
-            Let $H$ be a Hilbert space. Then, any continuous linear functional $\varphi \in H^*_{\cont}$ will be representable, in the sense that there exists a unique $y_{\varphi} \in H$ such that:
-                $$\varphi = \<-, y_{\varphi}\>_H$$
-            In other words, for all $y \in H$, the linear functional $\<-, y\>_H$ is continuous with respect to the topology generated by $\norm{-}_H$, and one has a linear isometry\footnote{\say{$D$} for \say{duality}.}:
-                $$D_H: H \xrightarrow[]{\cong} H^*_{\cont}$$
-            which is given by $y \mapsto \<-, y\>_H$.
-        \end{theorem}
-            \begin{proof}
-                Let us exploit the fact that there is a linear isometry $\ev: H \xrightarrow[]{\cong} H^{**}_{\cont}$ given by $x \mapsto \ev_x$ with $\ev_x: H^*_{\cont} \to K$ being given by $\ev_x[\varphi] := \varphi(x)$ for all $\varphi \in H^*_{\cont}$ (see lemma \ref{lemma: continuous_duality_involutive}) in order to identify elements of $H$ with those of $H^{**}_{\cont}$ by means of pulling back along this linear isometry. It now suffices to construct a linear isometry:
-                    $$P_H: H^{**}_{\cont} \to H^*_{\cont}$$
-                We claim that the underlying linear isomorphism can be given by:
-                    $$P_H(\ev_y) := \<-, y\>_H$$
-                (we will need to verify the continuity of each of the functional $\<-, y\>_H$ too, to be able to conclude that the codomain of $P_H$ is actually $H^*_{\cont}$, not merely all of $H^*$); linearity is easy to see, so let us focus on proving that it is bijective.
-                
-                Firstly, to prove that $P_H$ is injective:
-                    $$\ker P_H \cong \{ y \in H \mid \forall x \in H: \<x, y\>_H = 0 \}$$
-                Since the bilinear form $\<-, -\>_H$ is non-degenerate, we can conclude immediately that:
-                    $$\ker P_H \cong 0$$
-                i.e. that $P_H$ is injective. This also guarantees that any vector $y_{\varphi} \in H$ such that:
-                    $$\varphi = \<-, y_{\varphi}\>_H$$
-                is necessarily unique: $\ev: H \xrightarrow[]{\cong} H^{**}_{\cont}$ is a linear isometry - so in particular, it is injective - meaning that the composition $P_H \circ \ev$ is also injective.
-                
-                To see that $P_H$ is surjective, let us note first of all that each $\<-, y\>_H: H \to K$ is continuous by virtue of being bounded (which is per the definition of inner products), and hence $\im P_H \subseteq H^*_{\cont}$. Next, observe that $P_H$ is continuous: to prove this, note firstly that since $H$ is complete by virtue of being a Hilbert space, any Cauchy sequence is convergent\footnote{Hilbert spaces are normed space, hence Hausdorff, so limit points will be unique if they exist.}, and then let $\{y_m\}_{m \geq 0} \to y$ is a (convergent) Cauchy sequence in $H$ and then consider\footnote{We are using the fact that $\{\ev_{y_m}\}_{m \geq 0} \to \ev_y$ if and only if $\{y_m\}_{m \geq 0} \to y$ as the map $\ev: H \to H^{**}_{\cont}$ is an isometry.}\footnote{We leave it to the reader to show that $\norm{ \<x, -\>_H }_{H^*_{\cont}} = \norm{x}_H$ is true for all $x \in H$.}:
-                    $$\forall \e > 0: m, n \gg 0 \implies \abs{P_H(\ev_{y_m} - \ev_{y_n})(x)} = \abs{ \< x, y_m - y_n \>_H } \leq \norm{y_m - y_n}_H \norm{ \<x, -\>_H }_{H^*_{\cont}} < \e \norm{x}_H$$
-                for all $x \in H$, from which one sees that:
-                    $$\forall \e > 0: m, n \gg 0 \implies \norm{ P_H(\ev_{y_m} - \ev_{y_n}) }_{H^*_{\cont}} < \e$$
-                which proves that $P_H$ is continuous. We now claim that $\im P_H$ is dense inside $H^*_{\cont}$; this will help us prove surjectivity because $\{\ev_{y_m}\}_{m \geq 0} \to \ev_y$ if and only if $\{y_m\}_{m \geq 0} \to y$ for Cauchy sequences in $H^{**}_{\cont}$ and in $H$ respectively, as the map $\ev: H \to H^{**}_{\cont}$ is an isometry, and hence for any $\varphi \in H^*_{\cont}$, there exists a unique $y_{\varphi} \in H$ such that $\varphi = \<-, y_{\varphi}\>$. To do this, we will be using lemma \ref{lemma: density_orthogonal_complement_criterion}, which tells us that it shall suffice to show that:
-                    $$(\im P_H)^{\perp}_{\cont} \cong 0$$
-                Let us suppose for the sake of deriving a contradiction that $(\im P_H)^{\perp}_{\cont} \not \cong 0$, i.e.:
-                    $$\exists \varphi \in H^*_{\cont} \setminus \{0\}: \varphi(\im P_H) = 0$$
-                The construction of $P_H$, however, stipulates that there is a linear isometry:
-                    $$H \cong \im P_H$$
-                which suggests to us that:
-                    $$\varphi(\im P_H) = 0 \iff (\forall x \in H: \varphi(x) = 0) \iff \varphi = 0$$
-                But this contradicts the assumption that $\varphi \not = 0$, so it must be the case that:
-                    $$(\im P_H)^{\perp}_{\cont} \cong 0$$
-                and hence $\im P_H$ is dense inside $H^*_{\cont}$.
-
-                Finally, because we have that:
-                    $$\forall y \in H: \norm{ \<-, y\>_H }_{H^*_{\cont}} = \norm{y}_H = \norm{\ev_y}_{H^{**}_{\cont}}$$
-                (the last equality is due to $\ev$ being an isometry) there is indeed a linear isometry:
-                    $$D_H: H \to H^*_{\cont}$$
-                which we now know to be given by $D_H := P_H \circ \ev$. 
-            \end{proof}
-        \begin{corollary}[Uniformity of Hilbert spaces] \label{coro: hilbert_space_uniformity}
-            In Hilbert spaces, sequences converge if and only if they converge weakly. Phrased dually, sequences of continuous functionals on Hilbert spaces converge uniformly if and only if they converge pointwise.
-        \end{corollary}
-            \begin{proof}
-                Strong convergence automatically implies weak convergence, so let us focus on the converse direction.
-            
-                To that end, pick a weakly convergent sequence $\{\varphi_n\}_{n \geq 0} \xrightarrow[]{\weak} \varphi$ in $H^*$, which means that:
-                    $$\forall x \in H: \forall \e > 0: n \gg 0 \implies \abs{\ev_x[\varphi_n - \varphi]} = \abs{\varphi_n(x) - \varphi(x)} < \e$$
-                From this, we infer that:
-                    $$\norm{ \varphi_n - \varphi }_{H^*_{\cont}} = \sup_{x \in H, \norm{x}_H = 1} \abs{\varphi_n(x) - \varphi(x)} < \e$$
-                which shows that there is strong convergence:
-                    $$\{\varphi_n\}_{n \geq 0} \to \varphi$$
-                Thus, we have shown that weak convergence in $H^*$ implies convergence therein, and since $H^*_{\cont}$ is linearly isometric to $H$ by theorem \ref{theorme: riesz_representation_theorem}, we see thus that the same statement holds for $H$.
-            \end{proof}
-        \begin{definition}[Gram-Schmidt orthonormalisation]
-            
-        \end{definition}
-        \begin{corollary}[Orthonormal bases] \label{coro: orthonormal_bases_for_hilbert_spaces}
-            Every Hilbert space admits a topological orthonormal basis.
-        \end{corollary}
-            \begin{proof}
-                We claim that any topological basis $\{x_i\}_{i \in I}$ for a given Hilbert space $H$ can be refined into an orthonormal one. By theorem \ref{theorme: riesz_representation_theorem}, such a basis induces a dual topological basis $\{x_i^* := \<-, x_i\>_H\}_{i \in I}$ for $H^*_{\cont}$. One can then find a family of vectors $\{e_i\}_{i \in I} \subset H$ such that:
-                    $$\forall i \in I: \<e_i, x_j\>_H := \delta_{i, j}$$
-                The vectors $e_i$ can be obtained by the Gram-Schmidt procedure, which also guarantees that they are linearly independent from one another. Finally, to show that $\overline{\bigoplus_{i \in I} \bbC e_i} \cong H$ (i.e. that $\{e_i\}_{i \in I}$ indeed \textit{topological} spans $H$), let us note that by the Gram-Schmidt procedure, this is the case if and only if $\{\<-, x_i\>\}_{i \in I}$ is a topological basis for $H^*_{\cont}$. But by corollary \ref{coro: hilbert_space_uniformity}, this is the case if and only if $\{x_i\}_{i \in I}$ is a topological basis for $H$, which is true by assumption.
-            \end{proof}
-
-        Let us end the subsection with some examples. 
-        \begin{example}[Riesz-Markov-Kakutani representation theorem: measures are functionals]
-            
-        \end{example}
-        \begin{example}[$L^2$-spaces over compact Lie groups and Fourier series; Plancherel's Theorem]
-            
-        \end{example}
