@@ -27,6 +27,24 @@
                     $$\forall \e > 0: \exists N \in \N: n \geq N \implies \abs{ \norm{x_n}_X - \norm{x}_X } < \e$$
                 This implies that the sequence $\{ \norm{x}_X \}_{n \geq 0}$ converges to $\norm{x}_X$ in $\R_{\geq 0}$, and hence $\norm{-}_X: X \to \R_{\geq 0}$ is a continuous function with respect to the norm topologies on $X$ and $\R_{\geq 0}$.
             \end{proof}
+
+        \begin{proposition}[Equivalence of norms] \label{prop: norm_equivalence}
+            Two norms $\norm{-}_1, \norm{-}_2$ on the same vector space $V$ are said to be \textbf{equivalent} if and only if there exist constants $c, C > 0$ such that:
+                $$c \norm{-}_1 \leq \norm{-}_2 \leq C \norm{-}_1$$
+            \begin{enumerate}
+                \item Equivalence of norms on a given vector spaces $V$ is an equivalence relation on the set of norms on $V$.
+                \item If two norms are equivalent then they define the same topology. The converse statement needs not hold.
+                \item Furthermore, all norms on a finite-dimensional vector space are equivalent to one another.
+            \end{enumerate}
+        \end{proposition}
+            \begin{proof}
+                \begin{enumerate}
+                    \item 
+                    \item 
+                    \item 
+                \end{enumerate}
+            \end{proof}
+            
         \begin{proposition}[The operator norm] \label{prop: operator_norm}
             \begin{enumerate}
                 \item Let $V, W$ be normed spaces and $\varphi: V \to W$ be a linear map. Then, we can define a norm on $\Hom_{K, \cont}(V, W)$, called the \textbf{operator norm}, given by:
@@ -112,7 +130,7 @@
 
         \todo[inline]{$p$-direct sums}
 
-        \begin{convention}
+        \begin{convention}[$\ell^p$ direct sums] \label{conv: ell_p_direct_sums}
             If $V, W$ are normed spaces and $1 \leq p \leq +\infty$, then it is typical to write:
                 $$V \oplus_p W$$
             to mean $V \oplus W$ (the usual algebraic direct sum, \textit{sans topologie}) equipped with the norm given for all $(v, w) \in V \oplus W$ by:
@@ -131,15 +149,49 @@
         \begin{definition}[Banach spaces] \label{def: banach_spaces}
             A \textbf{Banach space} (over $K$) is a complete normed $K$-vector space. There is also a category $K\-\Ban$ of Banach spaces, which is the full subcategory of $K\-\Vect_{\norm{-}}$, wherein objects are Banach spaces.
         \end{definition}
-        \begin{example}[$\ell^0(\N)$ (convergent countable sequences)] \label{example: convergent_sequences}
+        \begin{lemma}[Closed subspaces of Banach spaces] \label{lemma: closed_subspaces_of_banach_spaces}
+            If $X$ is a Banach space and $Z \subseteq X$ is a closed vector subspace, then $Z$ will also be a Banach space.
+        \end{lemma}
+            \begin{proof}
+                Closed subspaces of any complete metric spaces are complete too, as they contain all limit points by definition.
+            \end{proof}
+        
+        \todo[inline]{Basic examples of Banach spaces.}
+        
+        \begin{example}[Finite-dimensional normed spaces] \label{example: finite_dimensional_normed_spaces_are_banach}
             
         \end{example}
-        \begin{example}[$c_0(\N)$ (null sequences)] \label{example: sequences_converging_to_zero}
+        \begin{example}[Bounded functions] \label{example: bounded_functions}
             
         \end{example}
-        \begin{example}[$c_{00}(\N)$ (eventually zero sequences)] \label{example: eventually_zero_sequences}
+        \begin{example}[$\ell^{\infty}(\N)$: bounded countable sequences] \label{example: bounded_countable_sequences}
+            Let $\ell^{\infty}(\N)$ consist of bounded countable sequences $\{x_n\}_{n \geq 0} \subset K$. These are equivalently bounded functions $x: \N \to K$ given by $x(n) := x_n$, and if we equip $\N$ with the discrete topology, $\ell^{\infty}(\N)$ will be nothing but $C^b(\N)$. Thus, $\ell^{\infty}(\N)$ is a Banach space.
+        \end{example}
+        \begin{example}[$\ell^0(\N)$: convergent countable sequences] \label{example: convergent_sequences}
+            $\ell^0(\N)$, the vector subspace of $\ell^{\infty}(\N)$ spanned by \textit{convergent} (hence bounded) countable sequences in $K$ is a closed subspace, and hence also a Banach space.
+        
+            To prove this, observe firstly that $\ell^0(\N) = C^0(\N \cup \{+\infty\})$, where $\N \cup \{+\infty\}$ is the one-point compactification of $\N$. Continuous functions on compact spaces (such as $\N \cup \{+\infty\}$) are bounded, and linear combinations of continuous functions are still continuous functions, so $\ell^0(\N)$ is a vector subspace, and hence a normed subspace of $\ell^{\infty}(\N)$. To show that this subspace is closed, let $\{f_n\}_{n \geq 0} \subset \ell^0(\N)$ be a sequence that converges to some $f \in \ell^{\infty}(\N)$ with respect to $\norm{-}_{\infty}$. We shall need to show that $f$ is continuous, so let us pick an arbitrary convergent sequence $\{x_m\}_{m \geq 0} \to x$ in $\N \cup \{+\infty\}$ and then consider the following. Because each $f_n: \N \cup \{+\infty\} \to \bbK$ is continuous, we have that $\{f_n(x_m)\}_{n, m \geq 0} \to \{f_n(x)\}_{n \geq 0}$ with respect to $\abs{-}_{\bbK}$. At the same time, because $\{f_n\}_{n \geq 0} \to f$, we have that $\{f_n(x_m)\}_{n \geq 0} \to f(x_m)$ for each $m$, and also that $\{f_n(x)\}_{n \geq 0} \to f(x)$, both with respect to $\abs{-}_{\bbK}$. For every $\e > 0$, there then exist $N \in \N$ such that $m, n \geq N$ shall imply that:
+                $$
+                    \begin{aligned}
+                        \abs{f(x_m) - f(x)}_{\bbK} & \leq \abs{ f(x_m) - f_n(x_m) }_{\bbK} + \abs{f_n(x_m) - f(x)}_{\bbK}
+                        \\
+                        & \leq \abs{ f(x_m) - f_n(x_m) }_{\bbK} + \abs{f_n(x_m) - f_n(x)}_{\bbK} + \abs{f_n(x) - f(x)}_{\bbK}
+                        \\
+                        & < \frac13 \e + \frac13 \e + \frac13 \e
+                        \\
+                        & = \e
+                    \end{aligned}
+                $$
+            This shows that $f$ is continuous, so we are done.
+        \end{example}
+        \begin{example}[$c_0(\N)$: null sequences] \label{example: sequences_converging_to_zero}
             
         \end{example}
+        \begin{example}[$c_{00}(\N)$: eventually zero sequences] \label{example: eventually_zero_sequences}
+            
+        \end{example}
+
+        Another prominent class of examples consists of so-called \say{$L^p$-spaces}. We will encounter such entities in subsection \ref{subsection: L_p_spaces}.
 
         \begin{lemma}[Some colimits of Banach spaces] \label{lemma: colimits_of_banach_spaces}
             The full subcategory $K\-\Ban \subset K\-\Vect$ is closed under epimorphisms and finite direct sums. 

@@ -67,18 +67,6 @@
             \begin{proof}
                 \todo[inline]{This relies on H\"older's inequality.}
             \end{proof}
-        \begin{theorem}[$L^p$-space duality] \label{theorem: L_p_space_duality}
-            Let $p, q \in \N_{\geq 1} \cup \{+\infty\}$ be such that:
-                $$\frac1p + \frac1q = 1$$
-            Let $(X, \mu)$ be a measure space. Then, there shall be homeomorphisms:
-                $$L^q(X, \mu) \cong L^p(X, \mu)^*_{\weak}$$
-        \end{theorem}
-            \begin{proof}
-                
-            \end{proof}
-        \begin{remark}
-            The homeomorphisms $L^q(X, \mu) \cong L^p(X, \mu)^*_{\weak}$ are generally not isometric, since in general, the weak topology is not even a metric topology to begin with.
-        \end{remark}
         \begin{theorem}[$L^p$-spaces are complete] \label{theorem: L_p_space_completeness}
             The normed spaces $(L^p(X, \mu), \norm{-}_{L^p(X, \mu)})$ are complete with respect to their metric topologies.
         \end{theorem}
@@ -103,6 +91,17 @@
                     $$\norm{f}_{L^p(X, \mu)} \leq \mu(X)^{ \frac{q - p}{qp} } \norm{f}_{L^q(X, \mu)} = \mu(X)^{\frac1p - \frac1q} \norm{f}_{L^q(X, \mu)}$$
                 which is as desired.
             \end{proof}
+
+        \begin{theorem}[$L^p$-space duality] \label{theorem: L_p_space_duality}
+            Let $p, q \in \N_{\geq 1} \cup \{+\infty\}$ be such that $\frac1p + \frac1q = 1$. Let $(X, \mu)$ be a measure space. Then, for any $f \in L^q(X, \mu)$, there shall be linear homeomorphisms:
+                $$I_f: L^q(X, \mu) \xrightarrow[]{\cong} L^p(X, \mu)^*_{\cont}$$
+            given by:
+                $$I_f(g) := \int_X \abs{fg} d\mu$$
+            which is a isometric if and only if $\mu(X) < +\infty$.
+        \end{theorem}
+            \begin{proof}
+                
+            \end{proof}
             
         \begin{example}[$\ell^p$-spaces] \label{example: ell_p_spaces}
             The datum of a $K$-valued function on the finite set $\{1, ..., n\}$ is the same as a vector in $K^{\oplus n}$. If we endow $\{1, ..., n\}$ with the $\sigma$-algebra $\calP(\{1, ..., n\})$ (the power set of $X$) and with the counting measure:
@@ -110,21 +109,21 @@
             which is given by:
                 $$\mu_{\discrete}(S) := |S|$$
             for all $S \in \calP(\{1, ..., n\})$ (and hence $\{1, ..., n\}$ is a measure-finite space), then the normed spaces:
-                $$\ell^p(K^{\oplus n}) := (K^{\oplus n}, \norm{-}_{L^p(\{1, ..., n\}, \mu)})$$
+                $$\ell^p(n) := (K^{\oplus n}, \norm{-}_{L^p(\{1, ..., n\}, \mu)})$$
             and:
                 $$L^p(\{1, ..., n\}, \mu_{\discrete}\})$$
             for every $p \in \N_{\geq 1} \cup \{+\infty\}$ will be isomorphic to one another. To be thorough, let us note that in this case, the norm $\norm{-}_{L^p(\{1, ..., n\}, \mu)}$ is given by:
                 $$\norm{(x_1, ..., x_n)}_{L^p(X, \mu)} := \left( \int_{\{1, ..., n\}} |x|^p d\mu_{\discrete} \right)^{\frac1p} = \left( \sum_{i = 1}^n |x_i|^p \right)^{\frac1p}$$
-            for all functions $x: \{1, ..., n\} \to K$ given by $x(i) := x_i$ for all $1 \leq i \leq n$. $\ell^p(K^{\oplus n})$ is therefore an example of a finite-dimensional $L^p$-space.
+            for all functions $x: \{1, ..., n\} \to K$ given by $x(i) := x_i$ for all $1 \leq i \leq n$. $\ell^p(n)$ is therefore an example of a finite-dimensional $L^p$-space.
 
-            For each $p, q \in \N_{\geq 1} \cup \{+\infty\}$ such that $\frac1p + \frac1q = 1$, we have a homeomorphism:
-                $$\ell^q(K^{\oplus n}) \cong \ell^p(K^{\oplus n})^*_{\weak}$$
-            by theorem \ref{theorem: L_p_space_duality}, and by finite-dimensionality, the homeomorphism above is actually an isometry (see theorem \ref{theorem: finite_dimensional_weak_duality}). Also by finite-dimensionality, each $\varphi \in \ell^p(K^{\oplus n})^*_{\weak}$ is representable by some $y := (y_1, ..., y_n) \in \ell^q(K^{\oplus n})$ in the sense that:
+            For each $p, q \in \N_{\geq 1} \cup \{+\infty\}$ such that $\frac1p + \frac1q = 1$, we have a linear homeomorphism:
+                $$\ell^q(n) \cong \ell^p(n)^*_{\cont}$$
+            and by finite-dimensionality - which implies that $\mu_{\discrete}(X) < +\infty$ - the homeomorphism above is moreover isometric (see theorem \ref{theorem: L_p_space_duality}). Also by finite-dimensionality, each $\varphi \in \ell^p(n)^*_{\cont}$ is representable by some $y := (y_1, ..., y_n) \in \ell^q(n)$ in the sense that:
                 $$\varphi(x) := x \cdot y := \sum_{i = 1}^n x_i y_i$$
-            for all $x := (x_1, ..., x_n) \in \ell^p(K^{\oplus n})$, where $\cdot$ is the usual dot product. The discrete version of H\"older's inequality thus reads:
+            for all $x := (x_1, ..., x_n) \in \ell^p(n)$, where $\cdot$ is the usual dot product. The discrete version of H\"older's inequality thus reads:
                 $$\abs{x \cdot y} \leq \norm{x}_{L^p(X, \mu)} \norm{y}_{L^q(X, \mu)}$$
 
-            Each $\ell^p(K^{\oplus n})$ is also complete with respect to the topology defined by its norm. Note also that when $p = q = 2$, $\ell^2(K^{\oplus n})$ will be a Hilbert space.
+            Each $\ell^p(n)$ is also complete with respect to the topology defined by its norm. Note also that when $p = q = 2$, $\ell^2(K^{\oplus n})$ will be a Hilbert space.
         \end{example}
 
         \begin{convention}
@@ -134,7 +133,7 @@
                 $$\norm{-}_p := \norm{-}_{\ell^p(K^{\oplus \Gamma})}$$
         \end{convention}
 
-        Now, even though norms on finite-dimensional vector spaces in general are all equivalent to one another \textit{a priori}\todo{Write a lemma for this fact.}, in the case of $\ell^p$-norms on finite-dimensional vector spaces, we can actually write down explicitly how much they differ from one another.
+        Now, even though norms on finite-dimensional vector spaces in general are all equivalent to one another \textit{a priori} (see proposition \ref{prop: norm_equivalence}), in the case of $\ell^p$-norms on finite-dimensional vector spaces, we can actually write down explicitly how much they differ from one another.
         \begin{lemma}[Sharp comparison of $\ell^p$-norms in finite-dimensions] \label{lemma: sharp_comparison_of_ell_p_norms_in_finite_dimensions}
             Fix $n \in \N$ and let $1 \leq p < q < +\infty$. Then:
                 $$c \norm{-}_p \leq \norm{-}_q \leq C \norm{-}_p$$
@@ -204,7 +203,7 @@
         \end{example}
         \begin{example}[Inseparability of $\ell^{\infty}$ of infinite dimensions] \label{example: ell_infinity_spaces_of_infinite_dimensions_is_inseparable}
             Let $\Gamma$ be an infinite set. We claim that:
-                $$c_0(\Gamma) := \{ f: \Gamma \to \bbK \mid \forall \e > 0: \text{the set $\{ \gamma \in \Gamma \mid \abs{f(\gamma)} > \e \}$ is finite} \}$$
+                $$c_0(\Gamma) := \{ f: \Gamma \to K \mid \forall \e > 0: \text{the set $\{ \gamma \in \Gamma \mid \abs{f(\gamma)} > \e \}$ is finite} \}$$
             is an inseparable, and hence:
                 $$\ell^{\infty}(\Gamma)$$
             will also be inseparable, as it contains $c_0(\Gamma)$ as a normed subspace.
@@ -213,9 +212,9 @@
         
             Consider $X := c_0(\Gamma)$. Any vector subspace of a normed space is also a normed space with respect to the subspace topology, via restricting the domain of the norm, so it is sufficient to show that $c_0(\Gamma)$ is a vector subspace of $\ell^{\infty}(\Gamma)$.
                     
-            For this, recall firstly that $\ell^{\infty}(\Gamma) = L^{\infty}(\Gamma, \mu)$ consists of functions $f: \Gamma \to \bbK$ which are $\mu$-integrable and bounded $\mu$-almost everywhere. By construction, $\mu(S) \not = 0$ for all countable subsets $S \subset \Gamma$, so the unbounded locus of $f$ must either be empty, when $\Gamma$ is countable, or an uncountable subset of $\Gamma$ when $\Gamma$ is uncountable. One sees thus that $\ell^{\infty}(\Gamma)$ coincides with the space of functions $f: \Gamma \to \bbK$ such that $f|_S$ is bounded for any countable subset $S \subset \Gamma$.
+            For this, recall firstly that $\ell^{\infty}(\Gamma) = L^{\infty}(\Gamma, \mu)$ consists of functions $f: \Gamma \to K$ which are $\mu$-integrable and bounded $\mu$-almost everywhere. By construction, $\mu(S) \not = 0$ for all countable subsets $S \subset \Gamma$, so the unbounded locus of $f$ must either be empty, when $\Gamma$ is countable, or an uncountable subset of $\Gamma$ when $\Gamma$ is uncountable. One sees thus that $\ell^{\infty}(\Gamma)$ coincides with the space of functions $f: \Gamma \to K$ such that $f|_S$ is bounded for any countable subset $S \subset \Gamma$.
             
-            Next, note that the sets $\{ \gamma \in \Gamma \mid \abs{f(\gamma)} > \e \}$ being finite for all $\e > 0$ implies that if $f \in c_0(\Gamma)$ then $f(\gamma) = 0$ for all but finitely many $\gamma \in \Gamma$. Therefore, any $f \in c_0(\Gamma)$ will automatically be bounded after restricted to some countable subset of $\Gamma$, and hence $c_0(\Gamma)$ is a subset of $\ell^{\infty}(\Gamma)$. It is clear that if $f, g \in c_0(\Gamma)$ and $a, b \in \bbK$ then we will also have that $af(\gamma) + bg(\gamma) = 0$ for all but finitely many $\gamma \in \Gamma$, and hence $c_0(\Gamma)$ is a vector subspace of $\ell^{\infty}(\Gamma)$. The pair $( c_0(\Gamma), \norm{-}_{\infty} )$ is therefore a normed space.
+            Next, note that the sets $\{ \gamma \in \Gamma \mid \abs{f(\gamma)} > \e \}$ being finite for all $\e > 0$ implies that if $f \in c_0(\Gamma)$ then $f(\gamma) = 0$ for all but finitely many $\gamma \in \Gamma$. Therefore, any $f \in c_0(\Gamma)$ will automatically be bounded after restricted to some countable subset of $\Gamma$, and hence $c_0(\Gamma)$ is a subset of $\ell^{\infty}(\Gamma)$. It is clear that if $f, g \in c_0(\Gamma)$ and $a, b \in K$ then we will also have that $af(\gamma) + bg(\gamma) = 0$ for all but finitely many $\gamma \in \Gamma$, and hence $c_0(\Gamma)$ is a vector subspace of $\ell^{\infty}(\Gamma)$. The pair $( c_0(\Gamma), \norm{-}_{\infty} )$ is therefore a normed space.
         \end{example}
         \begin{proof}[Proof of claims in examples \ref{example: ell_p_spaces_of_uncountable_dimensions_finite_p_are_inseparable} and \ref{example: ell_infinity_spaces_of_infinite_dimensions_is_inseparable}]
             Let us now give a uniform argument for the claims in examples \ref{example: ell_p_spaces_of_uncountable_dimensions_finite_p_are_inseparable} and \ref{example: ell_infinity_spaces_of_infinite_dimensions_is_inseparable}. Hence forth, let $X$ be:
@@ -237,4 +236,4 @@
 
     \subsection{Existence of uniqueness of solutions to ODEs}
 
-    \subsection{Sobolev spaces}
+    \subsection{Sobolev spaces} \label{subsection: sobolev_spaces}

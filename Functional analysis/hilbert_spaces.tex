@@ -54,6 +54,13 @@
             Any finite-dimensional inner product space is a Hilbert space. In fact, any finite-dimensional vector space can be upgraded to a Hilbert space in a canonical manner: by letting the inner product be the dot product (but of course, there are inner products that are not the dot product).
         \end{example}
 
+        \begin{lemma}[Norms of dual elements in Hilbert spaces] \label{lemma: norms_of_dual_elements_in_hilbert_spaces}
+            Let $H$ be a Hilbert space. Then, for all $y \in H$, we have that:
+                $$\norm{\<-, y\>_H}_{H^*_{\cont}} = \norm{y}_H$$
+        \end{lemma}
+            \begin{proof}
+                We use the fact that $\norm{\<-, y\>_H}_{H^*_{\cont}} = \sup_{x \in H, \norm{x}_H} \abs{\<x, y\>_H}$ along with the Cauchy-Schwarz Inequality, which tells us that $\abs{\<x, y\>_H} \leq \norm{x}_H \norm{y}_H = \norm{y}_H$ for all $x \in H$ such that $\norm{x}_H = 1$
+            \end{proof}
         \begin{theorem}[Riesz's Representability Theorem] \label{theorme: riesz_representation_theorem}
             Let $H$ be a Hilbert space. Then, any continuous linear functional $\varphi \in H^*_{\cont}$ will be representable, in the sense that there exists a unique $y_{\varphi} \in H$ such that:
                 $$\varphi = \<-, y_{\varphi}\>_H$$
@@ -76,7 +83,7 @@
                     $$\varphi = \<-, y_{\varphi}\>_H$$
                 is necessarily unique: $\ev: H \xrightarrow[]{\cong} H^{**}_{\cont}$ is a linear isometry - so in particular, it is injective - meaning that the composition $P_H \circ \ev$ is also injective.
                 
-                To see that $P_H$ is surjective, let us note first of all that each $\<-, y\>_H: H \to K$ is continuous by virtue of being bounded (which is per the definition of inner products), and hence $\im P_H \subseteq H^*_{\cont}$. Next, observe that $P_H$ is continuous: to prove this, note firstly that since $H$ is complete by virtue of being a Hilbert space, any Cauchy sequence is convergent\footnote{Hilbert spaces are normed space, hence Hausdorff, so limit points will be unique if they exist.}, and then let $\{y_m\}_{M > 0} \to y$ is a (convergent) Cauchy sequence in $H$ and then consider\footnote{We are using the fact that $\{\ev_{y_m}\}_{M > 0} \to \ev_y$ if and only if $\{y_m\}_{M > 0} \to y$ as the map $\ev: H \to H^{**}_{\cont}$ is an isometry.}\footnote{We leave it to the reader to show that $\norm{ \<x, -\>_H }_{H^*_{\cont}} = \norm{x}_H$ is true for all $x \in H$.}:
+                To see that $P_H$ is surjective, let us note first of all that each $\<-, y\>_H: H \to K$ is continuous by virtue of being bounded (which is per the definition of inner products), and hence $\im P_H \subseteq H^*_{\cont}$. Next, observe that $P_H$ is continuous: to prove this, note firstly that since $H$ is complete by virtue of being a Hilbert space, any Cauchy sequence is convergent\footnote{Hilbert spaces are normed space, hence Hausdorff, so limit points will be unique if they exist.}, and then let $\{y_m\}_{M > 0} \to y$ is a (convergent) Cauchy sequence in $H$ and then consider\footnote{We are using the fact that $\{\ev_{y_m}\}_{M > 0} \to \ev_y$ if and only if $\{y_m\}_{M > 0} \to y$ as the map $\ev: H \to H^{**}_{\cont}$ is an isometry.}:
                     $$\forall \e > 0: m, n \gg 0 \implies \abs{P_H(\ev_{y_m} - \ev_{y_n})(x)} = \abs{ \< x, y_m - y_n \>_H } \leq \norm{y_m - y_n}_H \norm{ \<x, -\>_H }_{H^*_{\cont}} < \e \norm{x}_H$$
                 for all $x \in H$, from which one sees that:
                     $$\forall \e > 0: m, n \gg 0 \implies \norm{ P_H(\ev_{y_m} - \ev_{y_n}) }_{H^*_{\cont}} < \e$$
@@ -112,6 +119,174 @@
                     $$\{\varphi_n\}_{n \geq 0} \to \varphi$$
                 Thus, we have shown that weak convergence in $H^*$ implies convergence therein, and since $H^*_{\cont}$ is linearly isometric to $H$ by theorem \ref{theorme: riesz_representation_theorem}, we see thus that the same statement holds for $H$.
             \end{proof}
+
+        Our goal from now until the end of the section shall be to justify the attitude that many \say{reasonable} Hilbert spaces should be regarded as $L^2$-spaces over some particular measure spaces, with the point being that once a Hilbert space $H$ is realisable as an $L^2$-space, say $H \cong L^2(X, \mu)$ isometrically, the inner product on $H$ can be computed as the $L^1$-pairing on $(X, \mu)$, i.e.:
+            $$\<f, g\>_H = \int_X \abs{fg} d\mu$$
+        In many cases, the integral is usually easier to compute. In a more casual manner, such realisations allows us to regard general Hilbert spaces as direct generalisations of Euclidean spaces, and often, one can use Euclidean intuition for the purposes of studying Hilbert spaces. We caution the reader, though, that not every Hilbert space is an $L^2$-spaces. So-called \say{Sobolev spaces} (see subsection \ref{subsection: sobolev_spaces}), for instances, are such examples. 
+        \begin{convention}
+            From now on, we will mostly be working inside a fixed Hilbert space and not be concerned too much with morphisms between different Hilbert spaces. Therefore, in order to avoid visual clutter, let us suppress the subscripts indicating where norms and inner products are being taken until the end of the section, unless we fear it may be confusing to do so.
+        \end{convention}
+        We begin with the following fundamental definition.
+        \begin{definition}[Orthogonal subsets of Hilbert spaces] \label{def: orthogonal_subsets}
+            A subset $A$ of a Hilbert space $H$ is said to be \textbf{orthogonal} if and only if for all $x \not = y \in A$, we have $\<x, y\> = 0$.
+        \end{definition}
+        \begin{lemma}[Linear independence of orthogonal subsets] \label{lemma: orthogonal_subsets_linear_independence}
+            Any orthogonal subset of a Hilbert space is necessarily linearly independent. 
+        \end{lemma}
+            \begin{proof}
+                Let $H$ be a Hilbert space and let $A \subset H$ be an orthogonal subset. Suppose for the sake of deriving a contradiction that $A$ is linearly dependent, i.e. there exists $x \in A$ such that $x = \sum_i a_i e_i$ for some collection $\{e_i\}_{i \in I} \subset A$ and $\{a_i\}_{i \in I} \subset K \setminus \{0\}$. Then, for any $j \not = i \in I$, we shall have:
+                    $$\<x, e_j\> = \sum_{i \in I} a_i \<e_i, e_j\> = \sum_{i \in I} a_i \delta_{i, j} = a_j \not = 0$$
+                If $\<x, e_j\> \not = 0$ then $x \in K e_j$, but this would imply that $a_i = 0$ for all $i \not = j$, a contradiction.
+            \end{proof}
+        Orthogonal sequences are rather special, because they form the basis\footnote{Pun intended} for what is known as \say{harmonic analysis} (or \say{Fourier theory}). At the most holistic level, this is essentially just the idea that one can represent elements of a Hilbert space in terms of its projections onto the coordinate axes, though in the infinite-dimensional setting, there are certain technical subtleties that need to be handled with care. 
+        \begin{lemma} \label{lemma: convergent_orthogonal_series_in_hilbert_spaces}
+            Let $H$ be a Hilbert space and let $\{x_k\}_{k \geq 1} \subset H$ be an orthogonal sequence. Then $\sum_{k = 1}^{+\infty} x_k$ is convergent if and only if $\sum_{k = 1}^{+\infty} \norm{x_k}^2$ converges, and when $\sum_{k = 1}^{+\infty} x_k$ converges, we have that $\norm{ \sum_{k = 1}^{+\infty} x_k }^2 = \sum_{k = 1}^{+\infty} \norm{x_k}^2$.
+        \end{lemma}
+            \begin{proof}
+                If $\sum_{k = 1}^{+\infty} \norm{x_k}^2$ is convergent then the sequence of partial sums $\left\{ \sum_{k = 1}^n \norm{x_k}^2 \right\}_{n \geq 1} \subset \R$ will converge, and since $\R$ is complete, this sequence of partial sums converges if and only if it is Cauchy, i.e. for all $\e > 0$ there exists $N \in \N$ such that if $n \geq m \geq N$ then:
+                    $$\abs{ \sum_{k = m}^n \norm{x_k}^2 } = \sum_{k = m}^n \norm{x_k}^2 < \e^2$$
+                Next, recall that orthogonal sequences are linearly independent, so we have:
+                    $$\sum_{k = m}^n \norm{x_k}^2 = \norm{ ( x_m, ..., x_n ) }_{\bbK x_m \oplus_2 ... \oplus_2 \bbK x_n}^2 = \norm{\sum_{k = m}^n x_k}^2$$
+                with the latter equality being due to the fact that $x_m, ..., x_n$ all belong to the same normed space, namely $H$, and so $( x_m, ..., x_n ) = \sum_{k = m}^n x_k$ (as elements of $\bbK x_m \oplus_2 ... \oplus_2 \bbK x_n$) by linear independence. Therefore $\norm{\sum_{k = m}^n x_k}^2 < \e^2$. The function $(-)^{\frac12}$ is monotonic on $\R_{\geq 0}$, so by applying it to both sides of the inequality above, we shall get:
+                    $$\norm{\sum_{k = m}^n x_k} < \e$$
+                whenever $n \geq m \geq N$, and hence the sequence $\left\{ \sum_{k = 1}^n x_k \right\}_{n \geq 1}$ is Cauchy. This is a Cauchy sequence in a Hilbert space, which is complete by definition, and hence it is convergent, i.e. $\sum_{k = 1}^{+\infty} x_k$ converges in $H$.
+
+                Conversely, if $\sum_{k = 1}^{+\infty} x_k$ is convergent, then because Hilbert spaces are complete, the sequence of partial sums $\left\{ \sum_{k = 1}^n x_k \right\}_{n \geq 1}$ shall be Cauchy, i.e. for all $\e > 0$ there exists $N \in \N$ such that $\norm{ \sum_{k = m}^n x_k } < \e^{\frac12}$ for all $n \geq m \geq N$. Using the fact that orthogonal sequences are linearly independent and thus $\sum_{k = m}^n \norm{x_k}^2 = \norm{ ( x_m, ..., x_n ) }_{\bbK x_m \oplus_2 ... \oplus_2 \bbK x_n}^2 = \norm{\sum_{k = m}^n x_k}^2$ again, we see that for the same $N \in \N$, we have that $\sum_{k = m}^n \norm{x_k}^2 < (\e^{\frac12})^2 = \e$ for all $n \geq m \geq N$. The sequence of partial sums $\left\{ \sum_{k = 1}^n \norm{x_k}^2 \right\}_{n \geq 1} \subset \R$ is thus Cauchy, and hence convergent, as $\R$ is complete.
+
+                Finally, we have that $\sum_{k = 1}^n \norm{x_k}^2 = \norm{ ( x_1, ..., x_n ) }_{\bbK x_1 \oplus_2 ... \oplus_2 \bbK x_n}^2 = \norm{\sum_{k = 1}^n x_k}^2$ for all $n \geq 1$, so when $\sum_{k = 1}^{+\infty} x_k := \lim_{n \to +\infty} \sum_{k = 1}^n x_k$ is convergent, we can exploit the continuity of norms to get:
+                    $$\norm{\lim_{n \to +\infty} \sum_{k = 1}^n x_k} = \lim_{n \to +\infty} \norm{\sum_{k = 1}^n x_k} = \lim_{n \to +\infty} \sum_{k = 1}^n \norm{x_k}^2 = \sum_{k = 1}^{+\infty} \norm{x_k}^2$$
+                as claimed.
+            \end{proof}
+
+        The following result is more-or-less purely technical, but it is very useful for handling projections.
+        \begin{proposition}[Orthogonal projections onto closed subspaces in Hilbert spaces] \label{prop: orthogonal_projections_onto_closed_subspaces_in_hilbert_spaces}
+            Let $H$ be a Hilbert space and let $L \subset H$ be a closed subspace. Then, the orthogonal complement/annihilator $L^{\perp}$ as in corollary \ref{coro: annihilators_vs_orthogonal_complements} is identified as:
+                $$L^{\perp} \cong \{ x \in H \mid \forall y \in L: \<x, y\> = 0 \}$$
+            and of course, we have $H \cong L \oplus L^{\perp}$ as normed spaces.
+
+            Moreover, for all elements $x \in H$, we have that:
+                $$\dist(x, L) := \inf_{y \in L} \norm{x - y} = \norm{x - \pi_L(x)} = \norm{\pi_{L^{\perp}}(x)}$$
+            where $\pi_L: H \to L, \pi_{L^{\perp}}: H \to L^{\perp}$ are the canonical projections.
+        \end{proposition}
+            \begin{proof}
+                \todo[inline]{Not written}
+            \end{proof}
+        \begin{convention}
+            Typically, if $H$ is a Hilbert space and $L$ is a closed subspace therein, and if $\pi_L: H \to L, \pi_{L^{\perp}}: H \to L^{\perp}$ are as in proposition \ref{prop: orthogonal_projections_onto_closed_subspaces_in_hilbert_spaces}, then for all $x \in H$, we shall write:
+                $$x_L := \pi_L(x), x_{L^{\perp}} := \pi_{L^{\perp}}(x)$$
+        \end{convention}
+        Finite-dimensional subspaces are closed, so we have the following corollary to proposition \ref{prop: orthogonal_projections_onto_closed_subspaces_in_hilbert_spaces}.
+        \begin{corollary}[Projecting onto finite-dimensional subspaces] \label{coro: orthogonal_projections_onto_finite_dimensional_subspaces_in_hilbert_spaces}
+            Let $H$ be a Hilbert space and let $E \subset $ be a finite-dimensional subspace, in which we choose an orthogonal sequence $\{e_n\}_{n = 1}^{\dim E} \not \ni 0$. Then:
+                $$x_E = \sum_{n = 1}^{\dim E} \frac{\<x, e_n\>}{\norm{e_n}^2} e_n$$
+            for all $x \in H$.
+
+            Moreover, we have:
+                $$\norm{x_E}^2 = \sum_{n = 1}^{\dim E} \frac{ \abs{ \<x, e_n\> }^2 }{\norm{e_n}^2}$$
+        \end{corollary}
+            \begin{proof}
+                Let $\pi: H \to E$ be the linear map given by $\pi(x) := \sum_{n = 1}^{\dim E} \frac{\<x, e_n\>}{\norm{e_n}^2} e_n$. If we can show that $x - \pi(x) \in E^{\perp}$ then by proposition \ref{prop: orthogonal_projections_onto_closed_subspaces_in_hilbert_spaces}, we will automatically have that $\pi(x) = x_E$. To this end, let us pair $x - \pi(x)$ with an arbitrary element of $E$ and then demonstrate that the pairing vanishes. Since $E \cong \bigoplus_{n = 1}^{\dim E} K e_n$, it suffices to check if $\<x - \pi(x), e_m\> = 0$ for any $1 \leq m \leq \dim E$. Thus, let us consider:
+                    $$
+                        \begin{aligned}
+                            \<x - \pi(x), e_m\> & = \left\< x - \sum_{n = 1}^{\dim E} \frac{\<x, e_n\>}{\norm{e_n}^2} e_n, e_m \right\>
+                            \\
+                            & = \<x, e_m\> - \sum_{n = 1}^{\dim E} \frac{\<x, e_n\>}{\norm{e_n}^2} \<e_n, e_m\>
+                            \\
+                            & = \<x, e_m\> - \sum_{n = 1}^{\dim E} \frac{\<x, e_n\>}{\norm{e_n}^2} \delta_{n, m} \<e_m, e_m\>
+                            \\
+                            & = \<x, e_m\> - \frac{\<x, e_m\>}{\norm{e_m}^2} \<e_m, e_m\>
+                            \\
+                            & = \<x, e_m\> - \<x, e_m\>
+                            \\
+                            & = 0
+                        \end{aligned}
+                    $$
+                which is what we need.
+
+                To show that $\norm{x_E}^2 = \sum_{n = 1}^{\dim E} \frac{ \abs{ \<x, e_n\> }^2 }{\norm{e_n}^2}$, we exploit the linear indepedence of the sequence $\{e_n\}_{n = 1}^{\dim E}$ in order to identify:
+                    $$E \cong K e_1 \oplus_2 ... \oplus_2 K e_{\dim E}$$
+                (where $\oplus_2$ means we are endowing the direct sum with the $\ell^2$-norm; cf. convention \ref{conv: ell_p_direct_sums}). We then have:
+                    $$
+                        \begin{aligned}
+                            \norm{x_E}^2 & = \norm{\sum_{n = 1}^{\dim E} \frac{\<x, e_n\>}{\norm{e_n}^2} e_n}^2
+                            \\
+                            & = \norm{ \left( \frac{\<x, e_n\>}{\norm{e_n}^2} e_n \right)_{n = 1}^{\dim E} }_{ K e_1 \oplus_2 ... \oplus_2 K e_{\dim E} }^2
+                            \\
+                            & = \sum_{n = 1}^{\dim E} \frac{ \abs{ \<x, e_n\> }^2 }{\norm{e_n}^4} \norm{e_n}^2
+                            \\
+                            & = \sum_{n = 1}^{\dim E} \frac{ \abs{ \<x, e_n\> }^2 }{\norm{e_n}^2}
+                        \end{aligned}
+                    $$
+            \end{proof}
+        Another corollary of proposition \ref{prop: orthogonal_projections_onto_closed_subspaces_in_hilbert_spaces} (and corollary \ref{coro: orthogonal_projections_onto_finite_dimensional_subspaces_in_hilbert_spaces}) is \textbf{Bessel's Inequality}.
+        \begin{corollary}[Bessel's Inequality] \label{coro: bessel_inequality}
+            With notations as in proposition \ref{prop: orthogonal_projections_onto_closed_subspaces_in_hilbert_spaces}, we have that:
+                $$\sum_{n \geq 1} \frac{ \abs{ \<x, e_n\> }^2 }{\norm{e_n}^2} \leq \norm{x}^2$$
+        \end{corollary}
+            \begin{proof}
+                From corollary \ref{coro: orthogonal_projections_onto_finite_dimensional_subspaces_in_hilbert_spaces}, we know that:
+                    $$\norm{x_E}^2 = \sum_{n = 1}^{\dim E} \frac{ \abs{ \<x, e_n\> }^2 }{\norm{e_n}^2}$$
+                so we have:
+                    $$0 \leq \norm{x - x_E}^2 \leq \norm{x}^2 - \norm{x_E}^2 = \norm{x}^2 - \sum_{n = 1}^{\dim E} \frac{ \abs{ \<x, e_n\> }^2 }{\norm{e_n}^2}$$
+                wherein the second inequality follows from Minkowski's Inequality. Applying $\lim_{\dim E \to +\infty}$ to both sides then yields:
+                    $$\sum_{n \geq 1} \frac{ \abs{ \<x, e_n\> }^2 }{\norm{e_n}^2} \leq \norm{x}^2$$
+            \end{proof}
+        \begin{example}
+            Let $\mu$ be the Lebesgue measure and consider the Hilbert space $L^2([-1, 1], \mu)$. Let $f, g, h \in L^2([-1, 1], \mu)$ be given by:
+                $$f(t) := 1, g(t) := t, h(t) := t^2$$
+            Let us compute:
+                $$\dist( h, E )$$
+            where $E := \bbC f \oplus \bbC g$.
+
+            From proposition \ref{prop: orthogonal_projections_onto_closed_subspaces_in_hilbert_spaces}, we know that:
+                $$
+                    \begin{aligned}
+                        \dist(h, E) & = \norm{h - h_E}
+                        \\
+                        & = \norm{ h - \frac{\<h, f\>}{\norm{f}^2} f + \frac{\<h, g\>}{\norm{g}^2} g }
+                        \\
+                        & = \norm{ h(t) - \frac{\int_{-1}^1 \abs{h(t) f(t)} dt}{\int_{-1}^1 \abs{f(t)^2} dt} f(t) + \frac{\int_{-1}^1 \abs{h(t) g(t)} dt}{\int_{-1}^1 \abs{g(t)^2} dt} g(t) }
+                        \\
+                        & = [...]
+                    \end{aligned}
+                $$
+        \end{example}
+
+        \begin{definition}[Fourier series] \label{def: fourier_series}
+            Let $H$ be a Hilbert space and let $\{e_n\}_{n \geq 1} \not \ni 0$ be an orthogonal sequence. The \textbf{Fourier series} of an element $x \in H$ with respect to the given orthogonal sequence $\{e_n\}_{n \geq 1}$ is then:
+                $$\scrF(x) := \sum_{n \geq 1} \frac{\<x, e_n\>}{\norm{e_n}^2} e_n$$
+        \end{definition}
+        Of course, \textit{a priori} there is no guarantee that Fourier series may or may not converge, nor may we expect that $\scrF(x) = x$ so that the Fourier series would be a representation of $x$ in terms of the linearly independent vectors $e_n$.
+        \begin{theorem}[Convergence of Fourier series] \label{theorem: convergence_of_fourier_series}
+            Let $H$ be a Hilbert space and let $\{e_n\}_{n \geq 1} \not \ni 0$ be an orthogonal sequence. For an element $x \in H$, the following statements are equivalent:
+            \begin{enumerate}
+                \item $\scrF(x)$ converges to $x$.
+                \item $\norm{\scrF(x)}^2 = \norm{x}^2$.
+                \item $x \in \overline{\bigoplus_{n \geq 1} K e_n}$.
+            \end{enumerate}
+        \end{theorem}
+            \begin{proof}
+                Clearly 1 implies 2 and 2 implies 3, so let us focus on showing that 3 implies 1. For each $N \in \N$, let $E_N := \bigoplus_{n = 1}^N K e_n$. These subspaces of $H$ are finite-dimensional, hence closed, so for any $x \in H$, we have:
+                    $$x_{E_N} = \sum_{n = 1}^N \frac{\<x, e_n\>}{\norm{e_n}^2} e_n$$
+                according to corollary \ref{coro: orthogonal_projections_onto_finite_dimensional_subspaces_in_hilbert_spaces}, from which we infer that:
+                    $$\scrF(x) = \lim_{N \to +\infty} x_{E_N}$$
+                Then, via continuity of norms, we see that:
+                    $$\norm{\scrF(x)}^2 = \norm{\lim_{N \to +\infty} x_{E_N}}^2 = \lim_{N \to +\infty} \norm{x_{E_N}}^2 = \lim_{N \to +\infty} \sum_{n = 1}^N \frac{\abs{ \<x, e_n\> }^2}{\norm{e_n}^2} = \sum_{n \geq 1} \frac{\abs{ \<x, e_n\> }^2}{\norm{e_n}^2}$$
+                Bessel's Inequality tells us that $\sum_{n \geq 1} \frac{\abs{ \<x, e_n\> }^2}{\norm{e_n}^2} \leq \norm{x} < +\infty$, so:
+                    $$\norm{\scrF(x)} \leq \norm{x} < +\infty$$
+                i.e. $\scrF(x)$ is convergent.
+
+                To show that $\scrF(x)$ indeed converges to $x$, recall from proposition \ref{prop: orthogonal_projections_onto_closed_subspaces_in_hilbert_spaces} that $x = x_{E_N} + x_{E_N^{\perp}}$, and since $E_N \cap E_N^{\perp} = \{0\}$, so it suffices to show that $\lim_{N \to +\infty} x_{E_N^{\perp}} = 0$, which is equivalent to showing that $\lim_{N \to +\infty} \norm{x_{E_N^{\perp}}} = 0$. From proposition \ref{prop: orthogonal_projections_onto_closed_subspaces_in_hilbert_spaces}, we know that $\norm{x_{E_N^{\perp}}} = \dist(x, E_N)$, but since $x \in \overline{\bigoplus_{n \geq 1} K e_n} = \overline{\bigcup_{N \geq 1} E_N}$, we have that $\lim_{N \to +\infty} \dist(x, E_N) = 0$.
+            \end{proof}
+        \begin{theorem}[Uniqueness of Fourier series] \label{theorem: uniqueness_of_fourier_series}
+            Let $H$ be a Hilbert space and let $\{e_n\}_{n \geq 1} \not \ni 0$ be an orthogonal sequence. For an element $x := \sum_{n \geq 1} a_n e_n \in \overline{\bigoplus_{n \geq 1} K e_n}$, we have:
+                $$a_m = \frac{ \<x, e_m\> }{ \norm{e_m}^2 }$$
+            for all $m \geq 1$. Consequently, the Fourier series $\scrF(x) := \sum_{n \geq 1} \frac{\<x, e_n\>}{\norm{e_n}^2} e_n$ with respect to $\{e_n\}_{n \geq 1}$ is the only way to write $x$ as a linear combination of the elements of $\{e_n\}_{n \geq 1}$.
+        \end{theorem}
+            \begin{proof}
+                
+            \end{proof}
+        
         \begin{definition}[Gram-Schmidt orthonormalisation]
             
         \end{definition}
