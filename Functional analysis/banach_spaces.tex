@@ -167,10 +167,10 @@
         \begin{example}[$\ell^{\infty}(\N)$: bounded countable sequences] \label{example: bounded_countable_sequences}
             Let $\ell^{\infty}(\N)$ consist of bounded countable sequences $\{x_n\}_{n \geq 0} \subset K$. These are equivalently bounded functions $x: \N \to K$ given by $x(n) := x_n$, and if we equip $\N$ with the discrete topology, $\ell^{\infty}(\N)$ will be nothing but $C^b(\N)$. Thus, $\ell^{\infty}(\N)$ is a Banach space.
         \end{example}
-        \begin{example}[$\ell^0(\N)$: convergent countable sequences] \label{example: convergent_sequences}
-            $\ell^0(\N)$, the vector subspace of $\ell^{\infty}(\N)$ spanned by \textit{convergent} (hence bounded) countable sequences in $K$ is a closed subspace, and hence also a Banach space.
-        
-            To prove this, observe firstly that $\ell^0(\N) = C^0(\N \cup \{+\infty\})$, where $\N \cup \{+\infty\}$ is the one-point compactification of $\N$. Continuous functions on compact spaces (such as $\N \cup \{+\infty\}$) are bounded, and linear combinations of continuous functions are still continuous functions, so $\ell^0(\N)$ is a vector subspace, and hence a normed subspace of $\ell^{\infty}(\N)$. To show that this subspace is closed, let $\{f_n\}_{n \geq 0} \subset \ell^0(\N)$ be a sequence that converges to some $f \in \ell^{\infty}(\N)$ with respect to $\norm{-}_{\infty}$. We shall need to show that $f$ is continuous, so let us pick an arbitrary convergent sequence $\{x_m\}_{m \geq 0} \to x$ in $\N \cup \{+\infty\}$ and then consider the following. Because each $f_n: \N \cup \{+\infty\} \to \bbK$ is continuous, we have that $\{f_n(x_m)\}_{n, m \geq 0} \to \{f_n(x)\}_{n \geq 0}$ with respect to $\abs{-}_{\bbK}$. At the same time, because $\{f_n\}_{n \geq 0} \to f$, we have that $\{f_n(x_m)\}_{n \geq 0} \to f(x_m)$ for each $m$, and also that $\{f_n(x)\}_{n \geq 0} \to f(x)$, both with respect to $\abs{-}_{\bbK}$. For every $\e > 0$, there then exist $N \in \N$ such that $m, n \geq N$ shall imply that:
+        \begin{example}[$C^0(\N^{\wedge})$: convergent countable sequences] \label{example: convergent_sequences}
+            $C^0(\N^{\wedge})$, the vector subspace of $\ell^{\infty}(\N)$ spanned by \textit{convergent} (hence bounded) countable sequences in $K$ is a closed subspace, and hence also a Banach space. Here, $\N^{\wedge} := \N \cup \{+\infty\}$ is the one-point compactification of $\N$.
+            
+            Continuous functions on compact spaces (such as $\N^{\wedge}$) are bounded, and linear combinations of continuous functions are still continuous functions, so $C^0(\N^{\wedge})$ is a vector subspace, and hence a normed subspace of $\ell^{\infty}(\N)$. To show that this subspace is closed, let $\{f_n\}_{n \geq 0} \subset C^0(\N^{\wedge})$ be a sequence that converges to some $f \in \ell^{\infty}(\N)$ with respect to $\norm{-}_{\infty}$. We shall need to show that $f$ is continuous, so let us pick an arbitrary convergent sequence $\{x_m\}_{m \geq 0} \to x$ in $\N^{\wedge}$ and then consider the following. Because each $f_n: \N^{\wedge} \to \bbK$ is continuous, we have that $\{f_n(x_m)\}_{n, m \geq 0} \to \{f_n(x)\}_{n \geq 0}$ with respect to $\abs{-}_{\bbK}$. At the same time, because $\{f_n\}_{n \geq 0} \to f$, we have that $\{f_n(x_m)\}_{n \geq 0} \to f(x_m)$ for each $m$, and also that $\{f_n(x)\}_{n \geq 0} \to f(x)$, both with respect to $\abs{-}_{\bbK}$. For every $\e > 0$, there then exist $N \in \N$ such that $m, n \geq N$ shall imply that:
                 $$
                     \begin{aligned}
                         \abs{f(x_m) - f(x)}_{\bbK} & \leq \abs{ f(x_m) - f_n(x_m) }_{\bbK} + \abs{f_n(x_m) - f(x)}_{\bbK}
@@ -184,10 +184,10 @@
                 $$
             This shows that $f$ is continuous, so we are done.
         \end{example}
-        \begin{example}[$c_0(\N)$: null sequences] \label{example: sequences_converging_to_zero}
+        \begin{example}[$C^0(\N)$: null sequences] \label{example: sequences_converging_to_zero}
             
         \end{example}
-        \begin{example}[$c_{00}(\N)$: eventually zero sequences] \label{example: eventually_zero_sequences}
+        \begin{example}[$C^0_c(\N)$: eventually zero sequences] \label{example: eventually_zero_sequences}
             
         \end{example}
 
@@ -474,22 +474,46 @@
         \begin{convention}
             To avoid notation clutter, the self-composition of $(-)^*_{\cont}$ shall be denoted by $(-)^{**}_{\cont}$.
         \end{convention}
-        \begin{lemma}[Continuous duality is involutive] \label{lemma: continuous_duality_involutive}
-            The continuous duality functor $(-)^*_{\cont}$ is involutive, i.e. $(-)^{**}_{\cont}$ is the identity functor. 
+        \begin{lemma}[Continuous double duals] \label{lemma: continuous_double_duals}
+            There is an injective natural transformation $\id_{K\-\Vect_{\norm{-}}} \Rightarrow (-)^{**}_{\cont}$ which restricts down to an injective natural transformation $\id_{K\-\Ban} \Rightarrow (-)^{**}_{\cont}$. Since both the categories of normes spaces and Banach spaces are self-enriching, in concrete terms, this means that for any normed space $E$, there exists a linear isometry $E \subset E^**_{\cont}$ that is natural in $E$.
         \end{lemma}
             \begin{proof}
-                Firstly, we shall need to prove that there is a short isomorphism $E \xrightarrow[]{\cong} ( E^*_{\cont} )^*_{\cont}$ for any normed vector space $E$. We claim that this is given by:
+                Firstly, we shall need to prove that there is a an isometry $E \to ( E^*_{\cont} )^*_{\cont}$ for any normed vector space $E$. We claim that this is given by:
                     $$x \mapsto (E^*_{\cont} \xrightarrow[]{\ev_x} \R)$$
                 where:
                     $$\ev_x[\varphi] := \varphi(x)$$
-                To see that this is a short isomorphism, simple note that the following holds for all $x \in E$ and all $\varphi \in E^*_{\cont}$:
+                To see that this is isometric, simple note that the following holds for all $x \in E$ and all $\varphi \in E^*_{\cont}$:
                     $$\norm{\ev_x}_{\sup} := \sup_{\varphi \in E^*_{\cont}, \norm{\varphi}_{E^*_{\cont}} = 1} |\ev_x[\varphi]| = \sup_{\varphi \in E^*_{\cont}, \norm{\varphi}_{E^*_{\cont}} = 1} \abs{\varphi(x)} = \norm{x}_E$$
 
-                Next, let $E, E'$ be normed spaces and denote the canonical short isomorphisms between them and their continuous double duals by $\ev$ and $\ev'$ respectively. Let $T: E \to E'$ be a continuous linear map. Then, precisely because $\ev$ and $\ev'$ are isometric, we have the following:
+                Next, let $E, E'$ be normed spaces and denote the canonical isometry into their double duals by $\ev$ and $\ev'$ respectively. Let $T: E \to E'$ be a continuous linear map. Then, precisely because $\ev$ and $\ev'$ are isometric, we have the following:
                     $$\norm{ T^{**}_{\cont} }_{\sup} = \norm{ \ev' \circ T \circ \ev^{-1} }_{\sup} := \sup_{y \in E^{**}_{\cont}} \frac{ \norm{ (\ev' \circ T \circ \ev^{-1})(y) }_{\sup} }{\norm{y}_E} = \sup_{y \in E^{**}_{\cont}} \frac{\norm{T(y)}_{E'}}{\norm{y}_E} = \norm{T}_{\sup}$$
                 This concludes the proof that there is a isometry:
                     $$\Hom_{K, \cont}(E, E') \xrightarrow[]{\cong} \Hom_{K, \cont}(E^{**}_{\cont}, E'^{**}_{\cont})$$
+                For the sought-for conclusion, simply recall now that isometries are injective \textit{a priori}.
+
+                Finally, we apply lemma \ref{lemma: hom_between_banach_spaces_are_banach_spaces} to get the second statement. 
             \end{proof}
+
+        Though we wish to derive implications that the Hahn-Banach Theorem has towards the structure of the category of normed spaces and its subcategory of Banach spaces, let us pause for a moment to highlight the following simple but very important fact (cf. \cite[Exercise p. 52]{litvak_functional_analysis_notes}). We note also that the result below is actually a consequence of corollary \ref{coro: annihilators_vs_orthogonal_complements} and the fact that annihilators are closed by construction (see proposition \ref{prop: split_monomorphisms_of_normed_spaces}). We will be making use of this fact very often when discussing Hilbert spaces in section \ref{section: hilbert_spaces}.
+        \begin{lemma}[Orthogonal complements are closed in dual spaces] \label{lemma: orthogonal_complements_are_closed_in_dual_spaces}
+            Let $X$ be a normed space and let $\Gamma \subseteq X$ be a subset. Then, the \textbf{(continuous) orthogonal complement} of $\Gamma$, given by:
+                $$\Gamma^{\perp}_{\cont} := \{ \varphi \in X^*_{\cont} \mid \varphi(\Gamma) = 0 \}$$
+            shall be a closed subspace of $X^*_{\cont}$.
+        \end{lemma}
+            \begin{proof}
+                Let $\{\varphi_n\}_{n \geq 0} \subset \Gamma^{\perp}_{\cont}$ be a convergent Cauchy sequence, say to the limit point $\varphi \in X^*_{\cont}$. Since $\varphi_n(\Gamma) = 0$ for all $n \geq 0$, $\varphi(\Gamma) = \lim_{n \to +\infty} \varphi_n(\Gamma) = 0$ too, i.e. $\varphi \in \Gamma^{\perp}_{\cont}$.
+            \end{proof}
+        \begin{corollary}[Double orthogonal complements] \label{coro: double_orthogonal_complements}
+            Let $X$ be a normed space and let $\Gamma \subset X$ be a subset. Then:
+                $$\overline{\span \Gamma} \cong \Gamma^{\perp \perp}_{\cont}$$
+            wherein $\Gamma^{\perp \perp}_{\cont} := (\Gamma^{\perp}_{\cont})^{\perp}_{\cont}$.
+        \end{corollary}
+            \begin{proof}
+                From lemma \ref{lemma: continuous_double_duals}, we know that there exists a linear isometry $\overline{\span \Gamma} \to ( \overline{\span \Gamma} )^{**}_{\cont}$ given by $x \mapsto \ev_x$. Let $x := \sum_{\gamma \in \Gamma} a_{\gamma} \gamma \in \overline{\span \Gamma}$. For any $\varphi \in \Gamma^{\perp}_{\cont}$, we have $\ev_x[\varphi] := \varphi(x) = \sum_{\gamma \in \Gamma} a_{\gamma} \varphi(\gamma) = 0$, so $\ev_x \in \Gamma^{\perp \perp}_{\cont}$. We thus have an injective linear map $\overline{\span \Gamma} \hookrightarrow \Gamma^{\perp \perp}_{\cont}$ given by $x \mapsto \ev_x$.
+
+                \todo[inline]{Not done}
+            \end{proof}
+            
         For the proof of the following proposition, it will be useful to note that if $\Phi: V \to V'$ is any linear map between normed spaces, then:
             $$\forall v \in V: \norm{\Phi}_{V^*} := \sup_{v \in V} \frac{\norm{\Phi(v)}}{\norm{v}_V} \implies \norm{\Phi}_{V^*_{\cont}} \norm{v}_V \geq \abs{\Phi(v)}$$
         \begin{proposition}[Norms of transpositions] \label{prop: transposition_norms}
@@ -504,8 +528,9 @@
                     $$\abs{ T^*_{\cont}[\psi](x) } = \abs{\psi(T(x))} \leq \norm{\psi}_{E^*_{\cont}} \norm{T(x)}_{E'} \leq \norm{\psi}_{E'^*_{\cont}} \norm{T}_{\sup} \norm{x}_E$$
                 and hence:
                     $$\forall x \in E: \forall \psi \in E'^*_{\cont}: \norm{T}_{\sup} \geq \frac{ \abs{ T^*_{\cont}[\psi](x) } }{\norm{\psi}_{E'^*_{\cont}} \norm{x}_E }$$
-                from which one gathers that $\norm{T}_{\sup} \geq \norm{T^*_{\cont}}_{\sup}$. Arguing similarly will yield us $\norm{T^*_{\cont}}_{\sup} \geq \norm{T^{**}_{\cont}}_{\sup}$. But we know from lemma \ref{lemma: continuous_duality_involutive} that $\norm{T^{**}_{\cont}}_{\sup} = \norm{T}_{\sup}$, and hence $\norm{T}_{\sup} \leq \norm{T^*_{\cont}}_{\sup}$ as well, and as such we have shown that $\norm{T}_{\sup} = \norm{T^*_{\cont}}_{\sup}$.
+                from which one gathers that $\norm{T}_{\sup} \geq \norm{T^*_{\cont}}_{\sup}$. Arguing similarly will yield us $\norm{T^*_{\cont}}_{\sup} \geq \norm{T^{**}_{\cont}}_{\sup}$. But we know from lemma \ref{lemma: continuous_double_duals} that $\norm{T^{**}_{\cont}}_{\sup} = \norm{T}_{\sup}$, and hence $\norm{T}_{\sup} \leq \norm{T^*_{\cont}}_{\sup}$ as well, and as such we have shown that $\norm{T}_{\sup} = \norm{T^*_{\cont}}_{\sup}$.
             \end{proof}
+            
         \begin{proposition}[Properties of continuous duals] \label{prop: properties_of_continuous_duals}
             The continuous duality functor $(-)^*_{\cont}$ preserves the following (co)limits in $K\-\Vect_{\norm{-}}$:
             \begin{enumerate}
@@ -554,7 +579,7 @@
                     $$\id_{F^*_{\cont}} \oplus T: F^*_{\cont} \oplus \Ann_{E^*_{\cont}}(F) \xrightarrow[]{\cong} F^*_{\cont} \oplus Q^*_{\cont}$$
                 From this, we see that there is a section:
                     $$s: F^*_{\cont} \to E^*_{\cont}$$
-                of $\coker \pi^*_{\cont}: E^*_{\cont} \to F^*_{\cont}$ given by inclusion into the first direct summand. Now, since $(-)^*_{\cont}$ is involutive (see lemma \ref{lemma: continuous_duality_involutive}), we can apply the functor once more to get a linear continuous retract:
+                of $\coker \pi^*_{\cont}: E^*_{\cont} \to F^*_{\cont}$ given by inclusion into the first direct summand. Now, we can apply lemma \ref{lemma: continuous_double_duals} to get a linear continuous retract:
                     $$s^*_{\cont}: E \to F$$
                 (note the implicit identifications of $E, F$ with the continuous double duals).
             \end{proof}
@@ -563,13 +588,7 @@
                 $$F^{\perp}_{\cont} \cong ( \Ann_{E^*_{\cont}}(F) )^*_{\cont}$$
         \end{corollary}
             \begin{proof}
-                The definition of annihlators guarantee us that:
-                    $$E^*_{\cont} \cong F^*_{\cont} \oplus \Ann_{E^*_{\cont}}(F)$$
-                Since we also know that $(-)^*_{\cont}$ is involutive (see lemma \ref{lemma: continuous_duality_involutive}), meaning that there are short isomorphisms between $E, F$ and their continuous double duals $E^{**}_{\cont}, F^{**}_{\cont}$, continuously dualising the isomorphism above shall yield\footnote{We are also using the fact that $(-)^*_{\cont}$ preserves finite direct sums (see proposition \ref{prop: properties_of_continuous_duals}).}:
-                    $$E \cong F \oplus \Ann_{E^*_{\cont}}(F)^*_{\cont}$$
-                and hence there is a short isomorphism:
-                    $$F^{\perp}_{\cont} \cong ( \Ann_{E^*_{\cont}}(F) )^*_{\cont}$$
-                wherein the LHS is the orthogonal complement $F^{\perp}$ of $F$ inside $E$, equipped with the subspace topology inherited from the norm topology on $E$.
+                \todo[inline]{Write a proof}
             \end{proof}
         \begin{remark}[Orthogonal complements are continuous sections]
             Let $E$ be a normed space and $F \subseteq E$ be a closed vector subspace thereof.
