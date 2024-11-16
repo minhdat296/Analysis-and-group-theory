@@ -168,7 +168,7 @@
                 For all $g \in L^q(X, \mu)$, we have:
                     $$\norm{I_{p, q}(g)} := \sup_{f \in L^p(X, \mu) \setminus \{0\}} \frac{ I_{p, q}(g)[f] }{\norm{f}_{L^p(X, \mu)}} = \sup_{f \in L^p(X, \mu) \setminus \{0\}} \frac{ \int_X \abs{fg} d\mu }{\norm{f}_{L^p(X, \mu)}}$$
                 By H\"older's Inequality, we know that $\int_X \abs{fg} d\mu \leq \norm{f}_{L^p(X, \mu)} \norm{g}_{L^q(X, \mu)}$. Using this, we get:
-                    $$\norm{I_{p, q}(g)} = \sup_{f \in L^p(X, \mu) \setminus \{0\}} \frac{ \norm{f}_{L^p(X, \mu)} \norm{g}_{L^q(X, \mu)} }{\norm{f}_{L^p(X, \mu)}} = \norm{g}_{L^q(X, \mu)}$$
+                    $$\norm{I_{p, q}(g)} = \sup_{f \in L^p(X, \mu) \setminus \{0\}} \frac{ \norm{f}_{L^p(X, \mu)} \norm{g}_{L^q(X, \mu)} }{\norm{f}_{L^p(X, \mu)}} = \norm{g}_{L^q(X, \mu)}$$ 
             \end{proof}
         \begin{theorem}[$L^p$-space duality] \label{theorem: L_p_space_duality}
             Let $1 \leq p, q \leq +\infty$ be such that $\frac1p + \frac1q = 1$ and let $(X, \mu)$ be a measure space.
@@ -216,12 +216,6 @@
                 
             We see now that $\ell^{\infty}(\N) \cong \ell^1(\N)^*_{\cont} \cong C^0(\N)^{**}_{\cont}$ is strictly larger than $C^0(\N)$, meaning in particular that $C^0(\N)$ is not reflexive. 
         \end{example}
-        \begin{example}
-            The closed subspace $\ell^0(\N) \subset \ell^{\infty}(\N)$ does not admit any closed orthogonal complement.
-        \end{example}
-            \begin{proof}
-                
-            \end{proof}
 
         Now, even though norms on finite-dimensional vector spaces in general are all equivalent to one another \textit{a priori} (see proposition \ref{prop: norm_equivalence}), in the case of $\ell^p$-norms on finite-dimensional vector spaces, we can actually write down explicitly how much they differ from one another.
         \begin{lemma}[Sharp comparison of $\ell^p$-norms in finite dimensions] \label{lemma: sharp_comparison_of_ell_p_norms_in_finite_dimensions}
@@ -230,52 +224,25 @@
             as norms on $K^{\oplus n}$, wherein $c = n^{\frac1q - \frac1p}$ and $C = 1$. Furthermore, these constants are sharp.
         \end{lemma}
             \begin{proof}
-                Since $\mu_{\discrete}(\{1, ..., n\}) = n$ is finite by construction, lemma \ref{lemma: comparing_L_p_norms_for_finite_measures} applies and tells us that if $p < q$ then:
-                    $$\norm{-}_p \leq n^{\frac1p - \frac1q} \norm{-}_q$$
-                and that the constant $n^{\frac1p - \frac1q}$ is sharp, so we can take:
-                    $$c := n^{-(\frac1p - \frac1q)} = $$
-
-                To find $C$, let us use to fact that norms homogeneous to assume without any loss of generality that $\norm{x}_q = 1$. This forces $\abs{x_i}^q \leq 1$ for all $1 \leq i \leq n$, and hence $p < q$ implies that:
-                    $$\norm{x}_q = \left( \int_{\{1, ..., n\}} \abs{x}^q d\mu_{\discrete} \right)^{\frac1q} \leq \left( \int_{\{1, ..., n\}} \abs{x}^p d\mu_{\discrete} \right)^{\frac1p} = \norm{x}_p$$
-                Thus, we can take:
-                    $$C := 1$$
+                Let us write $\mu$ to mean the counting measure on the discrete space $\{1, ..., n\}$. Since $\mu(\{1, ..., n\}) = n$ is finite by construction, lemma \ref{lemma: comparing_L_p_norms_for_finite_measures} applies and tells us that if $p < q$ then $\norm{-}_p \leq n^{\frac1p - \frac1q} \norm{-}_q$, and that the constant $n^{\frac1p - \frac1q}$ is sharp, so we can take $c := n^{-(\frac1p - \frac1q)} = n^{\frac1p - \frac1p}$. Now, to find $C$, let us use to fact that norms homogeneous to assume without any loss of generality that $\norm{x}_q = 1$. This forces $\abs{x_i}^q \leq 1$ for all $1 \leq i \leq n$, and hence $p < q$ implies that $\norm{x}_q = \left( \int_{\{1, ..., n\}} \abs{x}^q d\mu \right)^{\frac1q} \leq \left( \int_{\{1, ..., n\}} \abs{x}^p d\mu \right)^{\frac1p} = \norm{x}_p$. Thus, we can take $C := 1$.
             \end{proof}
 
-        \begin{example}[Separability of $\ell^p$ of countable dimensions (finite $p$)] \label{example: ell_p_spaces_of_countable_dimensions_are_separable}
-            Let $\Gamma$ be a set and let $1 \leq p < +\infty$. If $\Gamma$ is countable then $\ell^p(\Gamma)$ will be separable.
-
-            \todo[inline]{Add a proof}
-        \end{example}
-        \begin{example}[Inseparability of $\ell^p$ of uncountable dimensions (finite $p$)] \label{example: ell_p_spaces_of_uncountable_dimensions_finite_p_are_inseparable}
-            Let $\Gamma$ be a set and let $1 \leq p < +\infty$. If $\Gamma$ is uncountable then $\ell^p(\Gamma)$ will be inseparable.
-        \end{example}
-        \begin{example}[Inseparability of $\ell^{\infty}$ of infinite dimensions] \label{example: ell_infinity_spaces_of_infinite_dimensions_is_inseparable}
-            \todo[inline]{Rewrite this. Better presentation needed.}
-        
-            Let $\Gamma$ be an infinite set. We claim that:
-                $$C^0(\Gamma) := \{ f: \Gamma \to K \mid \forall \e > 0: \text{the set $\{ \gamma \in \Gamma \mid \abs{f(\gamma)} > \e \}$ is finite} \}$$
-            is an inseparable, and hence:
-                $$\ell^{\infty}(\Gamma)$$
-            will also be inseparable, as it contains $C^0(\Gamma)$ as a normed subspace.
-
-            We will prove the main claim regarding the inseparability of $C^0(\Gamma)$ and hence of $\ell^{\infty}(\Gamma)$ later. First of all, let us justify that the former is a normed subspace of the latter. 
-        
-            Consider $X := C^0(\Gamma)$. Any vector subspace of a normed space is also a normed space with respect to the subspace topology, via restricting the domain of the norm, so it is sufficient to show that $C^0(\Gamma)$ is a vector subspace of $\ell^{\infty}(\Gamma)$.
-                    
-            For this, recall firstly that $\ell^{\infty}(\Gamma) := L^{\infty}(\Gamma, \mu)$ consists of functions $f: \Gamma \to K$ which are $\mu$-integrable and bounded $\mu$-almost everywhere. By construction, $\mu(S) \not = 0$ for all countable subsets $S \subset \Gamma$, so the unbounded locus of $f$ must either be empty, when $\Gamma$ is countable, or an uncountable subset of $\Gamma$ when $\Gamma$ is uncountable. One sees thus that $\ell^{\infty}(\Gamma)$ coincides with the space of functions $f: \Gamma \to K$ such that $f|_S$ is bounded for any countable subset $S \subset \Gamma$.
+        \begin{example}[(In)separability of $\ell^p$ (finite $p$)] \label{example: (in)separability_of_ell_p_spaces_finite_p}
+            Let $\Gamma$ be a discrete space.
             
-            Next, note that the sets $\{ \gamma \in \Gamma \mid \abs{f(\gamma)} > \e \}$ being finite for all $\e > 0$ implies that if $f \in C^0(\Gamma)$ then $f(\gamma) = 0$ for all but finitely many $\gamma \in \Gamma$. Therefore, any $f \in C^0(\Gamma)$ will automatically be bounded after restricted to some countable subset of $\Gamma$, and hence $C^0(\Gamma)$ is a subset of $\ell^{\infty}(\Gamma)$. It is clear that if $f, g \in C^0(\Gamma)$ and $a, b \in K$ then we will also have that $af(\gamma) + bg(\gamma) = 0$ for all but finitely many $\gamma \in \Gamma$, and hence $C^0(\Gamma)$ is a vector subspace of $\ell^{\infty}(\Gamma)$. The pair $( C^0(\Gamma), \norm{-}_{\infty} )$ is therefore a normed space.
+            For $1 \leq p < +\infty$, the normed space $\ell^p(\Gamma)$ is separable if and only if $\Gamma$ is countable. In one direction, if $\Gamma$ is countable, then $\overline{\span \{e_{\gamma}\}_{\gamma \in \Gamma}} = \ell^p(\Gamma)$ - where $e_{\gamma}$ is the sequence with $1$ in the $\gamma^{th}$ entry and $0$ elsewhere, with respect to some ordering on $\Gamma$ - and hence the countable subset $\span \{e_{\gamma}\}_{\gamma \in \Gamma} \subset \ell^p(\Gamma)$ will be dense, thus making $\ell^p(\Gamma)$ separable by definition. Conversely, if $\ell^p$
         \end{example}
-        \begin{proof}[Proof of claims in examples \ref{example: ell_p_spaces_of_uncountable_dimensions_finite_p_are_inseparable} and \ref{example: ell_infinity_spaces_of_infinite_dimensions_is_inseparable}]
-            Let us now give a uniform argument for the claims in examples \ref{example: ell_p_spaces_of_uncountable_dimensions_finite_p_are_inseparable} and \ref{example: ell_infinity_spaces_of_infinite_dimensions_is_inseparable}. Hence forth, let $X$ be:
-            \begin{itemize}
-                \item either $\ell^p(\Gamma)$ for $\Gamma$ uncountable and $1 \leq p < +\infty$,
-                \item or $\ell^{\infty}(\Gamma)$ for any infinite set $\Gamma$, countable or not.
-            \end{itemize}
-            The claim is that $X$ is \underline{inseparable} as a topological space.
+        \begin{example}[More about $\ell^2$-spaces]
+            Let $\Gamma$ be a discrete space.
+            
+            Then, $\ell^2(\Gamma)$ will be separable if and only if $\Gamma$ is countable. We know from example \ref{example: (in)separability_of_ell_p_spaces_finite_p} that if $\Gamma$ is countable then $\ell^2(\Gamma)$ will be separable. To prove the converse claim, we use the fact that any orthonormal basis - hence any basis - of a separable Hilbert space is necessarily countable (see proposition \ref{prop: separable_hilbert_spaces_are_countably_dimensional}). 
+        \end{example}
 
-            \todo[inline]{Add a proof}
-        \end{proof}
+        \begin{example}[Inseparability of $\ell^{\infty}$]
+            
+        \end{example}
+
+    \subsection{Harmonic analysis on locally compact Lie groups}
 
     \subsection{Existence of uniqueness of solutions to ODEs}
 

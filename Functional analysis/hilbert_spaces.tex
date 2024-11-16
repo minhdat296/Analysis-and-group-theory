@@ -1,19 +1,4 @@
 \section{Hilbert spaces} \label{section: hilbert_spaces}
-    \subsection{Compact linear maps and some Fredholm theory}
-        \begin{proposition}[Compact linear maps] \label{prop: compact_linear_maps}
-            \todo[inline]{Compact linear maps}
-        \end{proposition}
-            \begin{proof}
-                
-            \end{proof}
-
-        \begin{proposition}[Weakly bounded sequences] \label{prop: weakly_bounded_sequences}
-            \todo[inline]{Weakly bounded sequences}
-        \end{proposition}
-            \begin{proof}
-                
-            \end{proof}
-
     \subsection{Hilbert spaces}
         \begin{convention}
             The complex conjugation of some complex number $z := a + ib$ shall be denoted by $z^{\dagger} := a - ib$.
@@ -34,6 +19,53 @@
             \begin{proof}
                 Firstly, let us note that $\norm{-}_H$ is a well-defined function $H \to \R_{\geq 0}$ due to the positive-semi-definiteness of $\<-, -\>_H$. Next, the triangle inequality is due to the Cauchy-Schwarz inequality. Finally, to show that $\norm{x}_H = 0$ if and only if $x = 0$, we can simply make use of positive-definiteness.
             \end{proof}
+        \begin{corollary}[The Parallelogram Law] \label{coro: parallelogram_law}
+            Let $H$ be Hilbert space. Then, for all $x, y \in H$, we have the following identities:
+            \begin{enumerate}
+                \item $\norm{x - y}_H^2 + \norm{x + y}_H^2 = 2( \norm{x}_H^2 + \norm{y}_H^2 )$.
+                \item $\Re \<x, y\>_H = \frac12( \norm{x}_H^2 + \norm{y}_H^2 )$.
+                \item $\Im \<x, y\>_H = \frac12( \norm{x}_H^2 + \norm{iy}_H^2 )$.
+                \item $\<x, y\>_H = \frac14 \sum_{\e \in \{\pm 1, \pm i\}} \e \norm{x + \e y}_H^2$.
+            \end{enumerate}
+        \end{corollary}
+            \begin{proof}
+                \begin{enumerate}
+                    \item Consider the following:
+                        $$
+                            \begin{aligned}
+                                \norm{x - y}_H^2 + \norm{x + y}_H^2 & = \<x - y, x - y\>_H + \< x + y, x + y \>_H
+                                \\
+                                & = \left( \<x, x\>_H - \<y, x\>_H - \<x, y\>_H + \<y, y\>_H \right) + \left( \<x, x\>_H + \<y, x\>_H + \<x, y\>_H + \<y, y\>_H \right)
+                                \\
+                                & = 2\left( \<x, x\>_H + \<y, y\>_H \right)
+                                \\
+                                & = 2\left( \norm{x}_H^2 + \norm{y}^2_H \right)
+                            \end{aligned}
+                        $$
+                    \item Consider the following:
+                        $$
+                            \begin{aligned}
+                                \<x, y\>_H & = \norm{x}_H^2 + \norm{y}^2_H - \<y, x\>_H
+                                \\
+                                & = \norm{x}_H^2 + \norm{y}^2_H - \<x, y\>_H^{\dagger}
+                            \end{aligned}
+                        $$
+                    From this, we infer that:
+                        $$2\Re( \<x, y\>_H ) = \<x, y\>_H + \<x, y\>_H^{\dagger} = \norm{x}_H^2 + \norm{y}^2_H$$
+                    and the claim follows.
+                    \item Similar to the previous part.
+                    \item We have:
+                        $$
+                            \begin{aligned}
+                                \<x, y\>_H & = \Re\<x, y\>_H + i \Im \<x, y\>_H
+                                \\
+                                & = \frac12\left( \norm{x}_H^2 + \norm{y}^2_H \right) + \frac12 i \left( \norm{x}_H^2 + \norm{iy}^2_H \right)
+                            \end{aligned}
+                        $$
+                    and then we can simply apply the first part to each of the terms.
+                \end{enumerate}
+            \end{proof}
+            
         \begin{convention}
             \textit{A priori}, Hilbert spaces are not complete (at least according to definition \ref{def: hilbert_spaces}; it is common in the literature to require that Hilbert spaces are complete right from the beginning, but we find this to be circular\footnote{From the beginning, Hilbert spaces do not carry any topology, so it does not make any sense to require them to be complete. Only after we have shown that inner products induce norms on Hilbert spaces can we meaningfully require them to be complete.}). However, let us assume from now on that every Hilbert space is complete with respect to its norm topology. In particular, this means that Hilbert spaces are now Banach spaces whose norms come from inner products.
         \end{convention}
@@ -54,39 +86,7 @@
             Any finite-dimensional inner product space is a Hilbert space. In fact, any finite-dimensional vector space can be upgraded to a Hilbert space in a canonical manner: by letting the inner product be the dot product (but of course, there are inner products that are not the dot product).
         \end{example}
 
-        \begin{lemma}[Norms of dual elements in Hilbert spaces] \label{lemma: norms_of_dual_elements_in_hilbert_spaces}
-            Let $H$ be a Hilbert space. Then, for all $y \in H$, we have that:
-                $$\norm{\<-, y\>_H}_{H^*_{\cont}} = \norm{y}_H$$
-        \end{lemma}
-            \begin{proof}
-                We use the fact that $\norm{\<-, y\>_H}_{H^*_{\cont}} = \sup_{x \in H, \norm{x}_H} \abs{\<x, y\>_H}$ along with the Cauchy-Schwarz Inequality, which tells us that $\abs{\<x, y\>_H} \leq \norm{x}_H \norm{y}_H = \norm{y}_H$ for all $x \in H$ such that $\norm{x}_H = 1$
-            \end{proof}
-        \begin{theorem}[Riesz's Representability Theorem: Hilbert spaces are reflexive] \label{theorem: riesz_representation_theorem}
-            Let $H$ be a Hilbert space. Then, any continuous linear functional $\varphi \in H^*_{\cont}$ will be representable, in the sense that there exists a unique $y_{\varphi} \in H$ such that:
-                $$\varphi = \<-, y_{\varphi}\>_H$$
-            In other words, for all $y \in H$, the linear functional $\<-, y\>_H$ is continuous with respect to the topology generated by $\norm{-}_H$, and one has a linear isometry\footnote{\say{$D$} for \say{duality}.}:
-                $$D_H: H \xrightarrow[]{\cong} H^*_{\cont}$$
-            which is given by $y \mapsto \<-, y\>_H$.
-        \end{theorem}
-            \begin{proof}
-                \todo[inline]{Prove the Riesz Representation Theorem} 
-            \end{proof}
-        \begin{corollary}[Uniformity of Hilbert spaces] \label{coro: hilbert_space_uniformity}
-            In Hilbert spaces, sequences converge if and only if they converge weakly. Phrased dually, sequences of continuous functionals on Hilbert spaces converge uniformly if and only if they converge pointwise.
-        \end{corollary}
-            \begin{proof}
-                Strong convergence automatically implies weak convergence, so let us focus on the converse direction.
-            
-                To that end, pick a weakly convergent sequence $\{\varphi_n\}_{n \geq 0} \xrightarrow[]{\weak} \varphi$ in $H^*$, which means that:
-                    $$\forall x \in H: \forall \e > 0: n \gg 0 \implies \abs{\ev_x[\varphi_n - \varphi]} = \abs{\varphi_n(x) - \varphi(x)} < \e$$
-                From this, we infer that:
-                    $$\norm{ \varphi_n - \varphi }_{H^*_{\cont}} = \sup_{x \in H, \norm{x}_H = 1} \abs{\varphi_n(x) - \varphi(x)} < \e$$
-                which shows that there is strong convergence:
-                    $$\{\varphi_n\}_{n \geq 0} \to \varphi$$
-                Thus, we have shown that weak convergence in $H^*$ implies convergence therein, and since $H^*_{\cont}$ is linearly isometric to $H$ by theorem \ref{theorem: riesz_representation_theorem}, we see thus that the same statement holds for $H$.
-            \end{proof}
-
-        Our goal from now until the end of the section shall be to justify the attitude that many \say{reasonable} Hilbert spaces should be regarded as $L^2$-spaces over some particular measure spaces, with the point being that once a Hilbert space $H$ is realisable as an $L^2$-space, say $H \cong L^2(X, \mu)$ isometrically, the inner product on $H$ can be computed as the $L^1$-pairing on $(X, \mu)$, i.e.:
+        Our next goal shall be to justify the attitude that many \say{reasonable} Hilbert spaces should be regarded as $L^2$-spaces over some particular measure spaces, with the point being that once a Hilbert space $H$ is realisable as an $L^2$-space, say $H \cong L^2(X, \mu)$ isometrically, the inner product on $H$ can be computed as the $L^1$-pairing on $(X, \mu)$, i.e.:
             $$\<f, g\>_H = \int_X \abs{fg} d\mu$$
         In many cases, the integral is usually easier to compute. In a more casual manner, such realisations allows us to regard general Hilbert spaces as direct generalisations of Euclidean spaces, and often, one can use Euclidean intuition for the purposes of studying Hilbert spaces. We caution the reader, though, that not every Hilbert space is an $L^2$-spaces. So-called \say{Sobolev spaces} (see subsection \ref{subsection: sobolev_spaces}), for instances, are such examples. 
         \begin{convention}
@@ -104,22 +104,29 @@
                     $$\<x, e_j\> = \sum_{i \in I} a_i \<e_i, e_j\> = \sum_{i \in I} a_i \delta_{i, j} = a_j \not = 0$$
                 If $\<x, e_j\> \not = 0$ then $x \in K e_j$, but this would imply that $a_i = 0$ for all $i \not = j$, a contradiction.
             \end{proof}
-        Orthogonal sequences are rather special, because they form the basis\footnote{Pun intended} for what is known as \say{harmonic analysis} (or \say{Fourier theory}). At the most holistic level, this is essentially just the idea that one can represent elements of a Hilbert space in terms of its projections onto the coordinate axes, though in the infinite-dimensional setting, there are certain technical subtleties that need to be handled with care. 
-        \begin{lemma} \label{lemma: convergent_orthogonal_series_in_hilbert_spaces}
+            
+        Orthogonal sequences are rather special, because they form the basis\footnote{Pun intended} for what is known as \say{harmonic analysis} (or \say{Fourier theory}). At the most holistic level, this is essentially just the idea that one can represent elements of a Hilbert space in terms of its projections onto the coordinate axes, though in the infinite-dimensional setting, there are certain technical subtleties that need to be handled with care.
+
+        \begin{proposition}[Pythagorean Theorem] \label{prop: pythagorean_theorem}
+            Let $H$ be a Hilbert space and let $\{x_k\}_{k = 1}^n \subset H$ be a finite orthogonal sequence. Then:
+                $$\sum_{k = 1}^n \norm{x_k}^2 = \norm{ \sum_{k = 1}^n x_k }^2$$
+        \end{proposition}
+            \begin{proof}
+                By linear independence of orthogonal sequences (lemma \ref{lemma: orthogonal_subsets_linear_independence}), we have an isomorphism of normed spaces:
+                    $$\span \{x_k\}_{k = 1}^n \cong K x_1 \oplus_2 ... \oplus_2 K x_n$$
+                From this, we infer that:
+                    $$\sum_{k = 1}^n \norm{x_k}^2 = \norm{ (x_1, ..., x_n) }_{ K x_1 \oplus_2 ... \oplus_2 K x_n } = \norm{ \sum_{k = 1}^n x_k }^2$$
+            \end{proof}
+        
+        \begin{lemma}[A convergence criterion for orthogonal series] \label{lemma: convergent_orthogonal_series_in_hilbert_spaces}
             Let $H$ be a Hilbert space and let $\{x_k\}_{k \geq 1} \subset H$ be an orthogonal sequence. Then $\sum_{k = 1}^{+\infty} x_k$ is convergent if and only if $\sum_{k = 1}^{+\infty} \norm{x_k}^2$ converges, and when $\sum_{k = 1}^{+\infty} x_k$ converges, we have that $\norm{ \sum_{k = 1}^{+\infty} x_k }^2 = \sum_{k = 1}^{+\infty} \norm{x_k}^2$.
         \end{lemma}
             \begin{proof}
-                If $\sum_{k = 1}^{+\infty} \norm{x_k}^2$ is convergent then the sequence of partial sums $\left\{ \sum_{k = 1}^n \norm{x_k}^2 \right\}_{n \geq 1} \subset \R$ will converge, and since $\R$ is complete, this sequence of partial sums converges if and only if it is Cauchy, i.e. for all $\e > 0$ there exists $N \in \N$ such that if $n \geq m \geq N$ then:
-                    $$\abs{ \sum_{k = m}^n \norm{x_k}^2 } = \sum_{k = m}^n \norm{x_k}^2 < \e^2$$
-                Next, recall that orthogonal sequences are linearly independent, so we have:
-                    $$\sum_{k = m}^n \norm{x_k}^2 = \norm{ ( x_m, ..., x_n ) }_{\bbK x_m \oplus_2 ... \oplus_2 \bbK x_n}^2 = \norm{\sum_{k = m}^n x_k}^2$$
-                with the latter equality being due to the fact that $x_m, ..., x_n$ all belong to the same normed space, namely $H$, and so $( x_m, ..., x_n ) = \sum_{k = m}^n x_k$ (as elements of $\bbK x_m \oplus_2 ... \oplus_2 \bbK x_n$) by linear independence. Therefore $\norm{\sum_{k = m}^n x_k}^2 < \e^2$. The function $(-)^{\frac12}$ is monotonic on $\R_{\geq 0}$, so by applying it to both sides of the inequality above, we shall get:
-                    $$\norm{\sum_{k = m}^n x_k} < \e$$
-                whenever $n \geq m \geq N$, and hence the sequence $\left\{ \sum_{k = 1}^n x_k \right\}_{n \geq 1}$ is Cauchy. This is a Cauchy sequence in a Hilbert space, which is complete by definition, and hence it is convergent, i.e. $\sum_{k = 1}^{+\infty} x_k$ converges in $H$.
+                If $\sum_{k = 1}^{+\infty} \norm{x_k}^2$ is convergent then the sequence of partial sums $\left\{ \sum_{k = 1}^n \norm{x_k}^2 \right\}_{n \geq 1} \subset \R$ will converge, and since $\R$ is complete, this sequence of partial sums converges if and only if it is Cauchy, i.e. for all $\e > 0$ there exists $N \in \N$ such that if $n \geq m \geq N$ then $\abs{ \sum_{k = m}^n \norm{x_k}^2 } = \sum_{k = m}^n \norm{x_k}^2 = \norm{ \sum_{k = m}^n x_k }^2 < \e^2$, with the latter equality holding thanks to proposition \ref{prop: pythagorean_theorem}. The function $(-)^{\frac12}$ is monotonic on $\R_{\geq 0}$, so by applying it to both sides of the inequality above, we shall get $\norm{\sum_{k = m}^n x_k} < \e$ whenever $n \geq m \geq N$, and hence the sequence $\left\{ \sum_{k = 1}^n x_k \right\}_{n \geq 1}$ is Cauchy. This is a Cauchy sequence in a Hilbert space, which is complete by definition, and hence it is convergent, i.e. $\sum_{k = 1}^{+\infty} x_k$ converges in $H$.
 
-                Conversely, if $\sum_{k = 1}^{+\infty} x_k$ is convergent, then because Hilbert spaces are complete, the sequence of partial sums $\left\{ \sum_{k = 1}^n x_k \right\}_{n \geq 1}$ shall be Cauchy, i.e. for all $\e > 0$ there exists $N \in \N$ such that $\norm{ \sum_{k = m}^n x_k } < \e^{\frac12}$ for all $n \geq m \geq N$. Using the fact that orthogonal sequences are linearly independent and thus $\sum_{k = m}^n \norm{x_k}^2 = \norm{ ( x_m, ..., x_n ) }_{\bbK x_m \oplus_2 ... \oplus_2 \bbK x_n}^2 = \norm{\sum_{k = m}^n x_k}^2$ again, we see that for the same $N \in \N$, we have that $\sum_{k = m}^n \norm{x_k}^2 < (\e^{\frac12})^2 = \e$ for all $n \geq m \geq N$. The sequence of partial sums $\left\{ \sum_{k = 1}^n \norm{x_k}^2 \right\}_{n \geq 1} \subset \R$ is thus Cauchy, and hence convergent, as $\R$ is complete.
+                Conversely, if $\sum_{k = 1}^{+\infty} x_k$ is convergent, then because Hilbert spaces are complete, the sequence of partial sums $\left\{ \sum_{k = 1}^n x_k \right\}_{n \geq 1}$ shall be Cauchy, i.e. for all $\e > 0$ there exists $N \in \N$ such that $\norm{ \sum_{k = m}^n x_k } < \e^{\frac12}$ for all $n \geq m \geq N$. Proposition \ref{prop: pythagorean_theorem} tells us that $\sum_{k = m}^n \norm{x_k}^2 = \norm{\sum_{k = m}^n x_k}^2$, so for the same $N \in \N$, we have that $\sum_{k = m}^n \norm{x_k}^2 < (\e^{\frac12})^2 = \e$ for all $n \geq m \geq N$. The sequence of partial sums $\left\{ \sum_{k = 1}^n \norm{x_k}^2 \right\}_{n \geq 1} \subset \R$ is thus Cauchy, and hence convergent, as $\R$ is complete.
 
-                Finally, we have that $\sum_{k = 1}^n \norm{x_k}^2 = \norm{ ( x_1, ..., x_n ) }_{\bbK x_1 \oplus_2 ... \oplus_2 \bbK x_n}^2 = \norm{\sum_{k = 1}^n x_k}^2$ for all $n \geq 1$, so when $\sum_{k = 1}^{+\infty} x_k := \lim_{n \to +\infty} \sum_{k = 1}^n x_k$ is convergent, we can exploit the continuity of norms to get:
+                Finally, using again the fact $\sum_{k = 1}^n \norm{x_k}^2 = \norm{\sum_{k = 1}^n x_k}^2$ for all $n \geq 1$ (proposition \ref{prop: pythagorean_theorem}) in conjunction with continuity of norms, we see that when $\sum_{k = 1}^{+\infty} x_k := \lim_{n \to +\infty} \sum_{k = 1}^n x_k$ is convergent, we shall have:
                     $$\norm{\lim_{n \to +\infty} \sum_{k = 1}^n x_k} = \lim_{n \to +\infty} \norm{\sum_{k = 1}^n x_k} = \lim_{n \to +\infty} \sum_{k = 1}^n \norm{x_k}^2 = \sum_{k = 1}^{+\infty} \norm{x_k}^2$$
                 as claimed.
             \end{proof}
@@ -197,6 +204,14 @@
                 wherein the second inequality follows from Minkowski's Inequality. Applying $\lim_{\dim E \to +\infty}$ to both sides then yields:
                     $$\sum_{n \geq 1} \frac{ \abs{ \<x, e_n\> }^2 }{\norm{e_n}^2} \leq \norm{x}^2$$
             \end{proof}
+        Finally, we have the following result about orthogonal projections onto non-empty closed convex subsets of Hilbert spaces.
+        \begin{corollary}
+            
+        \end{corollary}
+            \begin{proof}
+                
+            \end{proof}
+            
         \begin{example}
             Let $\mu$ be the Lebesgue measure and consider the Hilbert space $L^2([-1, 1], \mu)$. Let $f, g, h \in L^2([-1, 1], \mu)$ be given by:
                 $$f(t) := 1, g(t) := t, h(t) := t^2$$
@@ -283,7 +298,56 @@
 
             Also, if $\Gamma \subset H \setminus \{0\}$ is an orthogonal subset of a Hilbert space, then $\bar{\Gamma} := \left\{\frac{x}{\norm{x}} \mid x \in \Gamma\right\}$ will be an orthonormal basis of $H$ if and only if $\Gamma$ is a topological spanning subset of $H$, i.e. if and only if $H = \overline{\span \Gamma}$. 
         \end{remark}
-        
-        \begin{example}[$L^2$-spaces over compact Lie groups and Fourier series; Plancherel's Theorem]
+        \begin{proposition}[Separable Hilbert spaces are countably dimensional] \label{prop: separable_hilbert_spaces_are_countably_dimensional}
+            Any orthonormal basis of a separable Hilbert space is necessarily countable.
+        \end{proposition}
+            \begin{proof}
+                
+            \end{proof}
+
+        \begin{lemma}[Norms of dual elements in Hilbert spaces] \label{lemma: norms_of_dual_elements_in_hilbert_spaces}
+            Let $H$ be a Hilbert space. Then, for all $y \in H$, we have that:
+                $$\norm{\<-, y\>_H}_{H^*_{\cont}} = \norm{y}_H$$
+        \end{lemma}
+            \begin{proof}
+                We use the fact that $\norm{\<-, y\>_H}_{H^*_{\cont}} = \sup_{x \in H, \norm{x}_H} \abs{\<x, y\>_H}$ along with the Cauchy-Schwarz Inequality, which tells us that $\abs{\<x, y\>_H} \leq \norm{x}_H \norm{y}_H = \norm{y}_H$ for all $x \in H$ such that $\norm{x}_H = 1$
+            \end{proof}
+        \begin{theorem}[Riesz's Representability Theorem: Hilbert spaces are reflexive] \label{theorem: riesz_representation_theorem}
+            Let $H$ be a Hilbert space. Then, any continuous linear functional $\varphi \in H^*_{\cont}$ will be representable, in the sense that there exists a unique $y_{\varphi} \in H$ such that:
+                $$\varphi = \<-, y_{\varphi}\>_H$$
+            In other words, for all $y \in H$, the linear functional $\<-, y\>_H$ is continuous with respect to the topology generated by $\norm{-}_H$, and one has a linear isometry\footnote{\say{$D$} for \say{duality}.}:
+                $$D_H: H \xrightarrow[]{\cong} H^*_{\cont}$$
+            which is given by $y \mapsto \<-, y\>_H$.
+        \end{theorem}
+            \begin{proof}
+                \todo[inline]{Prove the Riesz Representation Theorem} 
+            \end{proof}
+        \begin{corollary}[Uniformity of Hilbert spaces] \label{coro: hilbert_space_uniformity}
+            In Hilbert spaces, sequences converge if and only if they converge weakly. Phrased dually, sequences of continuous functionals on Hilbert spaces converge uniformly if and only if they converge pointwise.
+        \end{corollary}
+            \begin{proof}
+                Strong convergence automatically implies weak convergence, so let us focus on the converse direction.
             
-        \end{example}
+                To that end, pick a weakly convergent sequence $\{\varphi_n\}_{n \geq 0} \xrightarrow[]{\weak} \varphi$ in $H^*$, which means that:
+                    $$\forall x \in H: \forall \e > 0: n \gg 0 \implies \abs{\ev_x[\varphi_n - \varphi]} = \abs{\varphi_n(x) - \varphi(x)} < \e$$
+                From this, we infer that:
+                    $$\norm{ \varphi_n - \varphi }_{H^*_{\cont}} = \sup_{x \in H, \norm{x}_H = 1} \abs{\varphi_n(x) - \varphi(x)} < \e$$
+                which shows that there is strong convergence:
+                    $$\{\varphi_n\}_{n \geq 0} \to \varphi$$
+                Thus, we have shown that weak convergence in $H^*$ implies convergence therein, and since $H^*_{\cont}$ is linearly isometric to $H$ by theorem \ref{theorem: riesz_representation_theorem}, we see thus that the same statement holds for $H$.
+            \end{proof}
+
+    \subsection{Compact linear maps and some Fredholm theory}
+        \begin{proposition}[Compact linear maps] \label{prop: compact_linear_maps}
+            \todo[inline]{Compact linear maps}
+        \end{proposition}
+            \begin{proof}
+                
+            \end{proof}
+
+        \begin{proposition}[Weakly bounded sequences] \label{prop: weakly_bounded_sequences}
+            \todo[inline]{Weakly bounded sequences}
+        \end{proposition}
+            \begin{proof}
+                
+            \end{proof}
