@@ -131,7 +131,15 @@
                 as claimed.
             \end{proof}
 
-        The following result is more-or-less purely technical, but it is very useful for handling projections.
+        The following result shows that orthogonal projection in general Hilbert spaces works as one would expect the process to work in finite-dimensional Euclidean spaces.
+        \begin{lemma}[Convex projection] \label{lemma: convex_projection}
+            Let $X$ be a normed space. Suppose also tha the norm $\norm{-}_X$ is convex - i.e. for all $t \in [0, 1]$ and all $x, y \in X$, one has that $\norm{ t x + (1 - t) y }_X \leq t \norm{x}_X + (1 - t) \norm{y}_X$. Then, for any non-empty, closed, and convex subset $A \subseteq X$, there exists a unique element $\bar{x} \in A$ such that:
+                $$\dist(x, A) = \norm{x - \bar{x}}_X$$
+            for all $x \in H$.
+        \end{lemma}
+            \begin{proof}
+                \todo[inline]{Convex projection}
+            \end{proof}
         \begin{proposition}[Orthogonal projections onto closed subspaces in Hilbert spaces] \label{prop: orthogonal_projections_onto_closed_subspaces_in_hilbert_spaces}
             Let $H$ be a Hilbert space and let $L \subset H$ be a closed subspace. Then, the orthogonal complement/annihilator $L^{\perp}$ as in corollary \ref{coro: annihilators_vs_orthogonal_complements} is identified as:
                 $$L^{\perp} \cong \{ x \in H \mid \forall y \in L: \<x, y\> = 0 \}$$
@@ -142,7 +150,44 @@
             where $\pi_L: H \to L, \pi_{L^{\perp}}: H \to L^{\perp}$ are the canonical projections.
         \end{proposition}
             \begin{proof}
-                \todo[inline]{Not written}
+                The key observation here is that Hilbert space norms are convex, and that closed vector subspaces thereof are convex, so lemma \ref{lemma: convex_projection} applies.
+            \end{proof}
+        \begin{definition}[Idempotents and projections] \label{def: projections}
+            We say that an element $P \in E$ of an associative algebra $E$ is an \textbf{idempotent} if and only if $P^2 = P$.
+            
+            If $X$ is a normed space, then a \textbf{projection} from $X$ shall be an idempotent $P \in \End_{K, \cont}(X)$ such that $\ker P \cong (\im P)^{\perp}$.
+        \end{definition}
+        \begin{lemma}[Some properties of idempotent continuous operators] \label{lemma: properties_of_idempotent_continuous_operators}
+            (Cf. \cite[Proposition II.3.2]{conway_functional_analysis}) Let $X$ be a normed space and $P \in \End_{K, \cont}(X)$ be a continuous operator on $X$.
+            \begin{enumerate}
+                \item $P$ is an idempotent if and only if $\id_X - P$ is idempotent.
+                \item We have:
+                    $$\im P \cong \ker(\id_X - P), \ker P \cong \im(\id_X - P)$$
+                and both $\ker P$ and $\im P \subset X$ are closed. 
+                \item $X \cong \ker P \oplus \im P$.
+            \end{enumerate}
+        \end{lemma}
+            \begin{proof}
+                \begin{enumerate}
+                    \item Firstly, suppose that $P$ is an idempotent and then consider $(\id_X - P)^2 = \id_X - 2P + P^2 = \id_X - 2P + P = \id_X - P$, which shows that $\id_X - P \in \End_{K, \cont}(X)$ is an idempotent. Conversely, suppose that $\id_X - P \in \End_{K, \cont}(X)$ is an idempotent. Then $\id_X - P = (\id_X - P)^2 = \id_X - 2P + P^2$, from which we gather that $0 = -P + P^2$, i.e. $P^2 = P$.
+                    \item 
+                    \item 
+                \end{enumerate}
+            \end{proof}
+        \begin{proposition}[Which continuous linear maps are orthogonal projections ?] \label{prop: which_continuous_linear_maps_are_orthogonal_projections}
+            (Cf. \cite[Proposition II.3.3]{conway_functional_analysis}) Let $H$ be a Hilbert space and $P \in \End_{K, \cont}(H)$ be idempotent. The following statements are equivalent:
+            \begin{enumerate}
+                \item $P$ is a projection.
+                \item $P = \pi_{\im P}$, i.e. $P$ is the orthogonal projection of $H$ onto $\im P$.
+                \item $\norm{E} = 1$.
+            \end{enumerate}
+        \end{proposition}
+            \begin{proof}
+                \begin{enumerate}
+                    \item 
+                    \item 
+                    \item 
+                \end{enumerate}
             \end{proof}
         \begin{convention}
             Typically, if $H$ is a Hilbert space and $L$ is a closed subspace therein, and if $\pi_L: H \to L, \pi_{L^{\perp}}: H \to L^{\perp}$ are as in proposition \ref{prop: orthogonal_projections_onto_closed_subspaces_in_hilbert_spaces}, then for all $x \in H$, we shall write:
@@ -203,13 +248,6 @@
                     $$0 \leq \norm{x - x_E}^2 \leq \norm{x}^2 - \norm{x_E}^2 = \norm{x}^2 - \sum_{n = 1}^{\dim E} \frac{ \abs{ \<x, e_n\> }^2 }{\norm{e_n}^2}$$
                 wherein the second inequality follows from Minkowski's Inequality. Applying $\lim_{\dim E \to +\infty}$ to both sides then yields:
                     $$\sum_{n \geq 1} \frac{ \abs{ \<x, e_n\> }^2 }{\norm{e_n}^2} \leq \norm{x}^2$$
-            \end{proof}
-        Finally, we have the following result about orthogonal projections onto non-empty closed convex subsets of Hilbert spaces.
-        \begin{corollary}
-            
-        \end{corollary}
-            \begin{proof}
-                
             \end{proof}
             
         \begin{example}
